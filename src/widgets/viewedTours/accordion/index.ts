@@ -1,0 +1,1 @@
+export {Index as Accordion} from "./Index.tsx"

@@ -1,0 +1,1 @@
+export {Index as ProfileSidebar} from "./Index.tsx"

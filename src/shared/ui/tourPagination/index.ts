@@ -1,0 +1,1 @@
+export {Index as TourPagination} from "./Index.tsx"
