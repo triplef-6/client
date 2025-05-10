@@ -1,7 +1,7 @@
-import {IAccessibility, ITourFormat, ITourFormatBehavior, SelectValuesType} from "@/shared/types";
+import {IAccessibility, ITourFormatBehavior, SelectValuesType} from "@/shared/types";
 import {useState} from "react";
 
-interface IStore extends ITourFormatBehavior, IAccessibility, ITourFormat {}
+interface IStore extends ITourFormatBehavior, IAccessibility {}
 
 type ReturnType = {
     state: {

@@ -69,7 +69,7 @@ export const Index: FC = () => {
                                 <AppSkeleton/>
                                 :
                                 orders.slice(0, visibleTours).map(order => (
-                                    <ReviewForm type={"create"} key={order.tour.id} tour={order.tour}/>
+                                    <ReviewForm type={"create"} key={order.tourId} tourId={order.tourId}/>
                                 ))
                         }
                     </AccordionContent>

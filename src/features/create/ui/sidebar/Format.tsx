@@ -3,11 +3,11 @@ import {tourFormatValues as values} from "@/shared/config";
 import {useSubmitted} from "@/shared/hooks";
 import {createTourStore as store} from "@/features/create/model";
 import {observer} from "mobx-react-lite";
-import {useSelect} from "@/features/create/hooks";
+import {useTourFormat} from "@/features/create/hooks";
 
 export const Format = observer(() => {
 
-    const {state, focus, setValue} = useSelect(store.selectOptions, "format", values)
+    const {state, focus, setValue} = useTourFormat(store.price, values)
     const {isSubmitted} = useSubmitted(store)
 
     return (

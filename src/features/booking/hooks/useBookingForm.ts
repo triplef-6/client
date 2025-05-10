@@ -36,7 +36,7 @@ export const useBookingForm = (tourId: number): ReturnType => {
     const click = () => {
         booking({
             id: Date.now(),
-            tour,
+            tourId: tour.id,
             userId: user?.id as number,
             groupCapacity: capacity
         })

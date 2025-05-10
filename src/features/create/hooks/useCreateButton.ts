@@ -26,7 +26,7 @@ export const useCreateButton = (): ReturnType => {
             console.log(store.tour)
 
             if (store.isEdit) updateTour(store.tour)
-            else createTour({user: user, tour: store.tour})
+            else createTour(store.tour)
 
             navigate(`/${RouteNames.SUCCESS}`)
 

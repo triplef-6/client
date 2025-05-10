@@ -1,5 +1,5 @@
 import * as React from "react";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {ITime} from "@/shared/types";
 
 type FieldType = {
@@ -45,10 +45,6 @@ export const useTime = (store: ITime): ReturnType => {
             setState((prev) => ({ ...prev, isTouched: true }))
         }
     }
-
-    useEffect(() => {
-        console.log(store.time)
-    }, [store.time]);
 
     return {
         value: store.time,

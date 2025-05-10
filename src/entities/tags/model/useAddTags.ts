@@ -2,7 +2,6 @@ import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {ApiException} from "@/shared/lib";
 import {addTags} from "@/entities/tags/api";
 
-// noinspection Annotator
 export const useAddTags = () => {
 
     const queryClient = useQueryClient()
@@ -17,4 +16,5 @@ export const useAddTags = () => {
         },
         onError: (e: ApiException<string[]>) => console.error("Теги пользователя не удалось обновить", e.message)
     })
+
 }

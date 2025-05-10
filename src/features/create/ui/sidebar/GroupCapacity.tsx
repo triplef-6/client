@@ -5,14 +5,14 @@ import {createTourStore as store} from "@/features/create/model";
 import {formatPeople} from "@/shared/utills";
 import {cn} from "@/app/lib";
 import {observer} from "mobx-react-lite";
-import {useGroupCapacity, useSelect} from "@/features/create/hooks";
+import {useGroupCapacity, useTourFormat} from "@/features/create/hooks";
 import {tourFormatValues as values} from "@/shared/config";
 import {TourFormat} from "@/shared/types";
 
 export const GroupCapacity: FC = observer(() => {
 
-    const {state, isError, update} = useGroupCapacity(store.selectOptions)
-    const {state: format} = useSelect(store.selectOptions, "format", values)
+    const {state, isError, update} = useGroupCapacity(store.price)
+    const {state: format} = useTourFormat(store.price, values)
     const {isSubmitted} = useSubmitted(store)
 
     if (format.value === TourFormat.INDIVIDUAL) return null

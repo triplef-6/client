@@ -50,11 +50,7 @@ export const SocialInput = React.forwardRef<HTMLInputElement, InputProps>((
     ].join(" ")
 
     return (
-        <div
-            className={containerStyles}
-            onClick={handleDivClick}
-            ref={ref}
-        >
+        <div className={containerStyles} onClick={handleDivClick} ref={ref}>
             <div className={wrapperStyles}>
                 <MessageCircle className={iconSearchStyles}/>
                 <input

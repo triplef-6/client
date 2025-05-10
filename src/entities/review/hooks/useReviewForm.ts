@@ -55,7 +55,7 @@ export const useReviewForm = (type: "create" | "update", tour: ITour): Result =>
         [review]
     )
 
-    const save = () => type === "create" ? create({user, review}) : update(review)
+    const save = () => type === "create" ? create(review) : update(review)
 
     return {completed, review, updateRating, updateNegative, updatePositive, save}
 

@@ -5,9 +5,9 @@ import {getUser} from "@/entities/user/api";
 
 export const useUser = (id: number) => {
     return useQuery<IUser, ApiException<IUser>>({
-        queryKey: ["user"],
+        queryKey: ["user", id],
         queryFn: () => getUser(id),
-        staleTime: 600_000,
+        staleTime: 60_000,
         enabled: !!id
     })
 }

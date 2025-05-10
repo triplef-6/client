@@ -4,7 +4,7 @@ import {useSubmitted} from "@/shared/hooks";
 import {createTourStore as store} from "@/features/create/model";
 import {useOnClickOutside} from "usehooks-ts";
 import {observer} from "mobx-react-lite";
-import {usePrice, useSelect} from "@/features/create/hooks";
+import {usePrice, useTourFormat} from "@/features/create/hooks";
 import {tourFormatValues as values} from "@/shared/config";
 import {TourFormat} from "@/shared/types";
 
@@ -21,7 +21,7 @@ export const Price: FC = observer(() => {
     const inputRef = useRef<HTMLInputElement>(null)
     useOnClickOutside(inputRef,close)
 
-    const {state: format} = useSelect(store.selectOptions, "format", values)
+    const {state: format} = useTourFormat(store.price, values)
     if (format.value === TourFormat.INDIVIDUAL) return null
 
     return (
@@ -32,7 +32,7 @@ export const Price: FC = observer(() => {
             value={value}
             label={"Цена за группу"}
             onClear={clear}
-            onChangeCapture={click}
+            onChange={click}
             onFocus={focus}
             onBlur={blur}
         />

@@ -1,23 +1,27 @@
 import {FC} from "react";
 import {Button, ReviewInput} from "@/shared/ui";
-import {ITour} from "@/shared/types";
 import {useReviewForm} from "@/entities/review/hooks";
 
 import {Header, Stars} from "./components";
 import s from "./style.module.css"
+import {useTour} from "@/entities";
 
 type FormProps = {
     type: "create" | "update",
-    tour: ITour
+    tourId: number
 }
 
-export const Index: FC<FormProps> = ({tour, type}) => {
+export const Index: FC<FormProps> = ({tourId, type}) => {
+
+    const {data: tour} = useTour(tourId)
 
     const {
         completed,
         review,
         updateRating, updateNegative, updatePositive, save
-    } = useReviewForm(type, tour)
+    } = useReviewForm(type, tour!)
+
+    if (!tour) return null
 
     return (
         <div className={s.container}>

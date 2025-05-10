@@ -24,10 +24,7 @@ export const TourPage: FC = () => {
             <Tags tags={tour.tags}/>
             <Header tour={tour}/>
             <Suspense fallback={<CarouselSkeleton/>}>
-                <LazyCarousel
-                    images={tour.images as string[]}
-                    coordinates={tour.coordinates}
-                />
+                <LazyCarousel images={tour.images as string[]} coordinates={tour.coordinates}/>
             </Suspense>
             <div className={"flex flex-col lg:flex-row"}>
                 <Description tour={tour}/>

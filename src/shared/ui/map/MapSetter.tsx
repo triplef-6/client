@@ -1,5 +1,3 @@
-// noinspection TypeScriptUMDGlobal
-
 import {FC} from "react";
 import { YandexMapCoordinates } from "@/shared/types";
 import {Placemark, YMaps, Map, SearchControl} from "@pbe/react-yandex-maps";

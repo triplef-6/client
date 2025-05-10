@@ -10,7 +10,7 @@ import {ImagesStore} from "./ImagesStore.ts";
 import {LocationStore} from "./LocationStore.ts";
 import {TimeStore} from "./TimeStore.ts";
 import {ParamsStore} from "./ParamsStore.ts";
-import {SelectOptionsStore} from "@/features/create/model/SelectOptionsStore.ts";
+import {SelectOptionsStore} from "./SelectOptionsStore.ts";
 
 class CreateTourStore extends BaseStore {
 
@@ -19,9 +19,11 @@ class CreateTourStore extends BaseStore {
     contacts = new ContactsStore()
     description = new DescriptionStore()
     price = new PriceStore()
+
     coordinates = new CoordinatesStore()
     tags = new TagsStore()
     images = new ImagesStore()
+
     location = new LocationStore()
     time = new TimeStore()
     params = new ParamsStore()
@@ -51,14 +53,14 @@ class CreateTourStore extends BaseStore {
     set tour(value: ITour) {
         this.contacts = new ContactsStore(value.contacts)
         this.description = new DescriptionStore(value.description)
-        this.price = new PriceStore(value.price, value.priceForPerson)
+        this.price = new PriceStore(value.format, value.price, value.priceForPerson, value.groupCapacity)
         this.coordinates = new CoordinatesStore(value.coordinates)
         this.tags = new TagsStore(value.tags)
         this.images = new ImagesStore(value.images)
         this.location = new LocationStore(value.location, value.routeLength, value.byCity)
         this.time = new TimeStore(value.date, value.duration, value.time)
         this.params = new ParamsStore(value.title, value.contributorId)
-        this.selectOptions = new SelectOptionsStore(value.accessibility, value.format, value.formatBehavior, value.groupCapacity)
+        this.selectOptions = new SelectOptionsStore(value.accessibility, value.formatBehavior)
     }
 
     get tour(): ITour {
@@ -74,9 +76,9 @@ class CreateTourStore extends BaseStore {
             byCity: this.location.byCity,
             price: this.price.price,
             priceForPerson: this.price.priceForPerson,
-            groupCapacity: this.selectOptions.groupCapacity,
+            groupCapacity: this.price.groupCapacity,
             formatBehavior: this.selectOptions.formatBehavior as TourFormatBehavior,
-            format: this.selectOptions.format as TourFormat,
+            format: this.price.format as TourFormat,
             accessibility: this.selectOptions.accessibility as TourAccessibility,
             contacts: this.contacts,
             date: this.time.date,
@@ -98,9 +100,10 @@ class CreateTourStore extends BaseStore {
             this.price,
             this.location,
             this.coordinates,
+            this.selectOptions,
+            this.contacts
         ].every(store => store.isDisabled)
     }
-
 
     get isEdit(): boolean {
         return this._isEdit;

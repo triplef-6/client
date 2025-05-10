@@ -1,7 +1,7 @@
-import {IContact, IContacts} from "@/shared/types";
+import {IContact, IContacts, IIsDisabled} from "@/shared/types";
 import {makeAutoObservable} from "mobx";
 
-export class ContactsStore implements IContact {
+export class ContactsStore implements IContact, IIsDisabled {
 
     private _contacts: IContacts
 
@@ -20,6 +20,10 @@ export class ContactsStore implements IContact {
 
     private updateContactParams(contacts: Partial<IContacts>) {
         this._contacts = { ...this._contacts, ...contacts }
+    }
+
+    get isDisabled(): boolean {
+        return this._contacts.phone.trim().length !== 0
     }
 
     get vk(): string {

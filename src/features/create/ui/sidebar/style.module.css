@@ -1,5 +1,5 @@
 .container {
-    @apply flex flex-col wide:items-center gap-6 w-full lg:w-96 h-fit
+    @apply flex flex-col wide:items-center gap-6 w-full wide:w-96 h-fit
 }
 
 .subContainer {

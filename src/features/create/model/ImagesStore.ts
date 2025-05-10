@@ -6,11 +6,8 @@ export class ImagesStore implements IImages, IIsDisabled {
     private _images: ImagesType
 
     constructor(images: ImagesType = Array(5).fill(null)) {
-
         this._images = images
-
         makeAutoObservable(this)
-
     }
 
     get isDisabled(): boolean {

@@ -6,7 +6,7 @@ export const useTags = () => {
     return useQuery<string[], ApiException<string>>({
         queryKey: ["tags"],
         queryFn: () => getTags(),
-        staleTime: 600_000,
         placeholderData: [],
+        retry: false
     })
 }

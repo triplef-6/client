@@ -8,6 +8,7 @@ export const useUserOrders = (userId: number) => {
         queryKey: ["order", userId],
         queryFn: () => getUserOrders(userId),
         staleTime: 60_000,
-        placeholderData: []
+        placeholderData: [],
+        enabled: !!userId
     })
 }

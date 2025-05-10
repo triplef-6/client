@@ -10,7 +10,6 @@ export const Time: FC = () => {
 
     return (
         <TimeInput
-            defaultValue={value}
             isSubmitted={isSubmitted}
             value={value}
             onChange={click}

@@ -3,8 +3,7 @@ import {AuthContext, tourLocalHistoryStore as history, useLogout} from "@/featur
 import {useAddTags} from "@/entities";
 import {useMe} from "@/features/auth/model/useMe.ts";
 import {useNavigate} from "react-router-dom";
-import {IMe, RouteNames, UserRole} from "@/shared/types";
-import avatar from "@/shared/assets/icons/avatar.svg"
+import {RouteNames} from "@/shared/types";
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
@@ -15,17 +14,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const {data: user, isSuccess} = useMe()
     const {mutate: logoutFromGoogle} = useLogout()
     const {mutate: addTags} = useAddTags()
-
-    const fallback: IMe = {
-        id: 0,
-        role: UserRole.client,
-        avatar: avatar,
-        avatarFile: null,
-        name: "Имя",
-        surname: "Фамилия",
-        email: "",
-        tags: ["Гастрономический  ", "Водный сплав  ", "Горный треккинг  ", "Скрытые жемчужины  ", "Романтический  ",]
-    }
 
     useEffect(() => {
         if (!isAuth) {
@@ -54,7 +42,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
 
     return (
-        <AuthContext.Provider value={{user: user ?? fallback, isAuth, setIsAuth, logout}}>
+        <AuthContext.Provider value={{user, isAuth, setIsAuth, logout}}>
             {children}
         </AuthContext.Provider>
     )

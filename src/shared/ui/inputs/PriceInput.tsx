@@ -21,12 +21,10 @@ export const PriceInput = React.forwardRef<HTMLInputElement, InputProps>((
         field,
         onClear,
         value,
+        onChange,
         ...props
    }, ref
     ) => {
-
-    const inputRef = React.useRef<HTMLInputElement>(null)
-    const handleDivClick = () => inputRef.current?.focus()
 
     const isValidField = (field.isTouched && !value) || (isSubmitted && !value)
 
@@ -52,18 +50,15 @@ export const PriceInput = React.forwardRef<HTMLInputElement, InputProps>((
     ].join(" ")
 
     return (
-        <div
-            className={containerStyles}
-            onClick={handleDivClick}
-            ref={ref}
-        >
+        <div className={containerStyles}>
             <div className={wrapperStyles}>
                 <RussianRuble className={iconSearchStyles}/>
                 <input
+                    ref={ref}
                     type={type}
                     className={cn(inputStyles, className)}
                     value={value}
-                    ref={inputRef}
+                    onChange={onChange}
                     placeholder={" "}
                     {...props}
                 />
