@@ -11,7 +11,7 @@ export const Index: FC = () => {
     return (
         <div className={style.container}>
             <UserName name={user.name} avatar={user.avatar}/>
-            <div className={style.desc}>{user.info}</div>
+            {user.info && <div className={style.desc}>{user.info}</div>}
             <ProfileButtons/>
         </div>
     );

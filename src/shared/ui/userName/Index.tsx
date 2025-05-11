@@ -17,7 +17,7 @@ export const Index: FC<EditProfileProps> = ({name, avatar}) => {
     return (
         <div className={"flex flex-row justify-between items-center mb-4 w-full lg:w-72"}>
             <div className={"flex flex-row gap-4 items-center"}>
-                <img alt="avatar" width={40} height={40} src={avatar ?? fallbackAvatar}/>
+                <img alt="avatar" className={"rounded-full"} width={40} height={40} src={avatar ?? fallbackAvatar}/>
                 <span className={"font-medium text-2xl text-grayscale-600"}>
                     {formatName(name)}
                 </span>
