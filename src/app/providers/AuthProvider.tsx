@@ -3,7 +3,8 @@ import {AuthContext, tourLocalHistoryStore as history, useLogout} from "@/featur
 import {useAddTags} from "@/entities";
 import {useMe} from "@/features/auth/model/useMe.ts";
 import {useNavigate} from "react-router-dom";
-import {RouteNames} from "@/shared/types";
+import {IMe, UserRole} from "@/shared/types";
+import avatar from "@/shared/assets/icons/avatar.svg";
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
@@ -15,21 +16,34 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const {mutate: logoutFromGoogle} = useLogout()
     const {mutate: addTags} = useAddTags()
 
+    const fallback: IMe = {
+        id: 0,
+        role: UserRole.client,
+        avatar: avatar,
+        avatarFile: null,
+        name: "Имя",
+        surname: "Фамилия",
+        email: "",
+        tags: ["Гастрономический  ", "Водный сплав  ", "Горный треккинг  ", "Скрытые жемчужины  ", "Романтический  "]
+    }
+
     useEffect(() => {
         if (!isAuth) {
 
-            const hasVisited = localStorage.getItem("hasVisitedOnboarding")
+            //const hasVisited = localStorage.getItem("hasVisitedOnboarding")
 
+            /*
             if (!hasVisited) {
-                localStorage.setItem("hasVisitedOnboarding", "true")
                 navigate(`/${RouteNames.ON_BOARDING}`)
+                localStorage.setItem("hasVisitedOnboarding", "true")
             }
+             */
 
         }
     }, [isAuth, navigate])
 
     useEffect(() => {
-        if (isSuccess) {
+        if (user && user !== fallback) {
             setIsAuth(true)
             if (history.tagsCount !== 0) addTags(history.tags)
         }
@@ -42,7 +56,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
 
     return (
-        <AuthContext.Provider value={{user, isAuth, setIsAuth, logout}}>
+        <AuthContext.Provider value={{user: user ?? fallback, isAuth, setIsAuth, logout}}>
             {children}
         </AuthContext.Provider>
     )

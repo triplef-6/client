@@ -4,6 +4,7 @@ import style from "./style.module.css"
 import {Link, useLocation} from "react-router-dom";
 import {RouteNames} from "@/shared/types";
 import {LocationCard, useLocations} from "@/entities";
+import {sortLocations} from "@/entities/location/utils";
 
 export const Index: FC = () => {
 
@@ -23,7 +24,7 @@ export const Index: FC = () => {
                     <LocationsSkeleton/>
                     :
                     <div className={style.list}>
-                        {data.slice(0, 4).map(location => (
+                        {sortLocations(data).map(location => (
                             <LocationCard
                                 key={location.id}
                                 country={location.country}
@@ -36,7 +37,7 @@ export const Index: FC = () => {
             }
             {location.pathname !== `/${RouteNames.LOCATIONS}` && (
                 <Link to={`/${RouteNames.LOCATIONS}`}>
-                    <Button role={"button"} variant={"outline"} size={"lg"}>
+                    <Button className={"border-gray-500"} role={"button"} variant={"outline"} size={"lg"}>
                         перейти к списку городов
                     </Button>
                 </Link>

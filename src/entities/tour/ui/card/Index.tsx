@@ -1,6 +1,6 @@
-import {FC} from "react";
+import React, {FC, Suspense} from "react";
 import {ITour, RouteNames} from "@/shared/types";
-import {Button, CarouselVariant, ImagesCarousel, Price, Rating, TourParams} from "@/shared/ui";
+import {Button, CarouselVariant, ImagesSkeleton, Price, Rating, TourParams} from "@/shared/ui";
 import style from "./style.module.css"
 import {useNavigate} from "react-router-dom";
 import {ToFavourite, useAddViewFactory} from "@/features";
@@ -9,7 +9,13 @@ import {truncateText} from "@/shared/utills";
 
 type TourCardProps = {
     tour: ITour
-};
+}
+
+const LazyImagesCarousel = React.lazy(() =>
+    import('@/shared/ui').then(module => ({
+        default: module.ImagesCarousel,
+    }))
+)
 
 export const Index: FC<TourCardProps> = ({tour}) => {
 
@@ -25,7 +31,9 @@ export const Index: FC<TourCardProps> = ({tour}) => {
     return (
         <div className={style.container}>
 
-            <ImagesCarousel variant={CarouselVariant.SMALL} images={tour.images as string[]}/>
+            <Suspense fallback={<ImagesSkeleton/>}>
+                <LazyImagesCarousel variant={CarouselVariant.SMALL} images={tour.images as string[]}/>
+            </Suspense>
 
             <div className={style.content}>
 

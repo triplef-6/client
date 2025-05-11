@@ -1,26 +1,27 @@
-import {useNavigate} from "react-router-dom";
 import {RouteNames} from "@/shared/types";
-import {searchTourStore as store} from "@/features";
-import {action} from "mobx";
+import {searchTourStore, searchTourStore as store} from "@/features";
 import {useTours} from "@/entities";
 
 type ReturnType = {
     search: () => void
+    isDisabled: boolean
 }
 
 export const useSearchButton = (): ReturnType => {
 
-    const navigate = useNavigate()
-    const {clearCache} = useTours()
+    //const navigate = useNavigate()
+    const {data, length} = useTours()
 
-    const search = action(async () => {
+    const location = length > 0 && data[0].location.city !== searchTourStore.searchParams.location.city ? data[0].location.city : "Экскурсии"
+    const url: string = `/${RouteNames.TOURS}/${encodeURIComponent(location)}`
+
+    const search = () => {
         store.isSubmitted = true
         if (store.isDisabled) {
-            await clearCache()
-            navigate(`/${RouteNames.TOURS}/${encodeURIComponent(store.searchParams.location.city)}`)
+            window.open(url, "_blank")
         }
-    })
+    }
 
-    return { search }
+    return { search, isDisabled: store.isDisabled }
 
 }

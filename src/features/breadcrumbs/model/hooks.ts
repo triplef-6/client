@@ -22,9 +22,11 @@ export const useBreadcrumbs = (): BreadcrumbType[] => {
         const pathParts: string[] = location.pathname.split("/").filter(Boolean)
         const isLastZero = pathParts[pathParts.length - 1] === "0"
 
-        const labelKey = isLastZero
+        let labelKey = isLastZero
             ? pathParts[pathParts.length - 2]
             : pathParts[pathParts.length - 1]
+
+        if (!isNaN(Number(labelKey))) labelKey = "Бронирование"
 
         const cleanPathParts = isLastZero ? pathParts.slice(0, -1) : pathParts
         const currentPath = `/${cleanPathParts.join("/")}`

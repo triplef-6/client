@@ -1,5 +1,5 @@
 .list {
-    @apply grid grid-cols-1 lg:grid-cols-2 w-full gap-4
+    @apply grid grid-cols-1 w-full gap-8 pt-8
 }
 
 .heading {

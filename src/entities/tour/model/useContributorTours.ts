@@ -8,13 +8,12 @@ export const useContributorTours = (contributorId: number) => {
     const query = useQuery<ITour[], ApiException<ITour>>({
         queryKey: ["tours", contributorId],
         queryFn: () => getToursByContributor(contributorId),
-        staleTime: 60_000,
-        initialData: []
+        placeholderData: []
     })
 
     return {
         ...query,
-        isEmpty: query.data.length === 0
+        isEmpty: query.data && query.data.length === 0
     }
 
 }

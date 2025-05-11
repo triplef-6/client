@@ -6,7 +6,7 @@ import {useNavigate} from "react-router-dom";
 import {RouteNames} from "@/shared/types";
 import {Marker} from "@/shared/ui/rating/Marker.tsx";
 import {useUser} from "@/entities";
-import {AppSkeleton, NotFound} from "@/shared/ui";
+import {ContributorSkeleton} from "@/shared/ui";
 
 type ContributorProps = {
     contributorId: number
@@ -15,10 +15,9 @@ type ContributorProps = {
 export const Index: FC<ContributorProps> = ({contributorId}) => {
 
     const navigate = useNavigate()
-    const {data: contributor, isError, isLoading} = useUser(contributorId)
+    const {data: contributor, isLoading} = useUser(contributorId)
 
-    if (isError) return <NotFound heading={"Гид не найдена"} text={"Возникла проблема с поиском гида"}/>
-    if (isLoading || !contributor) return <AppSkeleton />
+    if (isLoading || !contributor) return <ContributorSkeleton/>
 
     return (
         <div className={style.container}>
@@ -34,7 +33,7 @@ export const Index: FC<ContributorProps> = ({contributorId}) => {
             </div>
             <div className={style.avatar}>
                 <div className={style.icon}>
-                    <img width={48} height={48} alt={"contributor"} src={icon}/>
+                    <img width={48} height={48} alt={"contributor"} className={"rounded-full"} src={contributor.avatar ?? icon}/>
                     <div className={style.marker}>
                         <Marker value={contributor.rating}/>
                     </div>

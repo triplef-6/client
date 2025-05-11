@@ -12,7 +12,15 @@ export const Index: FC<ToursProps> = ({tours}) => {
         <div className={style.container}>
             <span className={style.heading}>Другие предложения</span>
             <div className={style.list}>
-                {tours.map(tour => <TourCard key={tour.id} tour={tour}/>)}
+                {
+                    tours.length !== 0 ?
+                        tours.map(tour => <TourCard key={tour.id} tour={tour}/>) :
+                        <div className={"flex flex-col justify-center py-16"}>
+                            <h2 className={"text-grayscale-500 text-2xl"}>
+                                У контрибьютера пока нет других предложений
+                            </h2>
+                        </div>
+                }
             </div>
         </div>
     );

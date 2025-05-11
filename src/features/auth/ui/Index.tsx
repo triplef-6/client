@@ -4,11 +4,9 @@ import s from "./style.module.css"
 import {Button} from "@/shared/ui";
 import {RouteNames} from "@/shared/types";
 import {useNavigate} from "react-router-dom";
-import {useAuthContext} from "@/features";
 
 export const Index: FC = () => {
 
-    const {setIsAuth} = useAuthContext()
     const navigate = useNavigate()
 
     const click = () => {
@@ -29,9 +27,6 @@ export const Index: FC = () => {
             </div>
             <Button onClick={click} size={"lg"}>
                 Войти с помощью Google
-            </Button>
-            <Button onClick={() => setIsAuth(true)} size={"lg"}>
-                Тестовый вход
             </Button>
         </div>
     );

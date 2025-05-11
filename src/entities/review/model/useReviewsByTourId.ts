@@ -9,13 +9,13 @@ export const useReviewsByTourId = (tourId: number) => {
         queryKey: ["reviews", "tour"],
         queryFn: () => getReviewsByTourId(tourId),
         staleTime: 60_000,
-        initialData: [],
+        placeholderData: [],
         enabled: !!tourId
     })
 
     return {
         ...query,
-        length: query.data.length
+        length: query.data ? query.data.length : 0
     }
 
 }

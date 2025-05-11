@@ -10,9 +10,9 @@ type ContactsProps = {
 export const Index: FC<ContactsProps> = ({contacts}) => {
     return (
         <div className={style.container}>
-            <ContactButton phone={contacts.phone}/>
-            {contacts.telegram && <TelegramButton id={contacts.telegram as string}/>}
-            {contacts.vk && <VKButton id={contacts.vk as string}/>}
+            {contacts.phone && <ContactButton phone={contacts.phone}/>}
+            {contacts?.telegram && <TelegramButton id={contacts.telegram as string}/>}
+            {contacts?.vk && <VKButton id={contacts.vk as string}/>}
         </div>
     );
 };

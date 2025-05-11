@@ -13,18 +13,15 @@ type ReviewListProps = {
 
 export const Index: FC<ReviewListProps> = ({rating, ratingCount, tourId}) => {
 
-    const {data: reviews, isLoading, isError} = useReviewsByTourId(tourId)
+    const {data: reviews, isLoading, isError, isPlaceholderData} = useReviewsByTourId(tourId)
     const [visibleReviews, setVisibleReviews] = useState<number>(2)
 
     if (isError) return null
-    if (isLoading) return <AppSkeleton/>
+    if (isLoading || !reviews || isPlaceholderData) return <AppSkeleton/>
 
     return (
         <div className={"flex flex-col gap-8 my-4"}>
-            <Header
-                rating={rating}
-                ratingCount={ratingCount}
-            />
+            <Header rating={rating} ratingCount={ratingCount}/>
             <div className={"flex flex-col gap-4"}>
                 {reviews.slice(0, visibleReviews).map(review =>
                     <Card

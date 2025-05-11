@@ -28,7 +28,7 @@ export const Index: FC = () => {
     return (
         <Accordion type={"single"} collapsible>
             {
-                user?.role === UserRole.contributor && isSuccessMyTours &&
+                user?.role === UserRole.contributor && isSuccessMyTours && !isPlaceholderMyTours &&
                 <AccordionItem value={"value 1"}>
                     <AccordionTrigger>Ваши популярные экскурсии</AccordionTrigger>
                     <AccordionContent className={"flex flex-col gap-4"}>
@@ -59,7 +59,7 @@ export const Index: FC = () => {
                 </AccordionItem>
             }
             {
-                isSuccessOrders &&
+                (isSuccessOrders && !isPlaceholderOrders) &&
                 <AccordionItem value={"value 2"}>
                     <AccordionTrigger>Оцените экскурсии</AccordionTrigger>
                     <AccordionContent className={"flex flex-col gap-4"}>

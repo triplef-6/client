@@ -20,4 +20,4 @@ export const SubmitButton: FC<ButtonProps> = ({orientation}) => {
             Искать
         </Button>
     )
-};
+}

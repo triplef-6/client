@@ -3,6 +3,7 @@ import {IContacts} from "@/shared/types";
 import style from "./style.module.css";
 import {Contacts, Rating} from "@/shared/ui";
 import {formatName} from "@/shared/utills";
+import contributor from "@/shared/assets/icons/contributor.svg"
 
 type HeaderProps = {
     name: string
@@ -18,7 +19,7 @@ export const Index: FC<HeaderProps> = ({name, surname, rating, ratingCount, avat
         <div className={style.container}>
             <div className={style.startCol}>
                 <div className={style.contributor}>
-                    <img width={64} height={64} alt={"contributor"} src={avatar}/>
+                    <img width={64} height={64} className={"rounded-full"} alt={"contributor"} src={avatar ?? contributor}/>
                     <div className={style.desc}>
                         <span className={style.name}>{formatName(`${name} ${surname}`)}</span>
                         <span>Представитель команды гидов</span>
@@ -27,7 +28,7 @@ export const Index: FC<HeaderProps> = ({name, surname, rating, ratingCount, avat
                 <Rating rating={rating} ratingCount={ratingCount}/>
             </div>
             <div>
-                <Contacts contacts={contacts}/>
+                {contacts && <Contacts contacts={contacts}/>}
             </div>
         </div>
     );

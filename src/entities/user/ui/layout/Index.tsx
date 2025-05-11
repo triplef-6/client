@@ -26,10 +26,14 @@ export const Index: FC<LayoutProps> = ({contributorId}) => {
     } = useContributorTours(contributorId)
 
     if (isError || isToursError || !tours || !contributor) return (
-        <NotFound heading={"Данные не найдены"} text={"Возникла проблема с поиском пользователя"}/>
+        <NotFound heading={"Данные не найдены"} text={"Возникла проблема с поиском контрибьютера"}/>
     )
 
-    if (isLoading || isToursLoading || isPlaceholderTours) return <AppSkeleton />
+    if (isLoading || isPlaceholderTours) return (
+        <div className={"py-10"}>
+            <AppSkeleton />
+        </div>
+    )
 
     return (
         <div className={style.container}>
@@ -41,8 +45,8 @@ export const Index: FC<LayoutProps> = ({contributorId}) => {
                 rating={contributor.rating}
                 ratingCount={contributor.ratingCount}
             />
-            <Description desc={contributor.info}/>
-            <Tours tours={tours}/>
+            {contributor.info && <Description desc={contributor.info}/>}
+            {(isToursLoading || isPlaceholderTours) ? <AppSkeleton/> : <Tours tours={tours}/>}
         </div>
     );
 };

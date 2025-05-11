@@ -9,7 +9,7 @@ export const Index: FC = () => {
 
     const [visible, setVisible] = useState<number>(3)
 
-    if (isError || isPlaceholderData) return (
+    if (isError) return (
         <NotFound
             heading={"Экскурсии не найдены"}
             text={"Измените парметры поиска или воспользуйтесь сервисом чуть позже"}
@@ -19,7 +19,7 @@ export const Index: FC = () => {
     return (
         <div className={"w-full flex flex-col gap-8"}>
             <Header/>
-            {isLoading ? <AppSkeleton/> : tours.slice(0, visible).map(tour => <TourCard key={tour.id} tour={tour}/>)}
+            {isLoading && isPlaceholderData ? <AppSkeleton/> : tours.slice(0, visible).map(tour => <TourCard key={tour.id} tour={tour}/>)}
             {!isPlaceholderData && <TourPagination visiable={visible} setVisible={setVisible} maxLength={tours.length}/>}
         </div>
     )

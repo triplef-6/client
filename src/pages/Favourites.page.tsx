@@ -13,7 +13,7 @@ export const FavouritesPage: FC = () => {
             <h1 className={"text-grayscale-500 text-4xl font-medium"}>Избранное</h1>
             {
                 favourites.length === 0 &&
-                <span className={"text-sm text-grayscale-400"}>Список избранных экскурсий пуст :(</span>
+                <span className={"text-sm text-grayscale-400"}>Список избранных экскурсий пока пуст</span>
             }
             <div className={"min-h-screen w-4/5 flex flex-col gap-8"}>
                 {favourites.map(tour => <TourCard key={tour.id} tour={tour}/>)}

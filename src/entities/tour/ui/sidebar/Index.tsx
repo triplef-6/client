@@ -5,7 +5,7 @@ import {BookingButton, IndividualPrice} from "@/shared/ui";
 import {Item} from "./item";
 import {Rating} from "./rating";
 import {ContributorButton} from "@/entities";
-import {formatHours, formatPeople} from "@/shared/utills";
+import {formatDate, formatHours, formatPeople, formatTime} from "@/shared/utills";
 
 type SidebarProps = {
     tour: ITour
@@ -17,9 +17,10 @@ export const Index: FC<SidebarProps> = ({tour}) => {
             <ContributorButton contributorId={tour.contributorId}/>
             <div className={style.subContainer}>
                 <Item option={"Формат:"} value={tour.format}/>
+                {tour.date && <Item option={"Дата:"} value={formatDate(tour.date)}/>}
+                <Item option={"Начало:"} value={formatTime(tour.time)}/>
                 <Item option={"Длительность:"} value={formatHours(tour.duration)}/>
                 <Item option={"Размер группы:"} value={formatPeople(tour.groupCapacity)}/>
-                <Item option={"Формат проведения:"} value={tour.formatBehavior}/>
                 <Rating option={"Рейтинг:"} rating={tour.rating} ratingCount={tour.ratingCount}/>
                 <hr className={style.separator}/>
                 <IndividualPrice price={tour.priceForPerson}/>

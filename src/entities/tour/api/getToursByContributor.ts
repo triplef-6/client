@@ -5,7 +5,7 @@ import {AxiosResponse} from "axios";
 export const getToursByContributor = async (contributorId: number): Promise<ITour[]> => {
     try {
         const response: AxiosResponse<ITour[]> = await apiClient.get<ITour[]>(
-            `${EndpointsType.TOURS}/contributor/${contributorId}`
+            `${EndpointsType.TOURS}/guide/${contributorId}`
         )
         return response.data
     } catch (e) {

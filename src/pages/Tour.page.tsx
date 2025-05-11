@@ -12,15 +12,23 @@ const LazyCarousel = React.lazy(() =>
 export const TourPage: FC = () => {
 
     const {id } = useParams<{ id: string, title: string }>()
-    const {data: tour, isLoading, isError, isLoadingError} = useTour(Number(id))
+    const {data: tour, isLoading, isError} = useTour(Number(id))
 
-    if (isError || isLoadingError || !tour) return (
-        <NotFound heading={"Экскурсия не найдена"} text={"Возникла проблема с поиском экскурсии"}/>
+    if (isError) return (
+        <NotFound
+            heading={"Экскурсия не найдена"}
+            text={"Возникла проблема с поиском экскурсии"}
+        />
     )
-    if (isLoading) return <AppSkeleton />
+
+    if (!tour || isLoading) return (
+        <div className={"py-10"}>
+            <AppSkeleton />
+        </div>
+    )
 
     return (
-        <div className={"flex flex-col justify-between py-12 huge:w-[1440px] h-screen"}>
+        <div className={"flex flex-col justify-between py-12 huge:w-[1440px]"}>
             <Tags tags={tour.tags}/>
             <Header tour={tour}/>
             <Suspense fallback={<CarouselSkeleton/>}>
