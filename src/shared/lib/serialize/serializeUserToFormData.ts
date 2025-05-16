@@ -11,7 +11,7 @@ export const serializeUserToFormData = (me: IMe): FormData => {
     formData.append("role", me.role)
     formData.append("info", me.info ?? "")
     formData.append("avatar", me.avatar)
-    formData.append("avatarFile", me.avatarFile ?? "")
+    if (me.avatarFile) formData.append("avatarFile", me.avatarFile)
     formData.append("rating", me.rating ? me.rating.toString() : "0")
     formData.append("ratingCount", me.ratingCount ? me.ratingCount.toString() : "0")
 

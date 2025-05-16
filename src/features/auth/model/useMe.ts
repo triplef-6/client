@@ -1,11 +1,21 @@
 import {useQuery} from "@tanstack/react-query";
 import {getMe} from "@/features/auth/api";
+import {getFallbackMe} from "@/features/auth/utils";
 
 export const useMe = () => {
-    return useQuery({
+
+    const fallback = getFallbackMe()
+
+    const query = useQuery({
         queryKey: ["me"],
         queryFn: getMe,
-        staleTime: 300_000,
         retry: false
     })
+
+    return {
+        ...query,
+        data: query.data ?? fallback,
+        isFallback: query.data?.id === fallback.id
+    }
+
 }

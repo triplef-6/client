@@ -1,6 +1,6 @@
-import {useAuthContext, useUpdateMe} from "@/features";
+import {useEditContext} from "@/features";
 import {useTags} from "@/entities";
-import React, {useCallback, useState} from "react";
+import React from "react";
 import {IMe, UserRole} from "@/shared/types";
 import defaultAvatar from "@/shared/assets/icons/avatar.svg"
 
@@ -18,60 +18,46 @@ type Result = {
 
     addTag: (value: string) => void
     removeTag: (value: string) => void
-
-    load: () => void
 }
 
 export const useUserData = (): Result => {
-    
-    const {user} = useAuthContext()
-    const {data: tags = []} = useTags()
-    const {mutate: update} = useUpdateMe()
 
-    const [updatedUser, setUpdatedUser] = useState<IMe>(user)
-    
-    const updateName = useCallback(
-        (name: string) => setUpdatedUser({...updatedUser, name}),
-        []
-    )
-    
-    const updateSurname = useCallback(
-        (surname: string) => setUpdatedUser({...updatedUser, surname}),
-        []
-    )
-    
-    const updateInfo = useCallback(
-        (info: string) => setUpdatedUser({...updatedUser, info}), 
-        []
-    )
-    
-    const updateImage = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const {updatedUser, setUpdatedUser} = useEditContext()
+    const {data: tags = []} = useTags()
+
+    const updateName = (name: string) => setUpdatedUser({...updatedUser, name})
+    const updateSurname = (surname: string) => setUpdatedUser({...updatedUser, surname})
+    const updateInfo = (info: string) => setUpdatedUser({...updatedUser, info})
+
+    const updateImage = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0] ?? null
-        setUpdatedUser(prevState => ({
-            ...prevState,
+        setUpdatedUser({
+            ...updatedUser,
             avatarFile: file,
             avatar: file ? URL.createObjectURL(file) : defaultAvatar
-        }))
-    }, [])
+        })
+    }
 
-    const addTag = useCallback((tag: string) => {
-        const newTags = updatedUser.tags.includes(tag) ? updatedUser.tags : [...updatedUser.tags, tag]
-        setUpdatedUser({...updatedUser, tags: newTags})
-    }, [updatedUser])
+    const addTag = (tag: string) => {
+        setUpdatedUser({
+            ...updatedUser,
+            tags: updatedUser.tags.includes(tag) ? updatedUser.tags : [...updatedUser.tags, tag]
+        })
+    }
 
-    const removeTag = useCallback((tag: string) => {
-        const newTags = updatedUser.tags.filter(i => i !== tag)
-        setUpdatedUser({...updatedUser, tags: newTags})
-    }, [updatedUser])
-
-    const load = () => update(updatedUser)
+    const removeTag = (tag: string) => {
+        setUpdatedUser({
+            ...updatedUser,
+            tags: updatedUser.tags.filter((t: string) => t !== tag)
+        })
+    }
 
     return {
         isContributor: updatedUser.role === UserRole.contributor,
         user: updatedUser,
         tags,
         userTags: updatedUser.tags,
-        addTag, removeTag, updateName, updateSurname, updateInfo, updateImage, load
+        addTag, removeTag, updateName, updateSurname, updateInfo, updateImage
     }
 
 }

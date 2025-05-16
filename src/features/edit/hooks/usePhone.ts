@@ -1,9 +1,8 @@
 import * as React from "react";
 import {useEffect, useState} from "react";
 import {validatePhoneLen} from "@/shared/validate";
-import {phoneMask} from "@/shared/utills";
-import {useAuthContext, useUpdateMe} from "@/features";
-import {useDebounceValue} from "usehooks-ts";
+import {phoneMaskRu} from "@/shared/utills";
+import {useEditContext} from "@/features";
 
 type StateType = {
     isOpen: boolean,
@@ -23,17 +22,21 @@ type ReturnType = {
 
 export const usePhone = (): ReturnType => {
 
-    const {user} = useAuthContext()
-    const {mutate: update} = useUpdateMe()
+    const {updatedUser: user, setUpdatedUser} = useEditContext()
 
     const [phone, setPhone] = useState(user.contacts?.phone ?? "")
-    const [debouncedPhone] = useDebounceValue<string>(phone, 2000)
 
     useEffect(() => {
-        if (!validatePhoneLen(debouncedPhone)) {
-            update({...user, contacts: {phone: debouncedPhone}})
+        if (!validatePhoneLen(phone)) {
+            setUpdatedUser({
+                ...user,
+                contacts: {
+                    ...user.contacts,
+                    phone
+                }
+            })
         }
-    }, [debouncedPhone])
+    }, [phone])
 
     const [state, setState] = useState<StateType>({
         isOpen: false,
@@ -52,7 +55,7 @@ export const usePhone = (): ReturnType => {
 
     const click = (e: React.ChangeEvent<HTMLInputElement>) => {
         const inputValue = e.target.value
-        updateField(phoneMask(inputValue))
+        updateField(phoneMaskRu(inputValue))
     }
 
     const focus = () => {

@@ -2,7 +2,7 @@ import * as React from "react";
 import {useState} from "react";
 import {IContact} from "@/shared/types";
 import {validatePhoneLen} from "@/shared/validate";
-import {phoneMask} from "@/shared/utills";
+import {phoneMaskRu} from "@/shared/utills";
 
 type StateType = {
     isOpen: boolean,
@@ -39,7 +39,7 @@ export const usePhone = (store: IContact): ReturnType => {
 
     const click = (e: React.ChangeEvent<HTMLInputElement>) => {
         const inputValue = e.target.value
-        updateField(phoneMask(inputValue))
+        updateField(phoneMaskRu(inputValue))
     }
 
     const focus = () => {

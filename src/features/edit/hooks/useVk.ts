@@ -1,8 +1,7 @@
 import * as React from "react";
 import {useEffect, useState} from "react";
 import {validateNickname} from "@/shared/validate";
-import {useAuthContext, useUpdateMe} from "@/features";
-import {useDebounceValue} from "usehooks-ts";
+import {useEditContext} from "@/features";
 
 type FieldType = {
     isOpen: boolean
@@ -22,8 +21,7 @@ type ReturnType = {
 
 export const useVk = (): ReturnType => {
 
-    const {user} = useAuthContext()
-    const {mutate: update} = useUpdateMe()
+    const {updatedUser: user, setUpdatedUser} = useEditContext()
     
     const [state, setState] = useState<FieldType>({
         isOpen: false,
@@ -32,18 +30,17 @@ export const useVk = (): ReturnType => {
     })
 
     const [vk, setVk] = useState(user.contacts?.vk ?? "")
-    const [debouncedVk] = useDebounceValue<string>(vk, 2000)
 
     useEffect(() => {
-        update({
+        setUpdatedUser({
             ...user,
             contacts: {
-                telegram: user.contacts?.telegram ?? "",
-                phone: user.contacts?.phone ?? "",
-                vk: debouncedVk
+                ...user.contacts,
+                vk: vk,
+                phone: user.contacts?.phone ?? ""
             }
         })
-    }, [debouncedVk])
+    }, [vk])
 
     const updateField = (newValue: string) => {
         setVk(newValue)
