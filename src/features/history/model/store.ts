@@ -68,6 +68,10 @@ class TourLocalHistoryStore {
         this._tags = this._tags.filter(i => i !== value)
     }
 
+    clearTags() {
+        this._tags = []
+    }
+
 }
 
 export const tourLocalHistoryStore = new TourLocalHistoryStore()

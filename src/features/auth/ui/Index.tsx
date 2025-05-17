@@ -4,14 +4,17 @@ import s from "./style.module.css"
 import {Button} from "@/shared/ui";
 import {RouteNames} from "@/shared/types";
 import {useNavigate} from "react-router-dom";
+import {useAuthContext} from "@/features";
 
 export const Index: FC = () => {
 
     const navigate = useNavigate()
+    const {confirmLogin} = useAuthContext()
 
     const click = () => {
         window.location.href = RouteNames.LOGIN
         navigate(`/${RouteNames.MAIN}`)
+        confirmLogin()
     }
 
     return (

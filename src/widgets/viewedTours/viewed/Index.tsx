@@ -2,7 +2,7 @@ import {FC, useEffect, useState} from "react";
 import {searchTourByCity, searchTourByRegion, useViewFactory} from "@/features";
 import style from "@/widgets/viewedTours/style.module.css";
 import {TourCard} from "@/entities";
-import {NotFound, TourPagination} from "@/shared/ui";
+import {TourPagination} from "@/shared/ui";
 import {ITour} from "@/shared/types";
 
 type ToursProps = {
@@ -33,10 +33,7 @@ export const Index: FC<ToursProps> = ({city, byCity}) => {
             <span>Вы смотрели ранее</span>
             {tours.length === 0
                 ?
-                <NotFound
-                    heading={"Экскурсии не найдены"}
-                    text={"Пока список ваших просмотренных экскурсий пуст"}
-                />
+                null
                 :
                 <>
                     {tours.slice(0, visible).map(tour => <TourCard key={tour.id} tour={tour}/>)}

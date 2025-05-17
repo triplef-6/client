@@ -7,10 +7,10 @@ import { Introduction } from "@/widgets/onboarding/introduction/index.ts";
 
 export const Index: FC = () => {
 
-    const [clicked, setClicked] = useState<boolean>(false);
+    const [clicked, setClicked] = useState<boolean>(false)
 
     return (
-        <div className="relative overflow-hidden h-screen">
+        <div className={"relative h-screen overflow-x-hidden"}>
             <img className={style.bg} alt={"logo"} src={logo}/>
             <div className={`slide ${clicked ? "-translate-x-full" : "translate-x-0"}`}>
                 <Introduction setClicked={setClicked}/>

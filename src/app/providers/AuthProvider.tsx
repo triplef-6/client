@@ -4,45 +4,69 @@ import {useAddTags} from "@/entities";
 import {useMe} from "@/features/auth/model/useMe.ts";
 import {useNavigate} from "react-router-dom";
 import {RouteNames} from "@/shared/types";
+import {useQueryClient} from "@tanstack/react-query";
+import {getFallbackMe} from "@/features/auth/utils";
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     const navigate = useNavigate()
+    const queryClient = useQueryClient()
 
     const [isAuth, setIsAuth] = useState<boolean>(false)
+    const [isConfirmLogin, setIsConfirmLogin] = useState<boolean>(false)
 
-    const {data: user, isSuccess, isFallback} = useMe()
+    const {data: user, isSuccess, isError} = useMe()
     const {mutate: logoutFromGoogle} = useLogout()
     const {mutate: addTags} = useAddTags()
 
+    const confirmLogin = () => setIsConfirmLogin(true)
+
     useEffect(() => {
-        if (!isAuth) {
+        console.log(isAuth)
+    }, [isAuth]);
+
+    useEffect(() => {
+        if (isSuccess && user && isConfirmLogin) {
+
+            setIsAuth(true)
+
+            if (history.tagsCount !== 0) {
+                addTags(history.tags)
+                history.clearTags()
+            }
 
             const hasVisited = localStorage.getItem("hasVisitedOnboarding")
-
-            if (hasVisited !== "true") {
+            if (hasVisited !== "visited") {
+                localStorage.setItem("hasVisitedOnboarding", "visited")
                 navigate(`/${RouteNames.ON_BOARDING}`)
-                localStorage.setItem("hasVisitedOnboarding", "true")
             }
 
         }
-    }, [])
+    }, [isSuccess, user, addTags, navigate]);
 
     useEffect(() => {
-        if (!isFallback) {
-            setIsAuth(true)
-            if (history.tagsCount !== 0) addTags(history.tags)
+        if (isError) {
+            setIsAuth(false)
+            navigate(`/${RouteNames.AUTH}`)
         }
-    }, [addTags, isSuccess]);
+    }, [isError, navigate])
 
     const logout = () => {
-        setIsAuth(false)
-        logoutFromGoogle()
+
+        setIsConfirmLogin(false)
+
+        const hasVisited = localStorage.getItem("hasVisitedOnboarding")
         localStorage.clear()
+        if (hasVisited === "visited") localStorage.setItem("hasVisitedOnboarding", "visited")
+
+        logoutFromGoogle()
+        setIsAuth(false)
+        queryClient.removeQueries({queryKey: ["me"]})
+
     }
 
     return (
-        <AuthContext.Provider value={{user, isAuth, setIsAuth, logout}}>
+        <AuthContext.Provider value={{user: user ?? getFallbackMe(), isAuth, setIsAuth, logout, confirmLogin}}>
             {children}
         </AuthContext.Provider>
     )

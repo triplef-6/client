@@ -7,7 +7,7 @@
 }
 
 .tags {
-    @apply flex flex-row gap-6 flex-wrap
+    @apply flex max-md:flex-nowrap md:flex-row md:flex-wrap gap-6 max-md:overflow-x-auto
 }
 
 .buttons {

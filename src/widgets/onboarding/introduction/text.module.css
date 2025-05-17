@@ -1,5 +1,5 @@
 .heading {
-    @apply text-3xl lg:text-5xl font-medium text-grayscale-500
+    @apply text-lg md:text-3xl lg:text-5xl font-medium text-grayscale-500
 }
 
 .desc {

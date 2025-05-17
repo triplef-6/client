@@ -1,8 +1,7 @@
 import {FC, useState} from "react";
 import {Accordion, AccordionContent, AccordionItem, AccordionTrigger, AppSkeleton, TourPagination} from "@/shared/ui";
-import {ReviewForm, TourCard, useContributorTours} from "@/entities";
-import {IUser, UserRole} from "@/shared/types";
-import {useAuthContext, useUserOrders} from "@/features";
+import {ReviewForm, TourCard, useContributorTours, useToursForReview} from "@/entities";
+import {useAuthContext} from "@/features";
 import {TourMetrics} from "@/widgets";
 
 export const Index: FC = () => {
@@ -17,21 +16,21 @@ export const Index: FC = () => {
     } = useContributorTours(user.id)
 
     const {
-        data: orders,
-        isSuccess: isSuccessOrders,
-        isLoading: isOrdersLoading,
-        isPlaceholderData: isPlaceholderOrders
-    } = useUserOrders(user.id)
+        data: reviewedTours,
+        isSuccess: isReviewedToursSuccess,
+        isLoading: isReviewedToursLoading,
+        isPlaceholderData: isReviewedToursPlaceholder
+    } = useToursForReview(user.id)
 
     const [visibleTours, setVisibleTours] = useState<number>(3)
 
     return (
         <Accordion type={"single"} collapsible>
             {
-                user?.role === UserRole.contributor && isSuccessMyTours && !isPlaceholderMyTours &&
+                isSuccessMyTours &&
                 <AccordionItem value={"value 1"}>
                     <AccordionTrigger>Ваши популярные экскурсии</AccordionTrigger>
-                    <AccordionContent className={"flex flex-col gap-4"}>
+                    <AccordionContent className={"flex flex-col gap-8"}>
                         {
                             isMyTourLoading || isPlaceholderMyTours
                                 ?
@@ -41,11 +40,7 @@ export const Index: FC = () => {
                                     tour => (
                                         <div key={tour.id} className={"flex flex-col lg:flex-row gap-4"}>
                                             <TourCard tour={tour}/>
-                                            <TourMetrics
-                                                tour={tour}
-                                                users={tour.registered as IUser[]}
-                                                capacity={tour.groupCapacity}
-                                            />
+                                            <TourMetrics tour={tour}/>
                                         </div>
                                     )
                                 )
@@ -59,17 +54,17 @@ export const Index: FC = () => {
                 </AccordionItem>
             }
             {
-                (isSuccessOrders && !isPlaceholderOrders) &&
+                isReviewedToursSuccess &&
                 <AccordionItem value={"value 2"}>
                     <AccordionTrigger>Оцените экскурсии</AccordionTrigger>
                     <AccordionContent className={"flex flex-col gap-4"}>
                         {
-                            isOrdersLoading || isPlaceholderOrders
+                            isReviewedToursLoading || isReviewedToursPlaceholder
                                 ?
                                 <AppSkeleton/>
                                 :
-                                orders.slice(0, visibleTours).map(order => (
-                                    <ReviewForm type={"create"} key={order.tourId} tourId={order.tourId}/>
+                                reviewedTours.slice(0, visibleTours).map(tour => (
+                                    <ReviewForm type={"create"} key={tour.id} tour={tour}/>
                                 ))
                         }
                     </AccordionContent>

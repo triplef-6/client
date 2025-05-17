@@ -5,4 +5,5 @@ export type AuthContextType = {
     setIsAuth: (value: boolean) => void
     user: IMe
     logout: () => void
+    confirmLogin: () => void
 }

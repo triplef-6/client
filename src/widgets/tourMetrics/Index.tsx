@@ -1,7 +1,7 @@
 import {FC} from "react";
 import {CalendarCheck, Eye, Users} from "lucide-react";
 import {Button} from "@/shared/ui";
-import {ITour, IUser} from "@/shared/types";
+import {ITour} from "@/shared/types";
 import s from "./style.module.css"
 import {useEditTour} from "@/shared/hooks";
 import {formatPeople} from "@/shared/utills";
@@ -9,11 +9,9 @@ import {useDeleteTour, useReviewsByTourId} from "@/entities";
 
 type TourMetricsProps = {
     tour: ITour
-    users: IUser[]
-    capacity: number
 }
 
-export const Index: FC<TourMetricsProps> = ({tour, users, capacity}) => {
+export const Index: FC<TourMetricsProps> = ({tour}) => {
 
     const {click} = useEditTour(tour)
     const {mutate} = useDeleteTour()
@@ -33,7 +31,7 @@ export const Index: FC<TourMetricsProps> = ({tour, users, capacity}) => {
                         <Users width={20} height={20} className={"text-grayscale-500"}/>
                         <span className={s.subHeading}>Забронированно</span>
                     </div>
-                    <p className={s.text}>{users.length} из {capacity} мест</p>
+                    <p className={s.text}>{tour.groupCapacity} мест</p>
                 </div>
 
                 <div className={s.params}>
