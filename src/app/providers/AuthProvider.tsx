@@ -15,7 +15,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const [isAuth, setIsAuth] = useState<boolean>(false)
     const [isConfirmLogin, setIsConfirmLogin] = useState<boolean>(false)
 
-    const {data: user, isSuccess, isError} = useMe()
+    const {data: user, isSuccess} = useMe()
     const {mutate: logoutFromGoogle} = useLogout()
     const {mutate: addTags} = useAddTags()
 
@@ -43,13 +43,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
         }
     }, [isSuccess, user, addTags, navigate]);
-
-    useEffect(() => {
-        if (isError) {
-            setIsAuth(false)
-            navigate(`/${RouteNames.AUTH}`)
-        }
-    }, [isError, navigate])
 
     const logout = () => {
 
