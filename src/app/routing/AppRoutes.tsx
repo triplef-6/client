@@ -19,7 +19,10 @@ import {AuthGuard} from "@/app/routing/AuthGuard.tsx";
 export const AppRoutes: FC = () => {
     return (
         <Routes>
-            <Route path={`/${RouteNames.ON_BOARDING}`} element={<OnBoardingPage/>}/>
+            <Route
+                path={`/${RouteNames.ON_BOARDING}`}
+                element={<OnBoardingPage/>}
+            />
             <Route path={"/"} element={<Layout/>}>
                 <Route path={RouteNames.MAIN} element={<HomePage/>}/>
                 <Route

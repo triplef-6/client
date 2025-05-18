@@ -18,6 +18,9 @@ export const Index: FC = () => {
             <Button onClick={() => navigate(`/${RouteNames.AUTH}`)} className={style.button}>
                 Войти
             </Button>
+            <Button variant={"secondary"} onClick={() => navigate(`/${RouteNames.ON_BOARDING}`)}>
+                Изменить рекомендации
+            </Button>
         </div>
     );
 };
