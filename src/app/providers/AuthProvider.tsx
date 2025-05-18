@@ -2,13 +2,12 @@ import {ReactNode, useCallback, useEffect, useState} from "react";
 import {AuthContext, tourLocalHistoryStore as history, useLogout} from "@/features";
 import {useAddTags} from "@/entities";
 import {useMe} from "@/features/auth/model/useMe.ts";
-import {useNavigate} from "react-router-dom";
 import {RouteNames} from "@/shared/types";
 import {useQueryClient} from "@tanstack/react-query";
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
-    const navigate = useNavigate()
+    //const navigate = useNavigate()
     const queryClient = useQueryClient()
 
     const [isAuth, setIsAuth] = useState<boolean>(false)
