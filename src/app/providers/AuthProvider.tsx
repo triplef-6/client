@@ -12,11 +12,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const queryClient = useQueryClient()
 
     const [isAuth, setIsAuth] = useState<boolean>(false)
-    const [isLoginRequested, setIsLoginRequested] = useState<boolean>(false)
 
     const {data: user, fallback} = useMe()
     const {mutate: logoutFromGoogle} = useLogout()
     const {mutate: addTags} = useAddTags()
+
+    const isLoginRequested = localStorage.getItem("isLoginRequested") === "true"
 
     // Редирект на onboarding при первом запуске
     useEffect(() => {
@@ -28,7 +29,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }, [])
 
     const login = () => {
-        setIsLoginRequested(true)
+        localStorage.setItem("isLoginRequested", "true")
         window.location.href = RouteNames.LOGIN
     }
     
@@ -47,7 +48,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     const logout = () => {
 
-        setIsLoginRequested(false)
+        localStorage.removeItem("isLoginRequested")
 
         const hasVisited = localStorage.getItem("hasVisitedOnboarding")
         localStorage.clear()
