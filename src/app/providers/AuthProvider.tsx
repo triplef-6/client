@@ -20,6 +20,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const isLoginRequested = localStorage.getItem("isLoginRequested") === "true"
 
     // Редирект на onboarding при первом запуске
+    /*
     useEffect(() => {
         const hasVisited = localStorage.getItem("hasVisitedOnboarding")
         if (hasVisited !== "visited") {
@@ -27,6 +28,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             navigate(`/${RouteNames.ON_BOARDING}`)
         }
     }, [])
+     */
 
     const login = () => {
         localStorage.setItem("isLoginRequested", "true")
