@@ -48,7 +48,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         else setIsAuth(false)
     }, [finishLogin, isLoginRequested])
 
-    const logout = () => {
+    const logout = async () => {
 
         isLoginRequested.current = false
 
@@ -58,7 +58,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
         logoutFromGoogle()
         setIsAuth(false)
-        queryClient.removeQueries({queryKey: ["me"]})
+        await queryClient.invalidateQueries({queryKey: ["me"]})
 
     }
 
