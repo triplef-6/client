@@ -1,4 +1,4 @@
-import {ReactNode, useCallback, useEffect, useState} from "react";
+import {ReactNode, useCallback, useEffect, useRef, useState} from "react";
 import {AuthContext, tourLocalHistoryStore as history, useLogout} from "@/features";
 import {useAddTags} from "@/entities";
 import {useMe} from "@/features/auth/model/useMe.ts";
@@ -11,12 +11,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const queryClient = useQueryClient()
 
     const [isAuth, setIsAuth] = useState<boolean>(false)
+    const isLoginRequested = useRef(false)
 
     const {data: user, fallback} = useMe()
     const {mutate: logoutFromGoogle} = useLogout()
     const {mutate: addTags} = useAddTags()
-
-    const isLoginRequested = localStorage.getItem("isLoginRequested") === "true"
 
     // Редирект на onboarding при первом запуске
     /*
@@ -30,26 +29,28 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
      */
 
     const login = () => {
-        localStorage.setItem("isLoginRequested", "true")
+        isLoginRequested.current = true
         window.location.href = RouteNames.LOGIN
     }
     
     const finishLogin = useCallback(() => {
-        setIsAuth(true)
-        if (history.tagsCount !== 0) {
-            addTags(history.tags)
-            history.clearTags()
+        if (user) {
+            setIsAuth(true)
+            if (history.tagsCount !== 0) {
+                addTags(history.tags)
+                history.clearTags()
+            }
         }
-    }, [addTags])
+    }, [addTags, user])
 
     useEffect(() => {
-        if (user && isLoginRequested) finishLogin()
+        if (isLoginRequested) finishLogin()
         else setIsAuth(false)
-    }, [finishLogin, user])
+    }, [finishLogin, isLoginRequested])
 
     const logout = () => {
 
-        localStorage.removeItem("isLoginRequested")
+        isLoginRequested.current = false
 
         const hasVisited = localStorage.getItem("hasVisitedOnboarding")
         localStorage.clear()
