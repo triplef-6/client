@@ -10,7 +10,7 @@ export const useMe = () => {
         queryKey: ["me"],
         queryFn: getMe,
         retry: false,
-        refetchOnWindowFocus: false
+        refetchOnWindowFocus: false,
     })
 
     return {

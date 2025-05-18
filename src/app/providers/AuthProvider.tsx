@@ -11,10 +11,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const queryClient = useQueryClient()
 
     const [isAuth, setIsAuth] = useState<boolean>(false)
-    const [isLoginRequested, setIsLoginRequested] = useState<boolean>(() =>
-        localStorage.getItem("isLoginRequested") === "true"
-    )
-
+    const [isLoginRequest, setIsLoginRequest] = useState(localStorage.getItem("isLoginRequest"))
+    
     const {data: user, fallback} = useMe()
     const {mutate: logoutFromGoogle} = useLogout()
     const {mutate: addTags} = useAddTags()
@@ -31,38 +29,35 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
      */
 
     const login = () => {
-        localStorage.setItem("isLoginRequested", "true")
-        setIsLoginRequested(true)
+        localStorage.setItem("isLoginRequest", "true")
+        setIsLoginRequest("true")
         window.location.href = RouteNames.LOGIN
     }
-    
-    const finishLogin = useCallback(() => {
-        if (user) {
-            setIsAuth(true)
-            if (history.tagsCount !== 0) {
-                addTags(history.tags)
-                history.clearTags()
-            }
-        }
-    }, [addTags, user])
 
     useEffect(() => {
-        if (isLoginRequested) finishLogin()
-        else setIsAuth(false)
-    }, [finishLogin, isLoginRequested])
+        if (user && isLoginRequest === "true") finishLogin()
+    }, [isLoginRequest, user])
+    
+    const finishLogin = useCallback(() => {
+        setIsAuth(true)
+        if (history.tagsCount !== 0) {
+            addTags(history.tags)
+            history.clearTags()
+        }
+    }, [addTags])
 
-    const logout = async () => {
+    const logout = () => {
 
-        localStorage.removeItem("isLoginRequested")
+        localStorage.setItem("isLoginRequest", "false")
+        setIsLoginRequest("false")
 
         const hasVisited = localStorage.getItem("hasVisitedOnboarding")
-
-        localStorage.clear()
+        //localStorage.clear()
         if (hasVisited === "visited") localStorage.setItem("hasVisitedOnboarding", "visited")
 
         logoutFromGoogle()
         setIsAuth(false)
-        await queryClient.invalidateQueries({queryKey: ["me"]})
+        queryClient.removeQueries({queryKey: ["me"]})
 
     }
 
