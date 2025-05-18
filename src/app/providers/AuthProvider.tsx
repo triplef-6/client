@@ -1,4 +1,4 @@
-import {ReactNode, useCallback, useEffect, useRef, useState} from "react";
+import {ReactNode, useCallback, useEffect, useState} from "react";
 import {AuthContext, tourLocalHistoryStore as history, useLogout} from "@/features";
 import {useAddTags} from "@/entities";
 import {useMe} from "@/features/auth/model/useMe.ts";
@@ -11,7 +11,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const queryClient = useQueryClient()
 
     const [isAuth, setIsAuth] = useState<boolean>(false)
-    const isLoginRequested = useRef(false)
+    const isLoginRequested = localStorage.getItem("isLoginRequested") === "true"
 
     const {data: user, fallback} = useMe()
     const {mutate: logoutFromGoogle} = useLogout()
@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
      */
 
     const login = () => {
-        isLoginRequested.current = true
+        localStorage.setItem("isLoginRequested", "true")
         window.location.href = RouteNames.LOGIN
     }
     
@@ -50,11 +50,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     const logout = async () => {
 
-        isLoginRequested.current = false
+        localStorage.removeItem("isLoginRequested")
 
         const hasVisited = localStorage.getItem("hasVisitedOnboarding")
+        const isLogin = localStorage.getItem("isLoginRequested")
+
         localStorage.clear()
         if (hasVisited === "visited") localStorage.setItem("hasVisitedOnboarding", "visited")
+        if (isLogin === "true") localStorage.setItem("isLoginRequested", "true")
 
         logoutFromGoogle()
         setIsAuth(false)
