@@ -11,7 +11,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const queryClient = useQueryClient()
 
     const [isAuth, setIsAuth] = useState<boolean>(false)
-    const [isLoginRequest, setIsLoginRequest] = useState(localStorage.getItem("isLoginRequest"))
     
     const {data: user, fallback} = useMe()
     const {mutate: logoutFromGoogle} = useLogout()
@@ -29,14 +28,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
      */
 
     const login = () => {
-        localStorage.setItem("isLoginRequest", "true")
-        setIsLoginRequest("true")
         window.location.href = RouteNames.LOGIN
     }
 
     useEffect(() => {
-        if (user && isLoginRequest === "true") finishLogin()
-    }, [isLoginRequest, user])
+        if (user) finishLogin()
+    }, [user])
     
     const finishLogin = useCallback(() => {
         setIsAuth(true)
@@ -48,11 +45,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     const logout = () => {
 
-        localStorage.setItem("isLoginRequest", "false")
-        setIsLoginRequest("false")
-
         const hasVisited = localStorage.getItem("hasVisitedOnboarding")
-        //localStorage.clear()
+        localStorage.clear()
         if (hasVisited === "visited") localStorage.setItem("hasVisitedOnboarding", "visited")
 
         logoutFromGoogle()
