@@ -2,20 +2,11 @@ import {KeySquare} from "lucide-react";
 import {FC} from "react";
 import s from "./style.module.css"
 import {Button} from "@/shared/ui";
-import {RouteNames} from "@/shared/types";
-import {useNavigate} from "react-router-dom";
 import {useAuthContext} from "@/features";
 
 export const Index: FC = () => {
 
-    const navigate = useNavigate()
-    const {confirmLogin} = useAuthContext()
-
-    const click = () => {
-        window.location.href = RouteNames.LOGIN
-        navigate(`/${RouteNames.MAIN}`)
-        confirmLogin()
-    }
+    const {login} = useAuthContext()
 
     return (
         <div className={s.container}>
@@ -28,7 +19,7 @@ export const Index: FC = () => {
                     Войдите в свой Google аккаунт, чтобы использовать все функции приложения
                 </p>
             </div>
-            <Button onClick={click} size={"lg"}>
+            <Button onClick={login} size={"lg"}>
                 Войти с помощью Google
             </Button>
         </div>
