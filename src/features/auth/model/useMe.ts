@@ -2,7 +2,7 @@ import {useQuery} from "@tanstack/react-query";
 import {getMe} from "@/features/auth/api";
 import {getFallbackMe} from "@/features/auth/utils";
 
-export const useMe = () => {
+export const useMe = (enabled = true) => {
 
     const fallback = getFallbackMe()
 
@@ -11,11 +11,13 @@ export const useMe = () => {
         queryFn: getMe,
         retry: false,
         refetchOnWindowFocus: false,
+        enabled
     })
 
     return {
         ...query,
-        fallback
+        fallback,
+        isAuth: !!query.data
     }
 
 }

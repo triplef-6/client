@@ -1,20 +1,18 @@
-import {ReactNode, useCallback, useEffect, useState} from "react";
-import {AuthContext, tourLocalHistoryStore as history, useLogout} from "@/features";
-import {useAddTags} from "@/entities";
+import {ReactNode, useRef} from "react";
+import {AuthContext, useLogout} from "@/features";
 import {useMe} from "@/features/auth/model/useMe.ts";
-import {RouteNames} from "@/shared/types";
 import {useQueryClient} from "@tanstack/react-query";
+import {RouteNames} from "@/shared/types";
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     //const navigate = useNavigate()
     const queryClient = useQueryClient()
 
-    const [isAuth, setIsAuth] = useState<boolean>(false)
-    
-    const {data: user, fallback} = useMe()
+    const isAuthEnabled = useRef(true)
+
+    const {data: user, fallback, isAuth} = useMe(isAuthEnabled.current)
     const {mutate: logoutFromGoogle} = useLogout()
-    const {mutate: addTags} = useAddTags()
 
     // Редирект на onboarding при первом запуске
     /*
@@ -27,36 +25,27 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }, [])
      */
 
-    const login = () => {
+    const login = async () => {
+        isAuthEnabled.current = true
         window.location.href = RouteNames.LOGIN
     }
 
-    useEffect(() => {
-        if (user) finishLogin()
-    }, [user])
-    
-    const finishLogin = useCallback(() => {
-        setIsAuth(true)
-        if (history.tagsCount !== 0) {
-            addTags(history.tags)
-            history.clearTags()
-        }
-    }, [addTags])
-
     const logout = () => {
 
+        isAuthEnabled.current = false
+
+        queryClient.removeQueries({ queryKey: ["me"] })
+
         const hasVisited = localStorage.getItem("hasVisitedOnboarding")
-        localStorage.clear()
+        //localStorage.clear()
         if (hasVisited === "visited") localStorage.setItem("hasVisitedOnboarding", "visited")
 
         logoutFromGoogle()
-        setIsAuth(false)
-        queryClient.removeQueries({queryKey: ["me"]})
 
     }
 
     return (
-        <AuthContext.Provider value={{user: user ?? fallback, isAuth, setIsAuth, logout, login}}>
+        <AuthContext.Provider value={{user: user ?? fallback, isAuth, logout, login}}>
             {children}
         </AuthContext.Provider>
     )
