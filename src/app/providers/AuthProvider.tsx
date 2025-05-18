@@ -1,4 +1,4 @@
-import {ReactNode, useRef} from "react";
+import {ReactNode, useState} from "react";
 import {AuthContext, useLogout} from "@/features";
 import {useMe} from "@/features/auth/model/useMe.ts";
 import {useQueryClient} from "@tanstack/react-query";
@@ -9,9 +9,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     //const navigate = useNavigate()
     const queryClient = useQueryClient()
 
-    const isAuthEnabled = useRef(true)
+    const [isAuthEnabled, setIsAuthEnabled] = useState(() => {
+        return localStorage.getItem("isAuthEnabled") === "true"
+    })
 
-    const {data: user, fallback, isAuth} = useMe(isAuthEnabled.current)
+    const {data: user, fallback, isAuth} = useMe(isAuthEnabled)
     const {mutate: logoutFromGoogle} = useLogout()
 
     // Редирект на onboarding при первом запуске
@@ -26,13 +28,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
      */
 
     const login = async () => {
-        isAuthEnabled.current = true
+        localStorage.setItem("isAuthEnabled", "true")
+        setIsAuthEnabled(true)
         window.location.href = RouteNames.LOGIN
     }
 
     const logout = () => {
 
-        isAuthEnabled.current = false
+        localStorage.setItem("isAuthEnabled", "false")
+        setIsAuthEnabled(false)
 
         queryClient.removeQueries({ queryKey: ["me"] })
 
