@@ -4,7 +4,7 @@ import {Button} from "@/shared/ui";
 import {ITour} from "@/shared/types";
 import s from "./style.module.css"
 import {useEditTour} from "@/shared/hooks";
-import {formatPeople} from "@/shared/utills";
+import {formatPeople} from "@/shared/lib/format";
 import {useDeleteTour, useReviewsByTourId} from "@/entities";
 
 type TourMetricsProps = {

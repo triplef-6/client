@@ -1,7 +1,7 @@
 import {FC} from "react";
 import style from "./style.module.css"
 import {Marker} from "@/shared/ui/rating/Marker.tsx";
-import {formatRatingCount} from "@/shared/utills";
+import {formatRatingCount} from "@/shared/lib/format";
 
 type RatingProps = {
     option: string

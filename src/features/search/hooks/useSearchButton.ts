@@ -1,27 +1,28 @@
 import {RouteNames} from "@/shared/types";
-import {searchTourStore, searchTourStore as store} from "@/features";
+import {searchTourStore as store} from "@/features";
 import {useTours} from "@/entities";
+import {useNavigate} from "react-router-dom";
 
 type ReturnType = {
     search: () => void
-    isDisabled: boolean
+    isToursFetching: boolean
 }
 
 export const useSearchButton = (): ReturnType => {
 
-    //const navigate = useNavigate()
-    const {data, length} = useTours()
+    const navigate = useNavigate()
+    const {refetch, isRefetching} = useTours()
 
-    const location = length > 0 && data[0].location.city !== searchTourStore.searchParams.location.city ? data[0].location.city : "Экскурсии"
-    const url: string = `/${RouteNames.TOURS}/${encodeURIComponent(location)}`
+    const url: string = `/${RouteNames.TOURS}/${encodeURIComponent("Поиск")}`
 
-    const search = () => {
+    const search = async () => {
         store.isSubmitted = true
         if (store.isDisabled) {
-            window.open(url, "_blank")
+            await refetch()
+            navigate(url)
         }
     }
 
-    return { search, isDisabled: store.isDisabled }
+    return { search, isToursFetching: isRefetching}
 
 }

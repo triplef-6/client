@@ -1,5 +1,5 @@
 import {FC} from "react";
-import {formatRatingCount, formatRatings} from "@/shared/utills";
+import {formatRatingCount, formatRatings} from "@/shared/lib/format";
 import {useWindowSize} from "usehooks-ts";
 
 type RatingDescriptionProps = {

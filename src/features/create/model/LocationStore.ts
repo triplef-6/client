@@ -56,4 +56,15 @@ export class LocationStore implements ILocationTour, IRouteLength, IByCity, IIsD
         this._routeLength = value;
     }
 
+    clearLocation(): void {
+        this._location = {
+            id: 0,
+            city: "",
+            country: "",
+            tourCount: 0,
+            region: "",
+            image: ""
+        }
+    }
+
 }

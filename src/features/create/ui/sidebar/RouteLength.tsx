@@ -2,7 +2,7 @@ import {FC} from "react";
 import {Slider} from "@/shared/ui";
 import {useSubmitted} from "@/shared/hooks";
 import {createTourStore as store} from "@/features/create/model";
-import {formatRouteLength} from "@/shared/utills";
+import {formatRouteLength} from "@/shared/lib/format";
 import {cn} from "@/app/lib";
 import {observer} from "mobx-react-lite";
 import {useRouteLength} from "@/features/create/hooks";

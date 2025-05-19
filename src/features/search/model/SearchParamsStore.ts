@@ -37,7 +37,14 @@ export class SearchParamsStore implements ILocationTour, IDate, IAccessibility, 
 
     private loadFromStorage() {
         const saved = localStorage.getItem("searchParams")
-        if (saved) this._searchParams = JSON.parse(saved)
+        if (saved) {
+            const parsed: SearchParamsType = JSON.parse(saved)
+            if (parsed.date) {
+                parsed.date.from = parsed.date.from ? new Date(parsed.date.from) : undefined
+                parsed.date.to = parsed.date.to ? new Date(parsed.date.to) : undefined
+            }
+            this._searchParams = parsed
+        }
     }
 
     private saveToStorage() {
@@ -47,6 +54,17 @@ export class SearchParamsStore implements ILocationTour, IDate, IAccessibility, 
     private updateParams(params: Partial<SearchParamsType>) {
         this._searchParams = { ...this._searchParams, ...params }
         this.saveToStorage()
+    }
+
+    clearLocation() {
+        this.location = {
+            id: 0,
+            city: "",
+            country: "",
+            tourCount: 0,
+            region: "",
+            image: ""
+        }
     }
 
     get searchParams(): SearchParamsType {

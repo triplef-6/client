@@ -1,6 +1,6 @@
 import {FC} from "react";
 import edit from "@/shared/assets/icons/edit.svg"
-import {formatName} from "@/shared/utills";
+import {formatName} from "@/shared/lib/format";
 import {useNavigate} from "react-router-dom";
 import {RouteNames} from "@/shared/types";
 import fallbackAvatar from "@/shared/assets/icons/avatar.svg"

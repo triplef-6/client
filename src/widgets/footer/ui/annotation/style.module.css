@@ -1,5 +1,5 @@
 .container {
-    @apply px-4 md:px-32 xl:px-56
+    @apply px-4 md:px-32 xl:px-56 huge:px-20 flex justify-start w-full max-w-screen-wide
 }
 
 .text {

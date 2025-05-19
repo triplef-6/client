@@ -1,11 +1,11 @@
 .container {
-    @apply w-full flex flex-col py-16 huge:px-96 huge:h-[1200px]
+    @apply w-full flex flex-col items-center py-16 huge:h-[1200px]
 }
 
 .info {
-    @apply flex flex-col max-lg:gap-4 lg:flex-row justify-between px-4 md:px-32 xl:px-56
+    @apply flex flex-col max-lg:gap-4 lg:flex-row justify-between px-4 md:px-32 xl:px-56 huge:px-20 w-full max-w-screen-wide
 }
 
 .separator {
-    @apply h-px bg-grayscale-300 my-4 px-4 md:px-32 lg:px-56
+    @apply h-px bg-grayscale-300 my-4 px-4 md:px-32 lg:px-56 huge:px-0
 }

@@ -11,16 +11,6 @@ const LazyTours = React.lazy(() =>
 )
 
 export const ToursPage: FC = () => {
-
-    //const {length, data} = useTours()
-    //const city = length > 0 ? data[0].location.city : searchTourStore.searchParams.location.city
-
-    /*
-    useEffect(() => {
-        document.title = `${city} ${length} ${formatExcursionWord(length)}`
-    }, [])
-     */
-
     return (
         <div className={pages.tours}>
             <div className={"flex flex-col gap-4 items-center"}>

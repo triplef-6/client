@@ -5,7 +5,7 @@ import {BookingButton, IndividualPrice} from "@/shared/ui";
 import {Item} from "./item";
 import {Rating} from "./rating";
 import {ContributorButton} from "@/entities";
-import {formatDate, formatHours, formatPeople, formatTime} from "@/shared/utills";
+import {formatDate, formatHours, formatPeople, formatTime} from "@/shared/lib/format";
 
 type SidebarProps = {
     tour: ITour

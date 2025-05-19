@@ -5,7 +5,7 @@ import style from "./style.module.css"
 import {useNavigate} from "react-router-dom";
 import {ToFavourite, useAddViewFactory} from "@/features";
 import {useWindowSize} from "usehooks-ts";
-import {truncateText} from "@/shared/utills";
+import {truncateText} from "@/shared/lib/format";
 
 type TourCardProps = {
     tour: ITour

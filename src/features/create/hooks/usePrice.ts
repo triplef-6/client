@@ -2,7 +2,7 @@ import * as React from "react";
 import {useState} from "react";
 
 import {IPrice} from "@/shared/types";
-import {cleanPriceInputValue, formatNumberWithSpaces} from "@/shared/utills";
+import {cleanPriceInputValue, formatNumberWithSpaces} from "@/shared/lib/format";
 
 type ReturnType = {
     value: string

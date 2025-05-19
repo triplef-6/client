@@ -3,7 +3,7 @@ import {Select, SelectContent, SelectItem, SelectSortTrigger} from "@/shared/ui"
 import {sortTypesArray as values} from "@/shared/config";
 import {useSearchSelect} from "@/shared/hooks";
 import {searchTourStore} from "@/features";
-import {formatSelectValue} from "@/shared/utills";
+import {formatSelectValue} from "@/shared/lib/format";
 import {observer} from "mobx-react-lite";
 
 export const Index: FC = observer(() => {

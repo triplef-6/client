@@ -5,7 +5,7 @@
 }
 
 .main {
-    @apply flex flex-col padding huge:items-center
+    @apply flex flex-col items-center padding
 }
 
 .locations {
@@ -13,7 +13,7 @@
 }
 
 .tours {
-    @apply flex flex-col lg:flex-row py-8 xl:py-16 gap-6
+    @apply flex flex-col lg:flex-row py-8 xl:py-16 gap-6 w-full max-w-screen-wide
 }
 
 .favorites {

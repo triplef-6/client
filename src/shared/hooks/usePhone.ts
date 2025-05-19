@@ -2,7 +2,7 @@ import * as React from "react";
 import {useState} from "react";
 import {IContact} from "@/shared/types";
 import {validatePhoneLen} from "@/shared/validate";
-import {phoneMaskRu} from "@/shared/utills";
+import {phoneMaskRu} from "@/shared/lib/format";
 
 type StateType = {
     isOpen: boolean,

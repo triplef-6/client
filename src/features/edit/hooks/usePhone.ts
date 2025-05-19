@@ -1,7 +1,7 @@
 import * as React from "react";
 import {useEffect, useState} from "react";
 import {validatePhoneLen} from "@/shared/validate";
-import {phoneMaskRu} from "@/shared/utills";
+import {phoneMaskRu} from "@/shared/lib/format";
 import {useEditContext} from "@/features";
 
 type StateType = {

@@ -20,7 +20,7 @@ export const getTours = async (searchParams: SearchParamsType): Promise<ITour[]>
         return response.data
 
     } catch (e) {
-        console.log("Tours not found.")
+        console.log("Tours not found")
         if (isAxiosError(e)) {
             throw new ApiException<ITour>(e.message, e.response?.status, e.response?.data as ITour[] | undefined)
         }

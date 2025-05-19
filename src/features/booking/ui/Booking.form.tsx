@@ -1,6 +1,6 @@
 import {FC} from "react";
 import {Button, Slider} from "@/shared/ui";
-import {formatHours, formatPeople} from "@/shared/utills";
+import {formatHours, formatPeople} from "@/shared/lib/format";
 import {TourFormat} from "@/shared/types";
 import {Binoculars, CalendarCheck, Clock, Users} from "lucide-react";
 import {useBookingForm} from "@/features/booking/hooks";

@@ -1,5 +1,6 @@
 import {BaseStore} from "@/shared/lib";
 import {SearchParamsStore} from "@/features/search/model/SearchParamsStore.ts";
+import {safeGet} from "@/shared/utils";
 
 class SearchTourStore extends BaseStore {
 
@@ -10,7 +11,7 @@ class SearchTourStore extends BaseStore {
     }
 
     get isDisabled(): boolean {
-        return !!this.searchParams.location.city
+        return !!safeGet(() => this.searchParams.location.city, "")
             && !!this.searchParams.date.from
             && !!this.searchParams.date.to
             && !!this.searchParams.accessibility

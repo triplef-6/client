@@ -16,7 +16,7 @@ import {searchTourStore as store} from "@/features";
 
 export const Input: FC = observer(() => {
 
-    const {data: locations} = useLocations()
+    const {data: locations, isPlaceholderData} = useLocations()
 
     const {
         state,
@@ -45,15 +45,18 @@ export const Input: FC = observer(() => {
             <CommandContainer isOpen={state.isOpen}>
                 <CommandList>
                     <CommandEmpty>Направления не найдены</CommandEmpty>
-                    <CommandGroup heading={"Направления"}>
-                        {locations.map((location) => (
-                            <CommandLocation
-                                key={location.city}
-                                onClick={() => select(location.city)}
-                                location={location}
-                            />
-                        ))}
-                    </CommandGroup>
+                    {
+                        !isPlaceholderData &&
+                        <CommandGroup heading={"Направления"}>
+                            {locations.map((location) => (
+                                <CommandLocation
+                                    key={location.city}
+                                    onClick={() => select(location.city)}
+                                    location={location}
+                                />
+                            ))}
+                        </CommandGroup>
+                    }
                 </CommandList>
             </CommandContainer>
         </Command>

@@ -1,6 +1,6 @@
 import {FC} from "react";
 import watch from "@/shared/assets/icons/watch.svg";
-import {formatHours} from "@/shared/utills";
+import {formatHours} from "@/shared/lib/format";
 
 type HoursProps = {
     duration: number

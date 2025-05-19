@@ -1,8 +1,9 @@
 import * as React from "react";
 import {useState} from "react";
 import {useLocations} from "@/entities";
-import {ILocation, ILocationTour} from "@/shared/types";
+import {ILocationTour} from "@/shared/types";
 import {validateByCity} from "@/shared/validate";
+import {safeGet} from "@/shared/utils";
 
 type StateType = {
     isOpen: boolean
@@ -25,6 +26,9 @@ export const useLocation = (store: ILocationTour): ReturnType => {
 
     const {data: locations} = useLocations()
 
+    const [inputValue, setInputValue] = useState<string>(
+        store.location.city ?? ""
+    )
     const [state, setState] = useState<StateType>({
         isOpen: false,
         isTouched: false,
@@ -32,12 +36,15 @@ export const useLocation = (store: ILocationTour): ReturnType => {
     })
 
     const updateField = (newValue: string) => {
-        setState({
-            isTouched: true,
-            isOpen: true,
-            isCorrected: validateByCity(newValue, locations),
-        })
-        if (state.isCorrected) store.location = locations.find(i => i.city === newValue) as ILocation
+
+        const isCorrected = validateByCity(newValue, locations)
+        const foundLocation = locations.find(i => i.city === newValue)
+
+        setInputValue(newValue)
+        setState({ isTouched: true, isOpen: true, isCorrected })
+
+        if (state.isCorrected && foundLocation) store.location = foundLocation
+
     }
 
     const click = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -55,24 +62,24 @@ export const useLocation = (store: ILocationTour): ReturnType => {
     }
 
     const blur = () => {
-        if (!state.isOpen && store.location.city === "") {
+        if (!state.isOpen && safeGet(() => store.location.city, "") === "") {
             setState((prev) => ({ ...prev, isTouched: true }))
         }
     }
 
-
     const clear = () => {
-        store.location.city = ""
+        setInputValue("")
+        store.clearLocation()
     }
 
     const close = () => setState((prev) => ({
         ...prev,
         isOpen: false,
-        isTouched: prev.isTouched && store.location.city === "",
+        isTouched: prev.isTouched && safeGet(() => store.location.city, "") === "",
     }))
 
     return {
-        value: store.location?.city,
+        value: inputValue,
         state,
         click, select, focus, blur, clear, close
     }

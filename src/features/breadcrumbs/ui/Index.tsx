@@ -14,7 +14,7 @@ export const Index: FC = () => {
     const breadcrumbs: BreadcrumbType[] = useBreadcrumbs()
 
     return (
-        <Breadcrumb>
+        <Breadcrumb className={"w-full max-w-screen-wide"}>
             <BreadcrumbList>
                 {breadcrumbs.map((breadcrumb, index) => (
                     <BreadcrumbItem key={breadcrumb.path}>

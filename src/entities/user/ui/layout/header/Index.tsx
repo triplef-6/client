@@ -2,7 +2,7 @@ import {FC} from 'react';
 import {IContacts} from "@/shared/types";
 import style from "./style.module.css";
 import {Contacts, Rating} from "@/shared/ui";
-import {formatName} from "@/shared/utills";
+import {formatName} from "@/shared/lib/format";
 import contributor from "@/shared/assets/icons/contributor.svg"
 
 type HeaderProps = {

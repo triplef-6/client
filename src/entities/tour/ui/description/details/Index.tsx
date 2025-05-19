@@ -4,7 +4,7 @@ import back from "@/shared/assets/icons/back.svg";
 import wallet from "@/shared/assets/icons/wallet.svg";
 import {Item} from "./item";
 import style from "./style.module.css"
-import {formatPeople} from "@/shared/utills";
+import {formatPeople} from "@/shared/lib/format";
 import {TourFormat} from "@/shared/types";
 
 type DetailsProps = {

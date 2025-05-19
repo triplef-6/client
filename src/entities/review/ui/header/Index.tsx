@@ -1,7 +1,7 @@
 import {FC} from "react";
 import style from "./style.module.css"
 import {Rating} from "@/shared/ui"
-import {formatReviews} from "@/shared/utills";
+import {formatReviews} from "@/shared/lib/format";
 
 type ReviewHeaderProps = {
     rating: number

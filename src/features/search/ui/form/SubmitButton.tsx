@@ -9,15 +9,16 @@ type ButtonProps = {
 
 export const SubmitButton: FC<ButtonProps> = ({orientation}) => {
 
-    const {search} = useSearchButton()
+    const {search, isToursFetching} = useSearchButton()
 
     return (
         <Button
+            disabled={isToursFetching}
             role={"submitButton"}
             onClick={search}
             size={orientation === Orientation.HORIZONTAL ? "default" : "lg"}
         >
-            Искать
+            {isToursFetching ? "Поиск" : "Искать"}
         </Button>
     )
 }

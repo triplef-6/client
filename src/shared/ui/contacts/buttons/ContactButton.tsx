@@ -1,7 +1,7 @@
 import {FC, useState} from "react";
 import {Alert, AlertDescription, Button} from "@/shared/ui";
 import {Info} from "lucide-react";
-import {formatPhone} from "@/shared/utills";
+import {formatPhone} from "@/shared/lib/format";
 
 type ContactButtonProps = {
     phone: string

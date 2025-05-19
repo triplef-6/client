@@ -1,5 +1,5 @@
 .container {
-    @apply flex flex-col max-lg:items-center wide:w-2/5 gap-4 py-4 lg:px-4 xl:px-12
+    @apply flex flex-col items-center wide:w-2/5 gap-4
 }
 
 .subContainer {

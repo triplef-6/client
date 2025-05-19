@@ -2,7 +2,7 @@ import {FC} from "react";
 import {Slider} from "@/shared/ui";
 import {useSubmitted} from "@/shared/hooks";
 import {createTourStore as store} from "@/features/create/model";
-import {formatPeople} from "@/shared/utills";
+import {formatPeople} from "@/shared/lib/format";
 import {cn} from "@/app/lib";
 import {observer} from "mobx-react-lite";
 import {useGroupCapacity, useTourFormat} from "@/features/create/hooks";

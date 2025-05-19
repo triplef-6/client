@@ -28,13 +28,13 @@ export const TourPage: FC = () => {
     )
 
     return (
-        <div className={"flex flex-col justify-between py-12 huge:w-[1440px]"}>
+        <div className={"flex flex-col justify-between py-12 w-full max-w-screen-wide"}>
             <Tags tags={tour.tags}/>
             <Header tour={tour}/>
             <Suspense fallback={<CarouselSkeleton/>}>
                 <LazyCarousel images={tour.images as string[]} coordinates={tour.coordinates}/>
             </Suspense>
-            <div className={"flex flex-col lg:flex-row"}>
+            <div className={"flex flex-col lg:flex-row lg:justify-between gap-8"}>
                 <Description tour={tour}/>
                 <Sidebar tour={tour}/>
             </div>

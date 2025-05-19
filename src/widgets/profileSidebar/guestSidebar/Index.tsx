@@ -18,7 +18,7 @@ export const Index: FC = () => {
             <Button onClick={() => navigate(`/${RouteNames.AUTH}`)} className={style.button}>
                 Войти
             </Button>
-            <Button variant={"secondary"} onClick={() => navigate(`/${RouteNames.ON_BOARDING}`)}>
+            <Button className={"w-full flex justify-center"} variant={"secondary"} onClick={() => navigate(`/${RouteNames.ON_BOARDING}`)}>
                 Изменить рекомендации
             </Button>
         </div>
