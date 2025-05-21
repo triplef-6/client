@@ -1,5 +1,5 @@
 import {FC} from "react";
-import {ProfileSidebar, ViewedTours} from "@/widgets";
+import {Dashboard, ProfileSidebar} from "@/widgets";
 
 export const ProfilePage: FC = () => {
     return (
@@ -9,7 +9,7 @@ export const ProfilePage: FC = () => {
             </h1>
             <div className={"min-h-screen flex flex-col lg:flex-row gap-8 py-8"}>
                 <ProfileSidebar/>
-                <ViewedTours/>
+                <Dashboard/>
             </div>
         </div>
     );

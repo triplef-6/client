@@ -1,1 +1,2 @@
-export {Index as ToFavourite} from "./Index.tsx"
+export {ToFavourite} from "./ToFavourite.tsx"
+export {FavList} from "./FavList.tsx"

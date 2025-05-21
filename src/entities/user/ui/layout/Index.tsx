@@ -15,7 +15,8 @@ export const Index: FC<LayoutProps> = ({contributorId}) => {
     const {
         data: contributor,
         isLoading,
-        isError
+        isError,
+        isFetching
     } = useUser(contributorId)
 
     const {
@@ -29,22 +30,20 @@ export const Index: FC<LayoutProps> = ({contributorId}) => {
         <NotFound heading={"Данные не найдены"} text={"Возникла проблема с поиском контрибьютера"}/>
     )
 
-    if (isLoading || isPlaceholderTours) return (
-        <div className={"py-10"}>
-            <AppSkeleton />
-        </div>
-    )
-
     return (
         <div className={style.container}>
-            <Header
-                name={contributor.name}
-                surname={contributor.surname}
-                avatar={contributor.avatar}
-                contacts={contributor.contacts}
-                rating={contributor.rating}
-                ratingCount={contributor.ratingCount}
-            />
+            {
+                isLoading || isFetching ?
+                    <AppSkeleton/> :
+                    <Header
+                        name={contributor.name}
+                        surname={contributor.surname}
+                        avatar={contributor.avatar}
+                        contacts={contributor.contacts}
+                        rating={contributor.rating}
+                        ratingCount={contributor.ratingCount}
+                    />
+            }
             {contributor.info && <Description desc={contributor.info}/>}
             {(isToursLoading || isPlaceholderTours) ? <AppSkeleton/> : <Tours tours={tours}/>}
         </div>

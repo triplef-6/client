@@ -2,11 +2,12 @@ import {FC} from "react";
 import style from "./style.module.css";
 import {UserName} from "@/shared/ui";
 import {ProfileButtons} from "@/widgets/profileSidebar/buttons";
-import {useAuthContext} from "@/features";
+import {useMe} from "@/features";
 
 export const Index: FC = () => {
 
-    const {user} = useAuthContext()
+    const {user, userId} = useMe()
+    if (!userId) return null
 
     return (
         <div className={style.container}>

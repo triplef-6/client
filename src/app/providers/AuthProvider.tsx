@@ -1,39 +1,21 @@
-import {ReactNode, useRef} from "react";
-import {AuthContext, useLogout} from "@/features";
-import {useMe} from "@/features/auth/model/useMe.ts";
-import {useQueryClient} from "@tanstack/react-query";
-import {RouteNames} from "@/shared/types";
+import {ReactNode, useEffect, useState} from "react";
+import {AuthContext, useLoginPermission} from "@/features";
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
-    const queryClient = useQueryClient()
+    const [isAuth, setIsAuth] = useState<boolean>(false)
+    const {isLoginAllowed, setIsLoginAllowed} = useLoginPermission()
 
-    const isAuthEnabled = useRef(true)
+    useEffect(() => {
+        console.log("IS AUTH ",isAuth)
+        console.log("IS ALLOWED ",isLoginAllowed)
+    }, [isAuth]);
 
-    const {data: user, fallback, isAuth} = useMe(isAuthEnabled.current)
-    const {mutate: logoutFromGoogle} = useLogout()
-
-    const login = () => {
-        isAuthEnabled.current = true
-        window.location.href = RouteNames.LOGIN
-    }
-
-    const logout = () => {
-
-        isAuthEnabled.current = false
-
-        queryClient.removeQueries({ queryKey: ["me"] })
-
-        const hasVisited = localStorage.getItem("hasVisitedOnboarding")
-        //localStorage.clear()
-        if (hasVisited === "visited") localStorage.setItem("hasVisitedOnboarding", "visited")
-
-        logoutFromGoogle()
-
-    }
+    const login = () => setIsAuth(true)
+    const logout = () => setIsAuth(false)
 
     return (
-        <AuthContext.Provider value={{user: user ?? fallback, isAuth, logout, login}}>
+        <AuthContext.Provider value={{isAuth, logout, login, isLoginAllowed, setIsLoginAllowed}}>
             {children}
         </AuthContext.Provider>
     )

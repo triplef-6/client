@@ -4,24 +4,30 @@ export const serializeUserToFormData = (me: IMe): FormData => {
 
     const formData = new FormData()
 
-    formData.append("id", me.id.toString())
-    formData.append("name", me.name)
-    formData.append("surname", me.surname)
-    formData.append("email", me.email)
-    formData.append("role", me.role)
-    formData.append("info", me.info ?? "")
-    formData.append("avatar", me.avatar)
+    const userData = {
+        id: me.id,
+        name: me.name,
+        surname: me.surname,
+        email: me.email,
+        role: me.role,
+        info: me.info ?? "",
+        avatar: me.avatar ?? "",
+        rating: me.rating ?? 0,
+        ratingCount: me.ratingCount ?? 0,
+        contacts: {
+            vk: me.contacts?.vk ?? "",
+            telegram: me.contacts?.telegram ?? "",
+            phone: me.contacts?.phone ?? ""
+        },
+        tags: me.tags ?? []
+    }
+
+    formData.append(
+        "me",
+        new Blob([JSON.stringify(userData)], { type: "application/json" })
+    )
+
     if (me.avatarFile) formData.append("avatarFile", me.avatarFile)
-    formData.append("rating", me.rating ? me.rating.toString() : "0")
-    formData.append("ratingCount", me.ratingCount ? me.ratingCount.toString() : "0")
-
-    // contacts
-    formData.append("contacts.vk", me.contacts ? (me.contacts.vk ?? "") : "")
-    formData.append("contacts.telegram", me.contacts ? (me.contacts.telegram ?? "") : "")
-    formData.append("contacts.phone", me.contacts ? me.contacts.phone : "")
-
-    // tags
-    formData.append("tags", me.tags.join(","))
 
     return formData
 

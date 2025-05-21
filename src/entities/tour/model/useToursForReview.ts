@@ -13,7 +13,8 @@ export const useToursForReview = (userId: number) => {
 
     return {
         ...query,
-        isEmpty: query.data && query.data.length === 0
+        isEmpty: (query.data ?? []).length === 0,
+        safeData: query.data ?? []
     }
 
 }

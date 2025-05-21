@@ -6,9 +6,9 @@ export const useFavFactory = () : ITour[] => {
 
     const {isAuth} = useAuthContext()
 
-    const {data} = useFavourites()
+    const {safeData} = useFavourites(isAuth)
     const local = store.favourites
 
-    return useMemo(() => isAuth ? data : local, [data, isAuth, local])
+    return useMemo(() => isAuth ? safeData : local, [safeData, isAuth, local])
 
 }

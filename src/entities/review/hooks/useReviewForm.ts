@@ -1,4 +1,4 @@
-import {useAuthContext, useUserOrders} from "@/features";
+import {useMe, useUserOrders} from "@/features";
 import {useCreateReview, useReviewsByUserId, useUpdateReview} from "@/entities";
 import {IOrder, IReview, ITour, TourAccessibility} from "@/shared/types";
 import {useCallback, useEffect, useState} from "react";
@@ -15,9 +15,11 @@ type Result = {
 
 export const useReviewForm = (type: "create" | "update", tour: ITour): Result => {
 
-    const {user} = useAuthContext()
-    const {data: reviews} = useReviewsByUserId(user.id)
-    const {data: orders} = useUserOrders(user.id)
+    const {userId, user} = useMe()
+    if (!userId) throw new Error("Неавторизованный пользователь не может создать экскурсию!")
+
+    const {data: reviews} = useReviewsByUserId(userId)
+    const {data: orders} = useUserOrders(userId)
     const last = findLastReview(reviews, tour.id)
 
     const {mutate: create} = useCreateReview()
@@ -26,7 +28,6 @@ export const useReviewForm = (type: "create" | "update", tour: ITour): Result =>
     const [completed, setCompleted] = useState<boolean>(false)
     const [review, setReview] = useState<IReview>({
         id: type === "update" ? last.id : Date.now(),
-        userId: user.id,
         tourId: tour.id,
         name: user.name,
         rating: type === "update" ? last.rating : 0,

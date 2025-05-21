@@ -19,7 +19,7 @@ export const useAddFavFactory = (tour: ITour): ResultType => {
 
     const local = store.favourites
 
-    const { data } = useFavourites()
+    const { safeData } = useFavourites()
     const { mutate: addFav } = useAddToFavourites()
     const { mutate: deleteFav } = useDeleteFromFavourites()
 
@@ -28,8 +28,8 @@ export const useAddFavFactory = (tour: ITour): ResultType => {
     // Определяем начальное состояние кнопки
     useEffect(() => {
         if (!isAuth) setIsActive(local.some(fav => fav.id === tour.id))
-        else setIsActive(data.some(fav => fav.id === tour.id))
-    }, [local, data, isAuth, tour.id])
+        else setIsActive(safeData.some(fav => fav.id === tour.id))
+    }, [local, safeData, isAuth, tour.id])
 
     const clickHandler = useCallback(() => {
         if (!isActive) {

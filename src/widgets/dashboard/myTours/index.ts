@@ -1,0 +1,1 @@
+export {Index as MyTours} from "./Index.tsx"

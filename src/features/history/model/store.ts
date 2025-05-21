@@ -72,6 +72,10 @@ class TourLocalHistoryStore {
         this._tags = []
     }
 
+    clearFavourites() {
+        this._favourites = []
+    }
+
 }
 
 export const tourLocalHistoryStore = new TourLocalHistoryStore()

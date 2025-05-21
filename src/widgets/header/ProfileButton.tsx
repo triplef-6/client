@@ -14,20 +14,19 @@ import next from "@/shared/assets/icons/next-secondary.svg";
 import {FC, JSX} from "react";
 import {RouteNames, UserRole} from "@/shared/types";
 import {useNavigate} from "react-router-dom";
-import {useAuthContext} from "@/features";
+import {useAuthContext, useLogoutFromGoogle, useMe} from "@/features";
 
 export const ProfileButton: FC = () => {
 
     const navigate = useNavigate()
+    const {isAuth} = useAuthContext()
+    const {user} = useMe()
+    const logOutFromGoogle = useLogoutFromGoogle()
 
-    const {user, isAuth, logout} = useAuthContext()
-
-    const logIn = () => {
-        navigate(`/${RouteNames.AUTH}`)
-    }
+    const logIn = () => navigate(`/${RouteNames.AUTH}`)
 
     const logOut = () => {
-        logout()
+        logOutFromGoogle()
         navigate(`/${RouteNames.AUTH}`)
     }
 
@@ -88,7 +87,7 @@ export const ProfileButton: FC = () => {
                         <img alt={"star"} src={star} height={16} width={16}/>
                         Избранное
                     </DropdownMenuItem>
-                    {user?.role === UserRole.contributor && isAuth && createItem}
+                    {user?.role === UserRole.guide && isAuth && createItem}
                     {isAuth && logOutButton}
                     {!isAuth && logInButton}
                 </DropdownMenuGroup>

@@ -11,13 +11,14 @@ type ReturnType = {
     click: () => void
     add: (value: string) => void
     remove: (value: string) => void
+    isPlaceholderTags: boolean
 }
 
 export const useReqs = (): ReturnType => {
 
     const navigate = useNavigate()
 
-    const {data: tags = []} = useTags()
+    const {data: tags = [], isPlaceholderData: isPlaceholderTags} = useTags()
     const {mutate: addTags} = useAddTags()
 
     const add = (value: string) => history.addTag(value)
@@ -36,6 +37,7 @@ export const useReqs = (): ReturnType => {
     return {
         disabled: history.tagsCount === 0,
         selected: history.tags,
+        isPlaceholderTags,
         tags,
         add, remove, click
     }

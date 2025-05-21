@@ -3,11 +3,19 @@ import {ITour} from "@/shared/types";
 import {ApiException} from "@/shared/lib";
 import {getFavourites} from "@/features/history/api";
 
-export const useFavourites = () => {
-    return useQuery<ITour[], ApiException<ITour>>({
+export const useFavourites = (enabled = true) => {
+
+    const query = useQuery<ITour[], ApiException<ITour>>({
         queryKey: ["favourites"],
         queryFn: () => getFavourites(),
         staleTime: 60_000,
-        initialData: []
+        placeholderData: [],
+        enabled
     })
+
+    return {
+        ...query,
+        safeData: query.data ? query.data : []
+    }
+
 }

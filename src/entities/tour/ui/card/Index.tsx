@@ -1,7 +1,7 @@
 import React, {FC, Suspense} from "react";
 import {ITour, RouteNames} from "@/shared/types";
 import {Button, CarouselVariant, ImagesSkeleton, Price, Rating, TourParams} from "@/shared/ui";
-import style from "./style.module.css"
+import s from "./style.module.css"
 import {useNavigate} from "react-router-dom";
 import {ToFavourite, useAddViewFactory} from "@/features";
 import {useWindowSize} from "usehooks-ts";
@@ -29,36 +29,40 @@ export const Index: FC<TourCardProps> = ({tour}) => {
     }
 
     return (
-        <div className={style.container}>
+        <div className={s.container}>
 
             <Suspense fallback={<ImagesSkeleton/>}>
                 <LazyImagesCarousel variant={CarouselVariant.SMALL} images={tour.images as string[]}/>
             </Suspense>
 
-            <div className={style.content}>
+            <div className={s.content}>
 
-                <div className={style.header}>
-                    <Rating rating={tour.rating} ratingCount={tour.ratingCount}/>
-                    <ToFavourite tour={tour}/>
-                </div>
-
-                <div className={style.desc}>
-                    <div className={style.descContent}>
-                        <p className={style.title}>{tour.title}</p>
-                        <p className={style.text}>
-                            {truncateText(tour.description.info)}
-                        </p>
+                <div className={s.top}>
+                    <div className={s.header}>
+                        <Rating rating={tour.rating} ratingCount={tour.ratingCount}/>
+                        <ToFavourite tour={tour}/>
                     </div>
-                    {width >= 768 && <Price format={tour.format} price={tour.price} priceForPerson={tour.priceForPerson}/>}
+
+                    <div className={s.desc}>
+                        <div className={s.descContent}>
+                            <p className={s.title}>{tour.title}</p>
+                            <p className={s.text}>{truncateText(tour.description.info)}</p>
+                        </div>
+                        {
+                            width >= 768 &&
+                            <Price format={tour.format} price={tour.price} priceForPerson={tour.priceForPerson}/>
+                        }
+                    </div>
                 </div>
 
-                <div className={style.details}>
+                <div className={s.details}>
                     <TourParams
                         duration={tour.duration}
                         length={tour.routeLength}
                         formatBehavior={tour.formatBehavior}
                     />
-                    {width < 768 && <Price format={tour.format} price={tour.price} priceForPerson={tour.priceForPerson}/>}
+                    {width < 768 &&
+                        <Price format={tour.format} price={tour.price} priceForPerson={tour.priceForPerson}/>}
                     <Button onClick={clickHandler}>Выбрать</Button>
                 </div>
 

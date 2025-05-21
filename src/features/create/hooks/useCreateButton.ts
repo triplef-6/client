@@ -1,6 +1,6 @@
 import {useNavigate} from "react-router-dom";
 import {RouteNames} from "@/shared/types";
-import {createTourStore as store, useAuthContext} from "@/features";
+import {createTourStore as store, useMe} from "@/features";
 import {useCreateTour, useUpdateTour} from "@/entities";
 
 type ReturnType = {
@@ -11,9 +11,11 @@ export const useCreateButton = (): ReturnType => {
 
     const navigate = useNavigate()
 
-    const {user} = useAuthContext()
     const {mutate: createTour} = useCreateTour()
     const {mutate: updateTour} = useUpdateTour()
+
+    const {userId} = useMe()
+    if (!userId) throw new Error("Неавторизованный пользователь не может создать экскурсию!")
 
     const create = () => {
 
@@ -21,7 +23,7 @@ export const useCreateButton = (): ReturnType => {
 
         if (store.isDisabled) {
 
-            store.params.contributorId = user.id
+            store.params.contributorId = userId
 
             console.log(store.tour)
 

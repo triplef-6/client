@@ -1,5 +1,5 @@
-import {useEffect} from "react";
 import {useNavigate} from "react-router-dom";
+import {useEffect} from "react";
 import {RouteNames} from "@/shared/types";
 import {useAuthContext} from "@/features";
 
@@ -10,14 +10,13 @@ export const useOnboardingRedirect = () => {
 
     useEffect(() => {
 
-        if (isAuth) return
-
         const hasVisited = localStorage.getItem("hasVisitedOnboarding")
-        if (hasVisited !== "visited") {
+
+        if (!hasVisited && !isAuth) {
             localStorage.setItem("hasVisitedOnboarding", "visited")
             navigate(`/${RouteNames.ON_BOARDING}`)
         }
 
-    }, [isAuth, navigate])
+    }, [])
 
 }

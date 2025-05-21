@@ -1,5 +1,5 @@
 import {useNavigate} from "react-router-dom";
-import {useAuthContext, useBooking} from "@/features";
+import {useBooking} from "@/features";
 import {useTour} from "@/entities";
 import {useEffect, useState} from "react";
 import {ITour, RouteNames, TourFormat} from "@/shared/types";
@@ -15,8 +15,6 @@ type ReturnType = {
 export const useBookingForm = (tourId: number): ReturnType => {
 
     const navigate = useNavigate()
-
-    const {user} = useAuthContext()
 
     const {data: tour} = useTour(tourId)
     if (!tour) throw new Error("Tour not found")
@@ -34,12 +32,7 @@ export const useBookingForm = (tourId: number): ReturnType => {
     }, [capacity])
 
     const click = () => {
-        booking({
-            id: Date.now(),
-            tourId: tour.id,
-            userId: user?.id as number,
-            groupCapacity: capacity
-        })
+        booking({ id: Date.now(), tourId: tour.id, groupCapacity: capacity })
         navigate(`/${RouteNames.SUCCESS}`)
     }
 

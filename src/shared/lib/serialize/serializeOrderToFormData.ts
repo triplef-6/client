@@ -4,10 +4,16 @@ export const serializeOrderToFormData = (order: IOrder): FormData => {
 
     const formData = new FormData()
 
-    formData.append("id", order.id.toString())
-    formData.append("tourId", order.tourId.toString())
-    formData.append("userId", order.userId.toString())
-    formData.append("groupCapacity", order.groupCapacity.toString())
+    const orderData: IOrder = {
+        id: order.id,
+        tourId: order.tourId,
+        groupCapacity: order.groupCapacity,
+    }
+
+    formData.append(
+        "order",
+        new Blob([JSON.stringify(orderData)], { type: "application/json" })
+    )
 
     return formData
 

@@ -11,7 +11,13 @@ const LazyContributorLayout = React.lazy(() =>
 export const ContributorPage: FC = () => {
     const {id} = useParams<{ id: string, title: string }>()
     return (
-        <Suspense fallback={<AppSkeleton/>}>
+        <Suspense
+            fallback={
+                <div className={"py-10"}>
+                    <AppSkeleton/>
+                </div>
+            }
+        >
             <LazyContributorLayout contributorId={Number(id)}/>
         </Suspense>
     )

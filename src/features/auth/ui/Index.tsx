@@ -2,11 +2,12 @@ import {KeySquare} from "lucide-react";
 import {FC} from "react";
 import s from "./style.module.css"
 import {Button} from "@/shared/ui";
-import {useAuthContext} from "@/features";
+import {useLoginWithGoogle} from "@/features";
 
 export const Index: FC = () => {
 
-    const {login} = useAuthContext()
+    const loginWithGoogle = useLoginWithGoogle()
+    const login = () => loginWithGoogle()
 
     return (
         <div className={s.container}>

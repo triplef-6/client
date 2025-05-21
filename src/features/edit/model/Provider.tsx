@@ -1,11 +1,11 @@
 import {FC, ReactNode, useEffect, useMemo, useState} from "react";
 import {EditContext} from "./context.ts";
 import {IMe} from "@/shared/types";
-import {useAuthContext, useUpdateMe} from "@/features";
+import {useMe, useUpdateMe} from "@/features";
 
 export const EditProvider: FC<{children: ReactNode}> = ({children}) => {
 
-    const {user} = useAuthContext()
+    const {user} = useMe()
     const {mutate: update} = useUpdateMe()
     const [updatedUser, setUpdatedUser] = useState<IMe>(user)
     

@@ -7,9 +7,7 @@ export const useLogout = () => {
 
     return useMutation({
         mutationFn: logout,
-        onSuccess: () => {
-            queryClient.removeQueries()
-        },
+        onSuccess: () => queryClient.removeQueries(),
         onError: (e) => console.error("Ошибка при выходе", e)
     })
 

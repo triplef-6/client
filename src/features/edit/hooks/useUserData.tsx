@@ -53,7 +53,7 @@ export const useUserData = (): Result => {
     }
 
     return {
-        isContributor: updatedUser.role === UserRole.contributor,
+        isContributor: updatedUser.role === UserRole.guide,
         user: updatedUser,
         tags,
         userTags: updatedUser.tags,
