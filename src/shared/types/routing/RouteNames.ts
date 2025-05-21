@@ -15,5 +15,5 @@ export enum RouteNames {
     AUTH = "auth",
     EDIT_PROFILE = "edit",
     NOT_FOUND = "404",
-    LOGIN = "https://excopen-prod-back-v0-1-1.onrender.com/oauth2/authorization/google",
+    LOGIN = "https://api.excopen.ru/oauth2/authorization/google",
 }
