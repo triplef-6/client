@@ -5,8 +5,7 @@ import {AccordionContent, AccordionItem, AccordionTrigger, AppSkeleton, TourPagi
 
 export const Index: FC = () => {
 
-    const {userId} = useMe()
-    if (!userId) return null
+    const {user} = useMe()
 
     const {
         safeData,
@@ -15,7 +14,7 @@ export const Index: FC = () => {
         isFetching,
         isLoading,
         isPlaceholderData
-    } = useToursForReview(userId)
+    } = useToursForReview(user.id)
 
     const [visibleTours, setVisibleTours] = useState<number>(3)
 

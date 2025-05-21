@@ -7,8 +7,7 @@ import s from "./style.module.css"
 
 export const Index: FC = () => {
 
-    const {userId} = useMe()
-    if (!userId) return null
+    const {user} = useMe()
 
     const {
         safeData,
@@ -17,7 +16,7 @@ export const Index: FC = () => {
         isEmpty,
         isFetching,
         isPlaceholderData
-    } = useContributorTours(userId)
+    } = useContributorTours(user.id)
 
     const [visibleTours, setVisibleTours] = useState<number>(3)
 
