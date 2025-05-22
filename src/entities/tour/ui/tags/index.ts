@@ -1,1 +1,0 @@
-export {Index as Tags} from "./Index.tsx"

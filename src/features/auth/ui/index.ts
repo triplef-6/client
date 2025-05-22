@@ -1,1 +1,0 @@
-export {Index as AuthForm} from "./Index.tsx"
