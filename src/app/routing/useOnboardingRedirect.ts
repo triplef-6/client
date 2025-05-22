@@ -17,6 +17,6 @@ export const useOnboardingRedirect = () => {
             navigate(`/${RouteNames.ON_BOARDING}`)
         }
 
-    }, [])
+    }, [isAuth, navigate])
 
 }
