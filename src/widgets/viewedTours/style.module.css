@@ -1,8 +1,0 @@
-.container {
-    @apply w-full flex flex-col gap-8
-}
-
-.viewed {
-    @apply flex flex-col gap-4 text-sm text-grayscale-400
-}
-
