@@ -1,0 +1,1 @@
+export const validatePhoneLen = (value: string): boolean => value.length < 18

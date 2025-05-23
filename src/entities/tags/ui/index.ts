@@ -1,0 +1,1 @@
+export {Index as Tag} from "./Index.tsx"

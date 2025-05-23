@@ -1,0 +1,1 @@
+export {Index as Dashboard} from "./Index.tsx"

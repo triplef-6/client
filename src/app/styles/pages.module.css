@@ -1,0 +1,61 @@
+@import "index.css";
+
+.layout {
+    @apply w-full bg-grayscale-100
+}
+
+.main {
+    @apply flex flex-col items-center padding
+}
+
+.locations {
+    @apply flex flex-col items-center w-full
+}
+
+.tours {
+    @apply flex flex-col lg:flex-row py-8 xl:py-16 gap-6 w-full max-w-screen-wide
+}
+
+.favorites {
+    @apply flex flex-col py-8 xl:py-16 gap-10 w-full huge:w-[1440px]
+}
+
+.onboarding {
+    @apply w-full
+}
+
+.createTour {
+    @apply huge:w-[1440px] min-h-screen flex flex-col lg:flex-row gap-8 py-8
+}
+
+.booking {
+    @apply flex flex-col h-screen pt-10 lg:pt-24 gap-4 items-center
+}
+
+.success {
+    @apply flex flex-col h-screen pt-44 gap-4 items-center
+}
+
+.successHeading {
+    @apply text-2xl text-grayscale-500 font-semibold
+}
+
+.successText {
+    @apply text-xl text-grayscale-400 lg:w-2/5 text-center
+}
+
+.auth {
+    @apply flex flex-col h-screen pt-44 gap-4 items-center
+}
+
+.error {
+    @apply flex flex-col h-screen pt-44 gap-4 items-center
+}
+
+.errorHeading {
+    @apply text-2xl text-grayscale-500 font-semibold
+}
+
+.errorText {
+    @apply text-xl text-grayscale-400 lg:w-2/5 text-center
+}

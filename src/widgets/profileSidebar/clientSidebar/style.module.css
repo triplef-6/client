@@ -1,0 +1,3 @@
+.container {
+    @apply flex flex-col gap-4 max-xl:items-center lg:w-72
+}

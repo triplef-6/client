@@ -1,0 +1,19 @@
+.container {
+    @apply flex flex-col items-center justify-center gap-10 py-8 w-80 bg-grayscale-0 rounded-2xl
+}
+
+.desc {
+    @apply flex flex-col gap-4
+}
+
+.item {
+    @apply flex flex-col gap-2 items-center
+}
+
+.heading {
+    @apply text-xl text-grayscale-500 font-semibold
+}
+
+.text {
+    @apply text-grayscale-400 text-base w-full text-center
+}

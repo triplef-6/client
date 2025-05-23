@@ -1,0 +1,1 @@
+export {Index as Viewed} from "./Index.tsx"

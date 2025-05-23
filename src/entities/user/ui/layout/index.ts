@@ -1,0 +1,1 @@
+export {Index as ContributorLayout} from "./Index.tsx"
