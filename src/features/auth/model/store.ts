@@ -9,7 +9,7 @@ class AuthStore {
 
     constructor() {
         makeAutoObservable(this)
-        if (typeof window !== "undefined") this.loadFromStorage()
+        this.loadFromStorage()
     }
 
     private loadFromStorage() {

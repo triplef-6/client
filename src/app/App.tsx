@@ -1,12 +1,10 @@
 import {AppRoutes} from "@/app/routing";
 import {StrictMode, useEffect} from "react";
-import {authStore as auth, tourLocalHistoryStore as history, useAddManyFavFactory} from "@/features";
+import {authStore as auth, tourLocalHistoryStore as history} from "@/features";
 import {useNavigate} from "react-router-dom";
 import {RouteNames} from "@/shared/types";
 
 export const App = () => {
-
-    useAddManyFavFactory()
 
     const navigate = useNavigate()
 

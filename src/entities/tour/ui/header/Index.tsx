@@ -34,6 +34,7 @@ export const Index: FC<HeaderProps> = ({tour}) => {
                 <div className={style.buttons}>
                     <ToFavourite tour={tour}/>
                     <BookingButton
+                        freeSeats={tour.freeSeats}
                         size={width < 768 ? "lg" : "md"}
                         link={`/${RouteNames.BOOKING}/${tour.id}`}
                         text={"Выбрать"}

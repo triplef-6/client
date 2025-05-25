@@ -18,8 +18,8 @@ export const useAddFavFactory = (tour: ITour): ResultType => {
     const isAuth = auth.isAuth
 
     const local = history.favourites
+    const { safeData } = useFavourites(isAuth)
 
-    const { safeData } = useFavourites()
     const { mutate: addFav } = useAddToFavourites()
     const { mutate: deleteFav } = useDeleteFromFavourites()
 

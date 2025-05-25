@@ -1,11 +1,13 @@
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {ApiException} from "@/shared/lib";
-import {ITour} from "@/shared/types";
+import {ITour, RouteNames} from "@/shared/types";
 import {createTour} from "@/entities/tour/api";
+import {useNavigate} from "react-router-dom";
 
 export const useCreateTour = () => {
 
     const queryClient = useQueryClient()
+    const navigate = useNavigate()
 
     return useMutation<void, ApiException<ITour>, ITour>({
         mutationFn: (tour) => createTour(tour),
@@ -21,6 +23,7 @@ export const useCreateTour = () => {
         },
         onSuccess: async () => {
             await queryClient.invalidateQueries({queryKey: ["tours"]})
+            navigate(`/${RouteNames.SUCCESS}`)
         },
         onError: (e: ApiException<ITour>) => console.error("Не удалось добавить экскурсию", e.message)
     })

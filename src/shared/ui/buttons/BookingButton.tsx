@@ -8,15 +8,17 @@ type BookingButtonProps = {
     size: "lg" | "md"
     link: string
     text: string
+    freeSeats: number
 }
 
-export const BookingButton: FC<BookingButtonProps> = observer(({link, size, text}) => {
+export const BookingButton: FC<BookingButtonProps> = observer(({link, size, text, freeSeats}) => {
 
     const isAuth = auth.isAuth
+    const disabled = !isAuth || freeSeats === 0
 
     return (
         <Link to={link}>
-            <Button disabled={!isAuth} size={size}>
+            <Button disabled={disabled} size={size}>
                 {text}
             </Button>
         </Link>

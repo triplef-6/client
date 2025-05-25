@@ -31,7 +31,7 @@ export const Index: FC<TourMetricsProps> = ({tour}) => {
                         <Users width={20} height={20} className={"text-grayscale-500"}/>
                         <span className={s.subHeading}>Забронированно</span>
                     </div>
-                    <p className={s.text}>{tour.groupCapacity} мест</p>
+                    <p className={s.text}>{tour.groupCapacity - tour.freeSeats} мест</p>
                 </div>
 
                 <div className={s.params}>

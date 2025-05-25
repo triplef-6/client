@@ -4,6 +4,9 @@ import {useMe} from "@/features";
 import {useCreateReview} from "@/entities";
 
 type Result = {
+    isPaused: boolean
+    isPending: boolean
+    isSuccess: boolean
     completed: boolean
     positive: string
     negative: string
@@ -17,7 +20,12 @@ type Result = {
 export const useCreateReviewForm = (tour: ITour): Result => {
 
     const {me} = useMe()
-    const {mutate: create} = useCreateReview()
+    const {
+        mutate: create,
+        isPaused,
+        isPending,
+        isSuccess
+    } = useCreateReview()
 
     const [positive, setPositive] = useState<string>("")
     const [negative, setNegative] = useState<string>("")
@@ -36,7 +44,7 @@ export const useCreateReviewForm = (tour: ITour): Result => {
 
     return {
         completed: Boolean(positive) && Boolean(negative) && rating > 0,
-        positive, negative, rating,
+        positive, negative, rating, isPaused, isPending, isSuccess,
         updateRating: setRating,
         updateNegative: setNegative,
         updatePositive: setPositive,

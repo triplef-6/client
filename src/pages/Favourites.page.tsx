@@ -1,6 +1,5 @@
 import React, {FC, Suspense} from "react";
 import pages from "@/app/styles/pages.module.css";
-import {ITour} from "@/shared/types";
 import {useFavFactory} from "@/features";
 import {AppSkeleton} from "@/shared/ui";
 
@@ -12,7 +11,9 @@ const LazyFavList = React.lazy(() =>
 
 export const FavouritesPage: FC = () => {
 
-    const favourites: ITour[] = useFavFactory()
+    const {data: favourites, isLoading, isPending} = useFavFactory()
+
+    if (isLoading || isPending) return <AppSkeleton/>
 
     return (
         <div className={pages.favorites}>
@@ -22,7 +23,7 @@ export const FavouritesPage: FC = () => {
             {
                 favourites.length === 0 &&
                 <span className={"text-base text-grayscale-400"}>
-                    Список избранных экскурсий пока пуст
+                    Список избранных экскурсий пока пуст.
                 </span>
             }
             <Suspense fallback={<AppSkeleton/>}>

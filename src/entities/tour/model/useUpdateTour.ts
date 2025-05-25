@@ -1,11 +1,13 @@
 import {useMutation, useQueryClient} from "@tanstack/react-query";
-import {ITour} from "@/shared/types";
+import {ITour, RouteNames} from "@/shared/types";
 import {ApiException} from "@/shared/lib";
 import {updateTour} from "@/entities/tour/api";
+import {useNavigate} from "react-router-dom";
 
 export const useUpdateTour = () => {
 
     const queryClient = useQueryClient()
+    const navigate = useNavigate()
 
     return useMutation<ITour, ApiException<ITour>, ITour>({
         mutationFn: updateTour,
@@ -23,6 +25,7 @@ export const useUpdateTour = () => {
         onSuccess: async (updatedTour) => {
             await queryClient.invalidateQueries({ queryKey: ["tour", updatedTour.id] })
             await queryClient.invalidateQueries({ queryKey: ["tours"] })
+            navigate(`/${RouteNames.SUCCESS}`)
         },
         onError: (e: ApiException<ITour>) => console.error("Экскусрию не удалось обновить", e.message)
     })

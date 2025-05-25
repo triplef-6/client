@@ -24,7 +24,12 @@ export const Index: FC<SidebarProps> = ({tour}) => {
                 <Rating option={"Рейтинг:"} rating={tour.rating} ratingCount={tour.ratingCount}/>
                 <hr className={style.separator}/>
                 <IndividualPrice price={tour.priceForPerson}/>
-                <BookingButton size={"lg"} link={`/${RouteNames.BOOKING}/${tour.id}`} text={"Забронировать место(а)"}/>
+                <BookingButton
+                    freeSeats={tour.freeSeats}
+                    size={"lg"}
+                    link={`/${RouteNames.BOOKING}/${tour.id}`}
+                    text={"Забронировать место(а)"}
+                />
             </div>
         </div>
     );

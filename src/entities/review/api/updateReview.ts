@@ -4,7 +4,7 @@ import {apiClient, ApiException, isAxiosError, serializeReviewToFormData} from "
 export const updateReview = async (review: IReview): Promise<IReview> => {
     try {
         const formData = serializeReviewToFormData(review)
-        const {data} = await apiClient.put<IReview>(EndpointsType.REVIEWS, formData)
+        const {data} = await apiClient.put<IReview>(`/${EndpointsType.REVIEWS}/${review.id}`, formData)
         return data
     } catch (e) {
         if (isAxiosError(e)) {

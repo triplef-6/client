@@ -1,25 +1,27 @@
-import {useNavigate} from "react-router-dom";
 import {useBooking} from "@/features";
 import {useTour} from "@/entities";
 import {useEffect, useState} from "react";
-import {ITour, RouteNames, TourFormat} from "@/shared/types";
+import {TourFormat} from "@/shared/types";
 
 type ReturnType = {
-    tour: ITour
+    title: string
+    date: Date | undefined
+    duration: number
+    freeSeats: number
     capacity: number
+    format: TourFormat
     disabled: boolean
     click: () => void
     update: (value: number[]) => void
+    isBooking: boolean
 }
 
 export const useBookingForm = (tourId: number): ReturnType => {
 
-    const navigate = useNavigate()
-
     const {data: tour} = useTour(tourId)
     if (!tour) throw new Error("Tour not found")
 
-    const {mutate: booking} = useBooking()
+    const {mutate: booking, isPending: isBooking} = useBooking()
 
     const [disabled, setDisabled] = useState<boolean>(true)
     const [capacity, setCapacity] = useState<number>(tour.format === TourFormat.GROUP ? 0 : 1)
@@ -31,13 +33,22 @@ export const useBookingForm = (tourId: number): ReturnType => {
         else setDisabled(true)
     }, [capacity])
 
-    const click = () => {
-        booking({ id: Date.now(), tourId: tour.id, groupCapacity: capacity })
-        navigate(`/${RouteNames.SUCCESS}`)
-    }
+    const click = () => booking({
+        id: Number(Date.now()),
+        tourId: tour.id,
+        groupCapacity: capacity
+    })
 
     return {
-        tour, capacity, disabled, click, update
+        title: tour.title,
+        date: tour.date,
+        duration: tour.duration,
+        format: tour.format,
+        freeSeats: tour.freeSeats,
+        isBooking,
+        capacity,
+        disabled,
+        click, update
     }
 
 }

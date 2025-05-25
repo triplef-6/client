@@ -12,7 +12,8 @@ type FormProps = {
 export const ReviewForm: FC<FormProps> = ({tour}) => {
 
     const {
-        positive, rating, negative, completed,
+        positive, rating, negative,
+        completed, isPaused, isPending,
         updatePositive, updateNegative, updateRating, save
     } = useCreateReviewForm(tour)
 
@@ -36,7 +37,7 @@ export const ReviewForm: FC<FormProps> = ({tour}) => {
             </div>
             <div>
                 <Button className={"mt-4"} disabled={!completed} onClick={save}>
-                    Добавить
+                    {isPaused || isPending ? "Загружаем" : "Добавить"}
                 </Button>
             </div>
         </div>

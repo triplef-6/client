@@ -28,5 +28,6 @@ export interface ITour {
     contributorId: number
     rating: number
     ratingCount: number
+    freeSeats: number
     registered?: IUser[]
 }

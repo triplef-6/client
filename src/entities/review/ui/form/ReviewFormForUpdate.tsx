@@ -16,8 +16,8 @@ export const ReviewFormForUpdate: FC<FormProps> = ({myReview}) => {
     if (!tour || isError) return null
 
     const {
-        review,
-        completed,
+        negative, rating, positive, completed,
+        isPending, isPaused,
         updatePositive, updateNegative, updateRating, save
     } = useUpdateReviewForm(myReview)
 
@@ -26,24 +26,24 @@ export const ReviewFormForUpdate: FC<FormProps> = ({myReview}) => {
     return (
         <div className={s.container}>
             <Header tourId={tour.id} title={tour.title} rating={tour.rating} ratingCount={tour.ratingCount}/>
-            <Stars rating={review.rating} setRating={updateRating}/>
+            <Stars rating={rating} setRating={updateRating}/>
             <div className={s.reviews}>
                 <ReviewInput
-                    value={review.positiveText}
+                    value={positive}
                     className={"bg-grayscale-200"}
                     onChangeHandler={updatePositive}
                     placeholder={"Что понравилось"}
                 />
                 <ReviewInput
-                    value={review.negativeText}
+                    value={negative}
                     className={"bg-grayscale-200"}
                     onChangeHandler={updateNegative}
                     placeholder={"Что не понравилось"}
                 />
             </div>
             <div>
-                <Button className={"mt-4"} disabled={completed} onClick={save}>
-                    Изменить
+                <Button className={"mt-4"} disabled={!completed} onClick={save}>
+                    {isPending || isPaused ? "Обновляем" : "Изменить"}
                 </Button>
             </div>
         </div>

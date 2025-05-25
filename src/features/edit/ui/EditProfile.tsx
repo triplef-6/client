@@ -4,7 +4,6 @@ import {useUserData} from "@/features/edit/hooks";
 import {Field, AvatarField} from "./fields"
 import {Contacts} from "./contacts";
 import {useEditContext} from "@/features/edit/model";
-import fallbackAvatar from "@/shared/assets/icons/avatar.svg"
 import {useNavigate} from "react-router-dom";
 import {RouteNames} from "@/shared/types";
 import {Info} from "lucide-react";
@@ -26,7 +25,7 @@ export const EditProfile: FC = () => {
 
     return (
         <div className={"flex flex-col gap-4 bg-grayscale-0 rounded-2xl p-6 lg:min-w-80 max-lg:order-last"}>
-            <AvatarField avatar={user.avatar ?? fallbackAvatar} update={updateImage}/>
+            <AvatarField avatar={user.avatar} update={updateImage}/>
             <span className={"text-lg text-grayscale-500 font-semibold py-2"}>Основное</span>
             <Field
                 defaultValue={user.name}

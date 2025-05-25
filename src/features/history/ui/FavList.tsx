@@ -1,12 +1,11 @@
 import {FC} from "react";
 import {TourCard} from "@/entities";
-import {ITour} from "@/shared/types";
 import {useFavFactory} from "@/features";
 import s from "./style.module.css"
 
 export const FavList: FC = () => {
 
-    const favourites: ITour[] = useFavFactory()
+    const {data: favourites} = useFavFactory()
 
     return (
         <div className={s.list}>

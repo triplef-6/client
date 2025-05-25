@@ -12,7 +12,6 @@ export const useUpdateMe = () => {
         onMutate: async (user) => {
 
             await queryClient.cancelQueries({ queryKey: ["me"] })
-
             const previous = queryClient.getQueryData<IMe>(["me"])
             queryClient.setQueryData(["me"], user)
 

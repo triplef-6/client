@@ -12,7 +12,17 @@ type FormProps = {
 
 export const BookingForm: FC<FormProps> = ({tourId}) => {
 
-    const {tour, capacity, disabled, click, update} = useBookingForm(tourId)
+    const {
+        isBooking,
+        title,
+        format,
+        duration,
+        date,
+        freeSeats,
+        capacity,
+        disabled,
+        click, update
+    } = useBookingForm(tourId)
 
     return (
         <div className={s.container}>
@@ -24,7 +34,7 @@ export const BookingForm: FC<FormProps> = ({tourId}) => {
                     <Binoculars width={20} height={20} className={"text-grayscale-500"}/>
                     <span className={s.bold}>Экскурсия</span>
                 </div>
-                <p className={s.text}>{tour.title}</p>
+                <p className={s.text}>{title}</p>
             </div>
 
             <div className={s.subContainer}>
@@ -33,8 +43,8 @@ export const BookingForm: FC<FormProps> = ({tourId}) => {
                     <span className={s.bold}>Время начала</span>
                 </div>
                 <p className={s.text}>
-                    {tour.date &&
-                        new Date(tour.date).toLocaleDateString("ru-RU", {
+                    {date &&
+                        new Date(date).toLocaleDateString("ru-RU", {
                             day: "numeric",
                             month: "long",
                             year: "numeric",
@@ -50,12 +60,12 @@ export const BookingForm: FC<FormProps> = ({tourId}) => {
                     <span className={s.bold}>Длительность</span>
                 </div>
                 <p className={s.text}>
-                    Мероприятие будет длиться {formatHours(tour.duration)}
+                    Мероприятие будет длиться {formatHours(duration)}
                 </p>
             </div>
 
             {
-                tour.format === TourFormat.GROUP &&
+                format === TourFormat.GROUP &&
                 <div className={s.subContainer}>
                     <div className={s.smallHeading}>
                         <Users width={20} height={20} className={"text-grayscale-500"}/>
@@ -66,14 +76,14 @@ export const BookingForm: FC<FormProps> = ({tourId}) => {
                         value={[capacity]}
                         onValueChange={update}
                         defaultValue={[1]}
-                        max={tour.groupCapacity}
+                        max={freeSeats}
                         step={1}
                     />
                 </div>
             }
 
             <Button disabled={disabled} onClick={click}>
-                Забронировать
+                {isBooking ? "Бронируем" : "Забронировать"}
             </Button>
 
         </div>

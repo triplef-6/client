@@ -1,15 +1,12 @@
-import {useNavigate} from "react-router-dom";
-import {RouteNames} from "@/shared/types";
 import {createTourStore as store, useMe} from "@/features";
 import {useCreateTour, useUpdateTour} from "@/entities";
 
 type ReturnType = {
-    create: () => void
+    submit: () => void
+    disabled: boolean
 }
 
 export const useCreateButton = (): ReturnType => {
-
-    const navigate = useNavigate()
 
     const {mutate: createTour} = useCreateTour()
     const {mutate: updateTour} = useUpdateTour()
@@ -17,11 +14,13 @@ export const useCreateButton = (): ReturnType => {
     const {myId} = useMe()
     if (!myId) throw new Error("Неавторизованный пользователь не может создать экскурсию!")
 
-    const create = () => {
+    const submit = () => {
 
         store.isSubmitted = true
 
-        if (store.isDisabled) {
+        console.log(store.isDisabled)
+
+        if (!store.isDisabled) {
 
             store.params.contributorId = myId
 
@@ -30,12 +29,10 @@ export const useCreateButton = (): ReturnType => {
             if (store.isEdit) updateTour(store.tour)
             else createTour(store.tour)
 
-            navigate(`/${RouteNames.SUCCESS}`)
-
         }
 
     }
 
-    return { create }
+    return { submit, disabled: store.isDisabled }
 
 }

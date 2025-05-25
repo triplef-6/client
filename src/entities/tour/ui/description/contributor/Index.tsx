@@ -1,12 +1,13 @@
 import {FC} from "react";
 import next from "@/shared/assets/icons/next-secondary.svg";
-import icon from "@/shared/assets/icons/contributor.svg";
 import style from "./style.module.css"
 import {useNavigate} from "react-router-dom";
 import {RouteNames} from "@/shared/types";
 import {Marker} from "@/shared/ui/rating/Marker.tsx";
 import {useUser} from "@/entities";
 import {ContributorSkeleton} from "@/shared/ui";
+import {useSafeAvatar} from "@/shared/utils";
+import fallbackAvatar from "@/shared/assets/icons/contributor.svg";
 
 type ContributorProps = {
     contributorId: number
@@ -18,6 +19,8 @@ export const Index: FC<ContributorProps> = ({contributorId}) => {
     const {data: contributor, isLoading} = useUser(contributorId)
 
     if (isLoading || !contributor) return <ContributorSkeleton/>
+
+    const {safeAvatar, handler} = useSafeAvatar(contributor.avatar, fallbackAvatar)
 
     return (
         <div className={style.container}>
@@ -33,7 +36,14 @@ export const Index: FC<ContributorProps> = ({contributorId}) => {
             </div>
             <div className={style.avatar}>
                 <div className={style.icon}>
-                    <img width={48} height={48} alt={"contributor"} className={"rounded-full"} src={contributor.avatar ?? icon}/>
+                    <img
+                        width={48}
+                        height={48}
+                        alt={"contributor"}
+                        className={"rounded-full"}
+                        src={safeAvatar}
+                        onError={handler}
+                    />
                     <div className={style.marker}>
                         <Marker value={contributor.rating}/>
                     </div>

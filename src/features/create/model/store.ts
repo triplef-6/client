@@ -87,6 +87,7 @@ class CreateTourStore extends BaseStore {
             contributorId: this.params.contributorId,
             rating: 0,
             ratingCount: 0,
+            freeSeats: 0
         }
     }
 
