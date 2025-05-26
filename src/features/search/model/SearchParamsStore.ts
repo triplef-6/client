@@ -9,6 +9,7 @@ import {
     SearchParamsType,
     SortValues, IDate
 } from "@/shared/types";
+import {safeGet} from "@/shared/utils";
 
 export class SearchParamsStore implements ILocationTour, IDate, IAccessibility, IByCity, ISort {
 
@@ -73,6 +74,10 @@ export class SearchParamsStore implements ILocationTour, IDate, IAccessibility, 
 
     get location(): ILocation {
         return this._searchParams.location;
+    }
+
+    get city(): string {
+        return safeGet(() => this._searchParams.location.city, "")
     }
 
     set location(value: ILocation) {

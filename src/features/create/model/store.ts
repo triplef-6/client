@@ -15,15 +15,14 @@ import {SelectOptionsStore} from "./SelectOptionsStore.ts";
 class CreateTourStore extends BaseStore {
 
     private _isEdit: boolean = false
+    private _id: number = 0
 
     contacts = new ContactsStore()
     description = new DescriptionStore()
     price = new PriceStore()
-
     coordinates = new CoordinatesStore()
     tags = new TagsStore()
     images = new ImagesStore()
-
     location = new LocationStore()
     time = new TimeStore()
     params = new ParamsStore()
@@ -51,6 +50,7 @@ class CreateTourStore extends BaseStore {
     }
 
     set tour(value: ITour) {
+        this._id = value.id
         this.contacts = new ContactsStore(value.contacts)
         this.description = new DescriptionStore(value.description)
         this.price = new PriceStore(value.format, value.price, value.priceForPerson, value.groupCapacity)
@@ -65,7 +65,7 @@ class CreateTourStore extends BaseStore {
 
     get tour(): ITour {
         return {
-            id: Date.now(),
+            id: this._id,
             title: this.params.title,
             description: this.description,
             images: this.images.images,
@@ -91,19 +91,16 @@ class CreateTourStore extends BaseStore {
         }
     }
 
-    get isDisabled(): boolean {
+    private get allStores() {
         return [
-            this.params,
-            this.description,
-            this.time,
-            this.images,
-            this.tags,
-            this.price,
-            this.location,
-            this.coordinates,
-            this.selectOptions,
-            this.contacts
-        ].every(store => store.isDisabled)
+            this.params, this.description, this.time, this.images,
+            this.tags, this.price, this.location, this.coordinates,
+            this.selectOptions, this.contacts
+        ]
+    }
+
+    get isDisabled(): boolean {
+        return this.allStores.some(store => store.isDisabled)
     }
 
     get isEdit(): boolean {

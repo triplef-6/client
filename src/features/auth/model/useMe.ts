@@ -23,17 +23,17 @@ export const useMe = () => {
             queryClient.setQueryData(["me"], updatedUser)
             history.clearTags()
         }
-    }, [tags, query.data, queryClient])
+    }, [tags])
 
     useEffect(() => {
-        if (query.isSuccess && query.data && isLoginAllowed) auth.isAuth = true
+        if (query.isSuccess && query.data && isLoginAllowed) auth.login()
         if (query.isError) auth.logout()
     }, [isLoginAllowed, query.data, query.isError, query.isSuccess])
 
     return {
         ...query,
-        me: query.data ? query.data : fallback,
-        myId: query.data ? query.data.id : null,
+        me: query.data || fallback,
+        myId: query.data?.id || null,
         myRole: query.data && auth.isAuth ? query.data.role : UserRole.guest,
         isEmpty: !query.data
     }

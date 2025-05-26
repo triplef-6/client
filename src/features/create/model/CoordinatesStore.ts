@@ -21,7 +21,7 @@ export class CoordinatesStore implements ICoordinates, IIsDisabled {
     }
 
     get isDisabled(): boolean {
-        return this._coordinates.point.longitude > 0 && this._coordinates.point.latitude > 0
+        return this._coordinates.point.longitude === 0 || this._coordinates.point.latitude === 0
     }
 
     get coordinates(): YandexMapCoordinates {

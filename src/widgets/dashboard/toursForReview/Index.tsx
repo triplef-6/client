@@ -29,18 +29,25 @@ export const Index: FC = () => {
         )
     }
 
-    if (isLoading || isPlaceholderData) return <AppSkeleton/>
-
     return (
         <AccordionItem value={"value 2"}>
             <AccordionTrigger>Оцените экскурсии</AccordionTrigger>
             <AccordionContent className={"flex flex-col gap-4"}>
                 {
-                    tours.slice(0, visible).map(tour => (
-                        <ReviewForm key={tour.id} tour={tour}/>
-                    ))
+                    isLoading || isPlaceholderData ?
+                        <AppSkeleton/> :
+                        tours.slice(0, visible).map(tour => (
+                            <ReviewForm key={tour.id} tour={tour}/>
+                        ))
                 }
-                <TourPagination visiable={visible} setVisible={setVisible} maxLength={length}/>
+                {
+                    !isEmpty &&
+                    <TourPagination
+                        visiable={visible}
+                        setVisible={setVisible}
+                        maxLength={length}
+                    />
+                }
             </AccordionContent>
         </AccordionItem>
     )

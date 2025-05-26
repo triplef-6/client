@@ -18,11 +18,7 @@ export class TimeStore implements ITime, ISingleDate, IDuration, IIsDisabled {
     }
 
     get isDisabled(): boolean {
-        return (
-            this._duration > 0 &&
-            this._date !== undefined &&
-            !!this._time
-        )
+        return this._duration === 0 || this._date === undefined || this._time.trim().length === 0
     }
 
     get date(): Date | undefined {

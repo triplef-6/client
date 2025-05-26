@@ -16,7 +16,7 @@ export class ParamsStore implements IContributorId, ITitle, IIsDisabled {
     }
 
     get isDisabled(): boolean {
-        return !!this._title.trim()
+        return this._title.trim().length === 0
     }
 
     get contributorId(): number {

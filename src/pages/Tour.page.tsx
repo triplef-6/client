@@ -21,11 +21,7 @@ export const TourPage: FC = () => {
         />
     )
 
-    if (!tour || isLoading) return (
-        <div className={"py-10"}>
-            <AppSkeleton />
-        </div>
-    )
+    if (!tour || isLoading) return <AppSkeleton/>
 
     return (
         <div className={"flex flex-col justify-between py-12 w-full max-w-screen-wide"}>

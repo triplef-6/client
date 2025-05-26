@@ -20,6 +20,10 @@ class AuthStore {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(this._isLoginAllowed))
     }
 
+    login() {
+        this.isAuth = true
+    }
+
     logout() {
         this.isAuth = false
         this._isLoginAllowed = false

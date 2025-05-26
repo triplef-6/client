@@ -23,7 +23,7 @@ export class ContactsStore implements IContact, IIsDisabled {
     }
 
     get isDisabled(): boolean {
-        return this._contacts.phone.trim().length !== 0
+        return this._contacts.phone.trim().length === 0
     }
 
     get vk(): string {

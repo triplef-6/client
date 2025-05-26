@@ -26,9 +26,7 @@ export const useLocation = (store: ILocationTour): ReturnType => {
 
     const {data: locations} = useLocations()
 
-    const [inputValue, setInputValue] = useState<string>(
-        store.location.city ?? ""
-    )
+    const [inputValue, setInputValue] = useState<string>(store.city ?? "")
     const [state, setState] = useState<StateType>({
         isOpen: false,
         isTouched: false,
@@ -75,7 +73,7 @@ export const useLocation = (store: ILocationTour): ReturnType => {
     const close = () => setState((prev) => ({
         ...prev,
         isOpen: false,
-        isTouched: prev.isTouched && safeGet(() => store.location.city, "") === "",
+        isTouched: prev.isTouched && safeGet(() => store.city, "") === "",
     }))
 
     return {

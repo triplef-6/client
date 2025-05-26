@@ -19,7 +19,7 @@ export class TagsStore implements ITags, IIsDisabled {
     }
 
     get isDisabled(): boolean {
-        return this.tags.length > 0
+        return this.tags.length === 0
     }
 
     add(value: string) {

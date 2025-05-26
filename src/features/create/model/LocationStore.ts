@@ -29,7 +29,7 @@ export class LocationStore implements ILocationTour, IRouteLength, IByCity, IIsD
     }
 
     get isDisabled(): boolean {
-        return this._location.city.trim().length > 0 && this._routeLength > 0
+        return this._location.city.trim().length === 0 || this._routeLength === 0
     }
 
     get location(): ILocation {
@@ -65,6 +65,10 @@ export class LocationStore implements ILocationTour, IRouteLength, IByCity, IIsD
             region: "",
             image: ""
         }
+    }
+
+    get city(): string {
+        return this._location.city
     }
 
 }

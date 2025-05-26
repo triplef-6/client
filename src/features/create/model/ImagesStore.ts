@@ -11,10 +11,8 @@ export class ImagesStore implements IImages, IIsDisabled {
     }
 
     get isDisabled(): boolean {
-        return (
-            this._images.length > 0 &&
-            this._images.every((img) => img !== null && img !== undefined)
-        )
+        return this._images.length === 0 ||
+            this._images.every((img) => img === null && false)
     }
 
     get count(): number {

@@ -14,7 +14,9 @@ export const Layout: FC = () => {
             <Header/>
             <main className={style.main}>
                 <Breadcrumbs/>
-                <Outlet/>
+                <div className={"py-8 w-full"}>
+                    <Outlet/>
+                </div>
             </main>
             <Footer/>
         </div>

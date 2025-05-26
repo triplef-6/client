@@ -49,11 +49,14 @@ export const Index: FC = () => {
                             )
                         )
                 }
-                <TourPagination
-                    visiable={visibleTours}
-                    setVisible={setVisibleTours}
-                    maxLength={safeData.length}
-                />
+                {
+                    !isEmpty &&
+                    <TourPagination
+                        visiable={visibleTours}
+                        setVisible={setVisibleTours}
+                        maxLength={safeData.length}
+                    />
+                }
             </AccordionContent>
         </AccordionItem>
     );

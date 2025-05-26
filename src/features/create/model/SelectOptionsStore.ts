@@ -13,7 +13,7 @@ export class SelectOptionsStore implements IAccessibility, ITourFormatBehavior, 
     }
 
     get isDisabled(): boolean {
-        return !!(this._accessibility.trim() && this._formatBehavior.trim())
+        return this._accessibility.trim().length === 0 || this._formatBehavior.trim().length === 0
     }
 
     get accessibility(): string {

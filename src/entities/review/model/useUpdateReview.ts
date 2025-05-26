@@ -7,19 +7,18 @@ import {useMe} from "@/features";
 export const useUpdateReview = () => {
 
     const queryClient = useQueryClient()
-    const {myId} = useMe()
-    if (!myId) throw new Error("Пользователь не авторизован!")
+    const {me} = useMe()
 
     return useMutation<IReview, ApiException<IReview>,IReview>({
         mutationFn: updateReview,
         onMutate: async (newReview) => {
 
-            await queryClient.cancelQueries({queryKey: ["reviews", "user", myId]})
+            await queryClient.cancelQueries({queryKey: ["reviews", "user", me.id]})
 
-            const previous = queryClient.getQueryData<IReview[]>(["reviews", "user", myId]);
+            const previous = queryClient.getQueryData<IReview[]>(["reviews", "user", me.id])
 
             queryClient.setQueryData<IReview[]>(
-                ["reviews", "user", myId],
+                ["reviews", "user", me.id],
                 (old = []) => old.map(
                     (r) => (r.id === newReview.id ? newReview : r)
                 )
@@ -29,9 +28,10 @@ export const useUpdateReview = () => {
 
         },
         onSuccess: async () => {
-            await queryClient.invalidateQueries({queryKey: ["reviews", "user", myId]})
+            await queryClient.invalidateQueries({queryKey: ["reviews", "user", me.id]})
         },
-        onError: (e: ApiException<IReview>) => console.log("Не удалось обновить отзыв", e.message)
+        onError: (e: ApiException<IReview>) => console.log("Не удалось обновить отзыв", e.message),
+        retry: 3
     })
 
 }

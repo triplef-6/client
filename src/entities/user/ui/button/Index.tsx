@@ -15,15 +15,14 @@ type ContributorButtonProps = {
 export const Index: FC<ContributorButtonProps> = ({contributorId}) => {
 
     const navigate = useNavigate()
-    const {data: contributor, isLoading} = useUser(contributorId)
+    const {user, isLoading} = useUser(contributorId)
+    const {safeAvatar, handler} = useSafeAvatar(user.avatar, fallbackAvatar)
 
-    if (isLoading || !contributor) return <ContributorSkeleton/>
-
-    const {safeAvatar, handler} = useSafeAvatar(contributor.avatar, fallbackAvatar)
+    if (isLoading || !user) return <ContributorSkeleton/>
 
     return (
         <div
-            onClick={() => navigate(`/${RouteNames.CONTRIBUTOR}/${contributorId}/${encodeURIComponent(contributor.name)}`)}
+            onClick={() => navigate(`/${RouteNames.CONTRIBUTOR}/${contributorId}/${encodeURIComponent(user.name)}`)}
             className={style.container}
         >
             <div className={"my-auto"}>
@@ -37,7 +36,7 @@ export const Index: FC<ContributorButtonProps> = ({contributorId}) => {
                 />
             </div>
             <div className={style.desc}>
-                <span className={style.name}>{contributor.name}</span>
+                <span className={style.name}>{user.name}</span>
                 <span>Представитель команды гидов</span>
             </div>
             <img width={24} height={24} alt={"next"} src={next}/>

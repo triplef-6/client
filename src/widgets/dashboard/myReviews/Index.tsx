@@ -15,7 +15,8 @@ export const Index: FC = () => {
         isEmpty,
         isFetching,
         isLoading,
-        isPlaceholderData
+        isPlaceholderData,
+        isSuccess
     } = useReviewsByUserId(myId)
 
     const [visible, setVisible] = useState<number>(3)
@@ -33,18 +34,21 @@ export const Index: FC = () => {
         )
     }
 
-    if (isLoading || isPlaceholderData) return <AppSkeleton/>
-
     return (
         <AccordionItem value={"value 3"}>
             <AccordionTrigger>Ваши отзывы об экскурсиях</AccordionTrigger>
             <AccordionContent className={"flex flex-col gap-4"}>
                 {
-                    reviews.slice(0, visible).map(review => (
-                        <ReviewFormForUpdate key={review.id} myReview={review}/>
-                    ))
+                    isLoading || isPlaceholderData ?
+                        <AppSkeleton/> :
+                        reviews.slice(0, visible).map(review => (
+                            <ReviewFormForUpdate key={review.id} myReview={review}/>
+                        ))
                 }
-                <TourPagination visiable={visible} setVisible={setVisible} maxLength={length}/>
+                {
+                    isSuccess && !isPlaceholderData &&
+                    <TourPagination visiable={visible} setVisible={setVisible} maxLength={length}/>
+                }
             </AccordionContent>
         </AccordionItem>
     )

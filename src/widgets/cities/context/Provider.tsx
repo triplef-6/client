@@ -2,12 +2,13 @@ import {FC, ReactNode, useCallback, useEffect, useMemo, useState} from "react";
 import {WidgetContext} from "./context.ts"
 import {useLocations} from "@/entities";
 import {searchLocation, searchTourStore as store} from "@/features";
-import {ILocation} from "@/shared/types";
+import {useNavigate} from "react-router-dom";
+import {RouteNames} from "@/shared/types";
 
 export const Provider: FC<{children: ReactNode}> = ({children}) => {
 
+    const navigate = useNavigate()
     const {data: locations} = useLocations()
-
     const [city, setCity] = useState<string>("")
     const [isActive, setIsActive] = useState<boolean>(false)
     const [cities, setCities] = useState<string[]>([])
@@ -28,8 +29,14 @@ export const Provider: FC<{children: ReactNode}> = ({children}) => {
     }, [city, locations])
 
     const selectCity = useCallback((city: string) => {
-        window.scroll(0,0)
-        store.searchParams.location = locations.find(i => i.city === city) as ILocation
+
+        const foundLocation = locations.find(i => i.city === city)
+
+        if (foundLocation) {
+            store.searchParams.location = foundLocation
+            navigate(`/${RouteNames.MAIN}`)
+        }
+
     }, [])
     
     const context = useMemo(() => ({

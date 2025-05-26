@@ -13,7 +13,6 @@ type FormProps = {
 export const ReviewFormForUpdate: FC<FormProps> = ({myReview}) => {
 
     const {data: tour, isLoading, isError} = useTour(myReview.tourId)
-    if (!tour || isError) return null
 
     const {
         negative, rating, positive, completed,
@@ -21,6 +20,7 @@ export const ReviewFormForUpdate: FC<FormProps> = ({myReview}) => {
         updatePositive, updateNegative, updateRating, save
     } = useUpdateReviewForm(myReview)
 
+    if (!tour || isError) return null
     if (isLoading) return <AppSkeleton/>
 
     return (

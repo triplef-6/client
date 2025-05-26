@@ -20,17 +20,8 @@ export class PriceStore implements IPrice, ITourFormat, IGroupCapacity, IIsDisab
     }
 
     get isDisabled(): boolean {
-
-        if (this._format === TourFormat.INDIVIDUAL) {
-            return this._priceForPerson > 0
-        }
-
-        if (this._format === TourFormat.GROUP) {
-            return this._price > 0 && this._priceForPerson > 0 && this._groupCapacity > 0
-        }
-
-        return false
-
+        if (this._format === TourFormat.INDIVIDUAL) return this._priceForPerson === 0
+        return this._price === 0 || this._groupCapacity === 0 || this._priceForPerson === 0
     }
 
     get format(): string {

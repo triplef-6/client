@@ -13,7 +13,7 @@ export const serializeTourToFormData = (tour: ITour): FormData => {
         format: tour.format,
         accessibility: tour.accessibility,
         byCity: tour.byCity,
-        date: tour.date?.toISOString().split("T")[0],
+        date: tour.date instanceof Date ? tour.date.toISOString().split("T")[0] : "",
         time: tour.time,
         duration: tour.duration,
         contributorId: tour.contributorId,

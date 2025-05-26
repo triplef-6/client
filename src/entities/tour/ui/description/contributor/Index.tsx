@@ -16,23 +16,23 @@ type ContributorProps = {
 export const Index: FC<ContributorProps> = ({contributorId}) => {
 
     const navigate = useNavigate()
-    const {data: contributor, isLoading} = useUser(contributorId)
+    const {user, isLoading} = useUser(contributorId)
+    const {safeAvatar, handler} = useSafeAvatar(user.avatar, fallbackAvatar)
+    const link: string = `/${RouteNames.CONTRIBUTOR}/${contributorId}/${encodeURIComponent(user.name)}`
 
-    if (isLoading || !contributor) return <ContributorSkeleton/>
-
-    const {safeAvatar, handler} = useSafeAvatar(contributor.avatar, fallbackAvatar)
+    if (isLoading || !user) return <ContributorSkeleton/>
 
     return (
         <div className={style.container}>
             <div className={style.info}>
                 <div
-                    onClick={() => navigate(`/${RouteNames.CONTRIBUTOR}/${contributorId}/${encodeURIComponent(contributor.name)}`)}
+                    onClick={() => navigate(link)}
                     className={style.name}
                 >
-                    <span>{contributor.name} – представитель команды гидов</span>
+                    <span>{user.name} – представитель команды гидов</span>
                     <img width={20} height={20} alt={"next"} src={next}/>
                 </div>
-                <p className={style.desc}>{contributor.info}</p>
+                <p className={style.desc}>{user.info}</p>
             </div>
             <div className={style.avatar}>
                 <div className={style.icon}>
@@ -45,7 +45,7 @@ export const Index: FC<ContributorProps> = ({contributorId}) => {
                         onError={handler}
                     />
                     <div className={style.marker}>
-                        <Marker value={contributor.rating}/>
+                        <Marker value={user.rating}/>
                     </div>
                 </div>
             </div>

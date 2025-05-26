@@ -6,10 +6,10 @@ type ReturnType = {
     disabled: boolean
 }
 
-export const useCreateButton = (): ReturnType => {
+export const useSubmitButton = (): ReturnType => {
 
-    const {mutate: createTour} = useCreateTour()
-    const {mutate: updateTour} = useUpdateTour()
+    const {mutate: create} = useCreateTour()
+    const {mutate: update} = useUpdateTour()
 
     const {myId} = useMe()
     if (!myId) throw new Error("Неавторизованный пользователь не может создать экскурсию!")
@@ -18,17 +18,11 @@ export const useCreateButton = (): ReturnType => {
 
         store.isSubmitted = true
 
-        console.log(store.isDisabled)
-
         if (!store.isDisabled) {
-
-            store.params.contributorId = myId
-
-            console.log(store.tour)
-
-            if (store.isEdit) updateTour(store.tour)
-            else createTour(store.tour)
-
+            if (!store.isEdit) {
+                store.params.contributorId = myId
+                create(store.tour)
+            } else update(store.tour)
         }
 
     }

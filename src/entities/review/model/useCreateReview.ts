@@ -21,7 +21,8 @@ export const useCreateReview = () => {
             )
 
         },
-        onError: (e: ApiException<IReview>) => console.log("Не удалось создать отзыв", e.message)
+        onError: (e: ApiException<IReview>) => console.log("Не удалось создать отзыв", e.message),
+        retry: 3
     })
 
 }

@@ -19,7 +19,7 @@ export const BookingButton: FC<BookingButtonProps> = observer(({link, size, text
     return (
         <Link to={link}>
             <Button disabled={disabled} size={size}>
-                {text}
+                {freeSeats > 0 ? text : "Мест нет"}
             </Button>
         </Link>
     );
