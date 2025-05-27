@@ -4,6 +4,7 @@ import {Drawer} from "./drawer/index.ts";
 import {useTours} from "@/entities";
 import {Select} from "./select";
 import {searchTourStore as store} from "@/features";
+import {formatTourCount} from "@/shared/lib";
 
 export const Index: FC = () => {
 
@@ -14,7 +15,7 @@ export const Index: FC = () => {
         <header className={style.container}>
             <div className={style.content}>
                 <h1 className={style.title}>{city}</h1>
-                <span className={style.desc}>{length} найденных экскурсий</span>
+                <span className={style.desc}>{formatTourCount(length)}</span>
             </div>
             <div className={style.options}>
                 <Drawer/>
