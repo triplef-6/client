@@ -17,10 +17,9 @@ const LazyViewed = React.lazy(() =>
 export const Index: FC = () => {
 
     const {myRole, isSuccess} = useMe()
-    const isAuth = auth.isAuth
-
     const [city, setCity] = useState<string>("")
     const [byCity, setByCity] = useState<boolean>(false)
+    const isAuth = auth.isAuth
 
     return (
         <div className={style.container}>

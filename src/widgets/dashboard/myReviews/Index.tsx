@@ -5,9 +5,8 @@ import {useMe} from "@/features";
 
 export const Index: FC = () => {
 
-    const {myId} = useMe()
-    if (!myId) throw new Error("Пользователь не найден!")
-
+    const {me} = useMe()
+    const [visible, setVisible] = useState<number>(3)
     const {
         safeData: reviews,
         length,
@@ -17,9 +16,7 @@ export const Index: FC = () => {
         isLoading,
         isPlaceholderData,
         isSuccess
-    } = useReviewsByUserId(myId)
-
-    const [visible, setVisible] = useState<number>(3)
+    } = useReviewsByUserId(me.id)
 
     if (isError) return null
 

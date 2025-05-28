@@ -4,7 +4,7 @@ import {AxiosResponse} from "axios";
 
 export const getToursForReview = async (): Promise<ITour[]> => {
     try {
-        const response: AxiosResponse<ITour[]> = await apiClient.get<ITour[]>(`${EndpointsType.TOURS}/${EndpointsType.BOOKING}/${EndpointsType.ME}`)
+        const response: AxiosResponse<ITour[]> = await apiClient.get<ITour[]>(`${EndpointsType.TOURS}/${EndpointsType.UNREVIEWED}/${EndpointsType.ME}`)
         return response.data
     } catch (e) {
         if (isAxiosError(e)) {
