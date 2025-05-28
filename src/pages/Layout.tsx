@@ -14,7 +14,7 @@ export const Layout: FC = () => {
             <Header/>
             <main className={style.main}>
                 <Breadcrumbs/>
-                <div className={"py-8 w-full"}>
+                <div className={"py-8 w-full max-w-screen-wide"}>
                     <Outlet/>
                 </div>
             </main>

@@ -9,7 +9,7 @@ export const useToursForReview = () => {
         queryKey: ["tours", "reviews"],
         queryFn: () => getToursForReview(),
         placeholderData: [],
-        staleTime: 60_000
+        retry: 3
     })
 
     return {
