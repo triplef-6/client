@@ -4,9 +4,12 @@ export const serializeOrderToFormData = (order: IOrder): FormData => {
 
     const formData = new FormData()
 
-    const orderData: IOrder = {
+    const orderData = {
         id: order.id,
-        tourId: order.tourId,
+        slot: {
+            ...order.slot,
+            date: order.slot.date instanceof Date ? order.slot.date.toISOString().split("T")[0] : "",
+        },
         groupCapacity: order.groupCapacity,
     }
 

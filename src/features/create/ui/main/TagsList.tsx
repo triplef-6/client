@@ -5,10 +5,19 @@ import {useSubmitted, useTagsList} from "@/shared/hooks";
 import {createTourStore as store} from "@/features/create/model";
 import {cn} from "@/app/lib";
 import {observer} from "mobx-react-lite";
+import {AppSkeleton} from "@/shared/ui";
 
 export const TagsList: FC = observer(() => {
 
-    const {value, visible, isError, add, remove} = useTagsList(store.tags)
+    const {
+        value,
+        visible,
+        isError,
+        isLoading,
+        isPlaceholderData,
+        add, remove
+    } = useTagsList(store.tags)
+
     const {isSubmitted} = useSubmitted(store)
 
     return (
@@ -21,18 +30,24 @@ export const TagsList: FC = observer(() => {
                 Какие темы вы затронете? История, архитектура, местные легенды или гастрономия?
                 Укажите основные направления.
             </p>
-            <div className={style.tags}>
-                {visible.map((tag, i) => (
-                    <Tag
-                        key={i}
-                        tag={tag}
-                        add={add}
-                        remove={remove}
-                        value={value}
-                        variant={"outline"}
-                    />
-                ))}
-            </div>
+            {
+                isLoading || isPlaceholderData
+                    ?
+                    <AppSkeleton/>
+                    :
+                    <div className={style.tags}>
+                        {visible.map((tag, i) => (
+                            <Tag
+                                key={i}
+                                tag={tag}
+                                add={add}
+                                remove={remove}
+                                value={value}
+                                variant={"outline"}
+                            />
+                        ))}
+                    </div>
+            }
         </div>
     );
 })

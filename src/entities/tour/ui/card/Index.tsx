@@ -3,7 +3,7 @@ import {ITour, RouteNames} from "@/shared/types";
 import {Button, CarouselVariant, ImagesSkeleton, Price, Rating, TourParams} from "@/shared/ui";
 import s from "./style.module.css"
 import {useNavigate} from "react-router-dom";
-import {ToFavourite, useAddViewFactory} from "@/features";
+import {ToFavourite, tourLocalHistoryStore as history} from "@/features";
 import {useWindowSize} from "usehooks-ts";
 import {truncateText} from "@/shared/lib/format";
 
@@ -21,11 +21,10 @@ export const Index: FC<TourCardProps> = ({tour}) => {
 
     const {width} = useWindowSize()
     const navigate = useNavigate()
-    const addViewed = useAddViewFactory()
 
     const clickHandler = () => {
         navigate(`/${RouteNames.TOUR}/${tour.id}/${encodeURIComponent(tour.title)}`)
-        addViewed(tour)
+        history.addToViewed(tour)
     }
 
     return (

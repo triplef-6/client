@@ -4,15 +4,13 @@ import back from "@/shared/assets/icons/back.svg";
 import wallet from "@/shared/assets/icons/wallet.svg";
 import {Item} from "./item";
 import style from "./style.module.css"
-import {formatPeople} from "@/shared/lib/format";
 import {TourFormat} from "@/shared/types";
 
 type DetailsProps = {
     format: TourFormat
-    groupCapacity: number
 }
 
-export const Index: FC<DetailsProps> = ({format, groupCapacity}) => {
+export const Index: FC<DetailsProps> = ({format}) => {
     return (
         <div className={style.container}>
             <h2 className={style.heading}>
@@ -23,7 +21,7 @@ export const Index: FC<DetailsProps> = ({format, groupCapacity}) => {
                     format === TourFormat.GROUP ?
                         <Item
                             title={"Групповой формат"}
-                            description={`Группа до ${formatPeople(groupCapacity)}`}
+                            description={`Вы будете в компании другие путешественников`}
                             image={users}
                         /> :
                         <Item

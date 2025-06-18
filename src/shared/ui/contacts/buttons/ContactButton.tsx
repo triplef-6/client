@@ -1,7 +1,6 @@
 import {FC, useState} from "react";
 import {Alert, AlertDescription, Button} from "@/shared/ui";
 import {Info} from "lucide-react";
-import {formatPhone} from "@/shared/lib/format";
 
 type ContactButtonProps = {
     phone: string
@@ -39,7 +38,7 @@ export const ContactButton: FC<ContactButtonProps> = ({phone}) => {
             <Button
                 size={"contact"}
                 onClick={copyOnClipboard}
-                onMouseEnter={() => setText(formatPhone(phone))}
+                onMouseEnter={() => setText(phone)}
                 onMouseLeave={() => setText("Связаться")}
             >
                 {text}

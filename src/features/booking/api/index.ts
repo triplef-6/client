@@ -1,1 +1,7 @@
 export {createOrder} from "./createOrder.ts"
+export {getSlotsByTourId} from "./getSlotsByTourId.ts"
+export {createSlots} from "./createSlots.ts"
+export {updateSlots} from "./updateSlots.ts"
+export {deleteSlots} from "./deleteSlots.ts"
+export {getOrder} from "./getOrder.ts"
+export {getUserOrders} from "./getUserOrders.ts"

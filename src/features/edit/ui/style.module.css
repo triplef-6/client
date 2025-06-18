@@ -1,0 +1,35 @@
+.container {
+    @apply flex flex-col gap-4 bg-grayscale-0 rounded-2xl p-6 lg:min-w-80 max-lg:order-last
+}
+
+.heading {
+    @apply text-lg text-grayscale-500 font-semibold py-2
+}
+
+.loadButton {
+    @apply mt-12
+}
+
+.tagsContainer {
+    @apply flex flex-col gap-4 p-6 rounded-2xl bg-grayscale-0 max-lg:order-last
+}
+
+.tagsHeading {
+    @apply text-lg font-semibold text-grayscale-500
+}
+
+.tagsDesc {
+    @apply text-base text-grayscale-400
+}
+
+.tagsList {
+    @apply flex flex-row gap-3 flex-wrap
+}
+
+.contacts {
+    @apply flex flex-col gap-2
+}
+
+.contactsHeading {
+    @apply text-lg text-grayscale-500 font-semibold py-2
+}

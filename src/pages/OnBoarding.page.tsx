@@ -1,5 +1,5 @@
 import React, {FC, Suspense} from "react";
-import style from '@/app/styles/pages.module.css'
+import s from '@/app/styles/pages.module.css'
 import {AppSkeleton} from "@/shared/ui";
 
 const LazyOnBoardingWidget = React.lazy(() =>
@@ -10,12 +10,8 @@ const LazyOnBoardingWidget = React.lazy(() =>
 
 export const OnBoardingPage: FC = () => {
     return (
-        <div className={style.onboarding}>
-            <Suspense fallback={
-                <div className={"p-20"}>
-                    <AppSkeleton/>
-                </div>
-            }>
+        <div className={s.onboarding}>
+            <Suspense fallback={<AppSkeleton/>}>
                 <LazyOnBoardingWidget/>
             </Suspense>
         </div>

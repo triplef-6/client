@@ -10,26 +10,23 @@ export const Index: FC = () => {
     const {
         safeData: reviews,
         length,
-        isError,
         isEmpty,
         isFetching,
         isLoading,
         isPlaceholderData,
-        isSuccess
+        isError
     } = useReviewsByUserId(me.id)
 
-    if (isError) return null
+    if (!isFetching && isEmpty) return (
+        <AccordionItem value={"value 3"}>
+            <AccordionTrigger>Ваши отзывы об экскурсиях</AccordionTrigger>
+            <AccordionContent>
+                Вы пока не оставляли отзывов.
+            </AccordionContent>
+        </AccordionItem>
+    )
 
-    if (!isFetching && isEmpty) {
-        return (
-            <AccordionItem value={"value 3"}>
-                <AccordionTrigger>Ваши отзывы об экскурсиях</AccordionTrigger>
-                <AccordionContent>
-                    Вы пока не оставляли отзывов.
-                </AccordionContent>
-            </AccordionItem>
-        )
-    }
+    if (isError) return null
 
     return (
         <AccordionItem value={"value 3"}>
@@ -43,7 +40,7 @@ export const Index: FC = () => {
                         ))
                 }
                 {
-                    isSuccess && !isPlaceholderData &&
+                    !isEmpty &&
                     <TourPagination visiable={visible} setVisible={setVisible} maxLength={length}/>
                 }
             </AccordionContent>

@@ -3,7 +3,7 @@
 }
 
 .content {
-    @apply flex flex-col gap-1
+    @apply flex flex-col gap-2
 }
 
 .title {
@@ -15,5 +15,5 @@
 }
 
 .options {
-    @apply flex flex-col items-end
+    @apply flex flex-col items-end gap-2
 }

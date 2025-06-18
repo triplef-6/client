@@ -22,13 +22,14 @@ type ReturnType = {
 
 export const usePhone = (): ReturnType => {
 
-    const {updatedUser: user, setUpdatedUser} = useEditContext()
+    const {context, setMe} = useEditContext()
+    const user = context.me
 
     const [phone, setPhone] = useState(user.contacts?.phone ?? "")
 
     useEffect(() => {
         if (!validatePhoneLen(phone)) {
-            setUpdatedUser({
+            setMe({
                 ...user,
                 contacts: {
                     ...user.contacts,

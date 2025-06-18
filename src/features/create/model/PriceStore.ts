@@ -1,19 +1,17 @@
-import {IGroupCapacity, IIsDisabled, IPrice, ITourFormat, TourFormat} from "@/shared/types";
+import {IIsDisabled, IPrice, ITourFormat, TourFormat} from "@/shared/types";
 import {makeAutoObservable} from "mobx";
 
-export class PriceStore implements IPrice, ITourFormat, IGroupCapacity, IIsDisabled {
+export class PriceStore implements IPrice, ITourFormat, IIsDisabled {
 
     private _format: string
     private _price: number
     private _priceForPerson: number
-    private _groupCapacity: number
 
-    constructor(format: string = "", price: number = 0, priceForPerson: number = 0, groupCapacity: number = 0) {
+    constructor(format: string = "", price: number = 0, priceForPerson: number = 0) {
 
         this._format = format
         this._price = price
         this._priceForPerson = priceForPerson
-        this._groupCapacity = groupCapacity
 
         makeAutoObservable(this)
 
@@ -21,7 +19,7 @@ export class PriceStore implements IPrice, ITourFormat, IGroupCapacity, IIsDisab
 
     get isDisabled(): boolean {
         if (this._format === TourFormat.INDIVIDUAL) return this._priceForPerson === 0
-        return this._price === 0 || this._groupCapacity === 0 || this._priceForPerson === 0
+        return this._price === 0 || this._priceForPerson === 0
     }
 
     get format(): string {
@@ -29,7 +27,6 @@ export class PriceStore implements IPrice, ITourFormat, IGroupCapacity, IIsDisab
     }
 
     set format(value: string) {
-        if (value === TourFormat.INDIVIDUAL) this.groupCapacity = 1
         this._format = value;
     }
 
@@ -47,14 +44,6 @@ export class PriceStore implements IPrice, ITourFormat, IGroupCapacity, IIsDisab
 
     set priceForPerson(value: number) {
         this._priceForPerson = value;
-    }
-
-    get groupCapacity(): number {
-        return this._groupCapacity;
-    }
-
-    set groupCapacity(value: number) {
-        this._groupCapacity = value;
     }
 
 }

@@ -1,9 +1,9 @@
 .container {
-    @apply flex flex-col items-center wide:w-2/5 gap-4
+    @apply flex flex-col items-center gap-4
 }
 
 .subContainer {
-    @apply flex flex-col gap-2 p-6 bg-grayscale-0 rounded-2xl
+    @apply flex flex-col items-center gap-2 p-6 bg-grayscale-0 rounded-2xl w-full
 }
 
 .separator {

@@ -8,7 +8,6 @@ export const useReviewsByTourId = (tourId: number) => {
     const query = useQuery<IReview[], ApiException<IReview>>({
         queryKey: ["reviews", "tour"],
         queryFn: () => getReviewsByTourId(tourId),
-        staleTime: 60_000,
         placeholderData: [],
         enabled: !!tourId
     })

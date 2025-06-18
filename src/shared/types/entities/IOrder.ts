@@ -1,5 +1,7 @@
+import {ISlot} from "@/shared/types";
+
 export interface IOrder {
     id: number
-    tourId: number
+    slot: ISlot
     groupCapacity: number
 }

@@ -9,7 +9,7 @@ import {useRouteLength} from "@/features/create/hooks";
 
 export const RouteLength: FC = observer(() => {
 
-    const {state, isError, update} = useRouteLength(store.location)
+    const {state, isError, update} = useRouteLength(store.locationTime)
     const {isSubmitted} = useSubmitted(store)
 
     return (

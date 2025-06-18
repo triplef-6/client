@@ -26,9 +26,7 @@ export const Index: FC<LayoutProps> = ({contributorId}) => {
         isError: isToursError
     } = useContributorTours(contributorId)
 
-    if (isError || isToursError || !tours || !contributor) return (
-        <NotFound heading={"Данные не найдены"} text={"Возникла проблема с поиском контрибьютера"}/>
-    )
+    if (isError || isToursError || !tours || !contributor) return <NotFound type={"user"}/>
 
     return (
         <div className={style.container}>

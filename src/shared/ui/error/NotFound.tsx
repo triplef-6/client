@@ -1,24 +1,26 @@
-import {FC} from "react";
+import {FC, useMemo} from "react";
 import {SearchX} from "lucide-react";
 import {useNavigate} from "react-router-dom";
 import {Button} from "@/shared/ui";
 import {RouteNames} from "@/shared/types";
+import s from "./style.module.css"
+import {messages} from "./messages.ts";
 
 type NotFoundProps = {
-    heading: string
-    text: string
+    type: "user" | "tour" | "tours" | "data"
 }
 
-export const NotFound: FC<NotFoundProps> = ({heading, text}) => {
+export const NotFound: FC<NotFoundProps> = ({type}) => {
 
     const navigate = useNavigate()
+    const {heading, text} = useMemo(() => messages[type], [type])
 
     return (
-        <div className={"flex flex-col min-h-screen pt-10 items-center w-full gap-8 py-10"}>
+        <div className={s.container}>
             <SearchX width={80} height={80} className={"text-grayscale-500"}/>
-            <div className={"flex flex-col items-center gap-4 text-center w-4/5"}>
-                <h1 className={"text-xl text-grayscale-500 font-semibold"}>{heading}</h1>
-                <p className={"text-base text-grayscale-400"}>{text}</p>
+            <div className={s.content}>
+                <h1 className={s.heading}>{heading}</h1>
+                <p className={s.text}>{text}</p>
             </div>
             <Button onClick={() => navigate(`/${RouteNames.MAIN}`)}>
                 Вернуться к поиску экскурсий

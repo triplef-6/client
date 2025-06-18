@@ -19,7 +19,6 @@ export class ImagesStore implements IImages, IIsDisabled {
         return this._images.filter(img => img !== null).length
     }
 
-
     get images(): ImagesType {
         return this._images;
     }

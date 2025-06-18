@@ -1,35 +1,29 @@
 import {FC} from "react";
 import {Tag} from "@/entities";
-import {useUserData} from "@/features/edit/hooks";
 import {AppSkeleton} from "@/shared/ui";
+import {useEditContext} from "@/features";
+import s from "./style.module.css"
 
 export const EditReqs: FC = () => {
 
-    const {
-        tags,
-        userTags,
-        isLoading, isError, isPlaceholderData,
-        addTag, removeTag
-    } = useUserData()
+    const {context, addTag, removeTag} = useEditContext()
 
-    if (isLoading || isPlaceholderData) return <AppSkeleton/>
-    if (isError) return null
+    if (context.isTagsLoading || context.isPlaceholderTags) return <AppSkeleton/>
+    if (context.isErrorTags) return null
 
     return (
-        <div className={"flex flex-col gap-4 p-6 rounded-2xl bg-grayscale-0 max-lg:order-last"}>
-            <span className={"text-lg font-semibold text-grayscale-500"}>
-                Любимые темы экскурсии:
-            </span>
-            <p className={"text-base text-grayscale-400"}>
+        <div className={s.tagsContainer}>
+            <h2 className={s.tagsHeading}>Любимые темы экскурсии:</h2>
+            <p className={s.tagsDesc}>
                 Набор ваших предпочтений,
                 которые мы сформировали на основе поисковых запросов и посещенных экскурсий.
                 Всегда можно указать другие!
             </p>
-            <div className={"flex flex-row gap-3 flex-wrap"}>
-                {tags.map((tag, i) => (
+            <div className={s.tagsList}>
+                {context.tags.map((tag, i) => (
                     <Tag
                         key={i}
-                        value={userTags}
+                        value={context.myTags}
                         tag={tag}
                         add={addTag}
                         remove={removeTag}

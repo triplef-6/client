@@ -1,10 +1,10 @@
+import {FC} from "react";
 import {Route, Routes} from "react-router-dom";
 import {RouteNames} from "@/shared/types";
-import {RequireAuth} from "./RequireAuth.tsx";
 import {
     AuthPage,
     BookingPage,
-    ContributorPage, CreatePage, EditProfilePage, FavouritesPage,
+    ContributorPage, CreatePage, EditProfilePage, ErrorPage, FavouritesPage,
     HomePage,
     Layout,
     LocationsPage,
@@ -13,8 +13,8 @@ import {
     TourPage,
     ToursPage, WipPage
 } from "@/pages";
-import {FC} from "react";
-import {AuthGuard} from "@/app/routing/AuthGuard.tsx";
+import {RequireAuth} from "./RequireAuth.tsx";
+import {RequireGuide} from "./RequireGuide.tsx";
 
 export const AppRoutes: FC = () => {
     return (
@@ -25,14 +25,7 @@ export const AppRoutes: FC = () => {
             />
             <Route path={"/"} element={<Layout/>}>
                 <Route path={RouteNames.MAIN} element={<HomePage/>}/>
-                <Route
-                    path={RouteNames.AUTH}
-                    element={
-                        <AuthGuard>
-                            <AuthPage/>
-                        </AuthGuard>
-                    }
-                />
+                <Route path={RouteNames.AUTH} element={<AuthPage/>}/>
                 <Route path={RouteNames.LOCATIONS} element={<LocationsPage/>}/>
                 <Route path={`${RouteNames.TOURS}/:location`} element={<ToursPage/>}/>
                 <Route path={`${RouteNames.TOUR}/:id/:title`} element={<TourPage/>}/>
@@ -58,6 +51,14 @@ export const AppRoutes: FC = () => {
                     }
                 />
                 <Route
+                    path={RouteNames.ERROR}
+                    element={
+                        <RequireAuth>
+                            <ErrorPage/>
+                        </RequireAuth>
+                    }
+                />
+                <Route
                     path={RouteNames.SETTINGS}
                     element={
                         <RequireAuth>
@@ -68,9 +69,9 @@ export const AppRoutes: FC = () => {
                 <Route
                     path={RouteNames.CREATE}
                     element={
-                        <RequireAuth>
+                        <RequireGuide>
                             <CreatePage/>
-                        </RequireAuth>
+                        </RequireGuide>
                     }
                 />
                 <Route

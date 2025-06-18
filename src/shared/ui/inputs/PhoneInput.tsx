@@ -1,6 +1,7 @@
 import * as React from "react"
 import { cn } from "@/app/lib/utils.ts"
 import {Phone, X} from "lucide-react";
+import {safeGet} from "@/shared/utils";
 
 type InputProps = React.ComponentProps<"input"> & {
     label: string;
@@ -11,6 +12,7 @@ type InputProps = React.ComponentProps<"input"> & {
         isCorrected: boolean
     };
     onClear: () => void;
+    isDialog?: boolean
 }
 
 export const PhoneInput = React.forwardRef<HTMLInputElement, InputProps>((
@@ -21,17 +23,23 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, InputProps>((
         isSubmitted,
         field,
         onClear,
+        isDialog,
         value,
         ...props
     }, ref
 ) => {
+
+    const safeIsDialog = safeGet(() => isDialog, false)
 
     const inputRef = React.useRef<HTMLInputElement>(null)
     const handleDivClick = () => inputRef.current?.focus()
 
     const isValidField = (field.isTouched && !value) || (isSubmitted && !value) || !field.isCorrected
 
-    const containerStyles: string = "relative flex flex-col w-full wide:w-72 cursor-pointer";
+    const containerStyles: string = [
+        "relative flex flex-col w-full cursor-pointer",
+        !safeIsDialog && "wide:w-72"
+    ].join(" ")
     const wrapperStyles: string = "flex items-center";
     const iconSearchStyles: string = [
         "absolute left-4 h-5 w-5",

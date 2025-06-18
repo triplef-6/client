@@ -9,17 +9,17 @@ type ButtonProps = {
 
 export const SubmitButton: FC<ButtonProps> = ({orientation}) => {
 
-    const {submit, disabled} = useSubmitButton()
+    const {submit, isCreatePending, isUpdatePending} = useSubmitButton()
 
     return (
         <Button
             className={"w-full"}
             role={"submitButton"}
+            disabled={isCreatePending || isUpdatePending}
             onClick={submit}
-            disabled={disabled}
             size={orientation === Orientation.HORIZONTAL ? "default" : "lg"}
         >
-            Далее
+            {isCreatePending || isUpdatePending ? "Создаем" : "Далее"}
         </Button>
     );
 

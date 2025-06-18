@@ -2,6 +2,7 @@ import {ITour} from "@/shared/types";
 import {useQuery} from "@tanstack/react-query";
 import {ApiException} from "@/shared/lib";
 import {getToursForReview} from "@/entities/tour/api";
+import {authStore as auth} from "@/features";
 
 export const useToursForReview = () => {
 
@@ -9,6 +10,7 @@ export const useToursForReview = () => {
         queryKey: ["tours", "reviews"],
         queryFn: () => getToursForReview(),
         placeholderData: [],
+        enabled: auth.isAuth,
         retry: 3
     })
 

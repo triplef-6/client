@@ -18,6 +18,7 @@ const ButtonVariants = cva(
           logout: "border border-secondary-red bg-transparent text-secondary-red hover:border-grayscale-500 hover:text-grayscale-500",
           secondary: "bg-grayscale-300 text-grayscale-500 hover:opacity-90 flex justify-between",
           profile: "bg-grayscale-0 text-grayscale-500 hover:bg-grayscale-100 duration-300 flex justify-between",
+          booking: "bg-grayscale-300 text-grayscale-500 hover:opacity-80 transition-all flex justify-center w-full",
       },
       size: {
           default: "h-12 px-10 rounded-xl",
@@ -28,7 +29,7 @@ const ButtonVariants = cva(
           md: "h-12 px-8 rounded-xl",
           sm: "h-8 px-2",
           tag: "p-2 rounded-xl",
-          smIcon: "h-10 w-10",
+          smIcon: "h-8 w-8 md:h-10 md:w-10",
           contactIcon: "h-12 w-12 rounded-xl",
           lgIcon: "h-14 w-14 rounded-xl",
           roundedIcon: "h-14 w-14 rounded-full"

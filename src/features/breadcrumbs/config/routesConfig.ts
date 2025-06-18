@@ -14,6 +14,7 @@ export const routesConfig = new Map<string, BreadcrumbType>([
     [RouteNames.SETTINGS, { path: `/${RouteNames.SETTINGS}`, label: "Настройки" }],
     [RouteNames.WIP, { path: `/${RouteNames.WIP}`, label: "Страница в разработке" }],
     [RouteNames.SUCCESS, { path: `/${RouteNames.SUCCESS}`, label: "Успешно" }],
+    [RouteNames.ERROR, { path: `/${RouteNames.ERROR}`, label: "Ошибка" }],
     [RouteNames.BOOKING, { path: `/${RouteNames.BOOKING}`, label: "Бронирование" }],
     [RouteNames.AUTH, { path: `/${RouteNames.AUTH}`, label: "Войти" }],
     [RouteNames.EDIT_PROFILE, { path: `/${RouteNames.EDIT_PROFILE}`, label: "Редактировать профиль" }],

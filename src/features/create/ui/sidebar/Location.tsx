@@ -22,7 +22,7 @@ export const Location: FC = observer(() => {
         state,
         value,
         click, select, focus, blur, clear, close
-    } = useLocation(store.location)
+    } = useLocation(store.locationTime)
 
     const {isSubmitted} = useSubmitted(store)
 

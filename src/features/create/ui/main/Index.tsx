@@ -14,6 +14,7 @@ import {Topics} from "./Topics.tsx";
 import {Places} from "./Places.tsx";
 import {Map} from "./Map.tsx";
 import {Orientation} from "@/features";
+import {CreatedSlots} from "@/features/create/ui/slot";
 
 export const Index: FC = () => {
 
@@ -21,6 +22,10 @@ export const Index: FC = () => {
 
     return (
         <div className={style.container}>
+            <span className={style.heading}>
+                События
+            </span>
+            <CreatedSlots/>
             <span className={style.heading}>
                 Тематика
             </span>
@@ -48,5 +53,5 @@ export const Index: FC = () => {
             <Places/>
             {width < 1024 && <SubmitButton orientation={Orientation.HORIZONTAL}/>}
         </div>
-    );
-};
+    )
+}

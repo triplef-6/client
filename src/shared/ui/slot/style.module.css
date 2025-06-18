@@ -1,0 +1,15 @@
+.slotTrigger {
+    @apply flex flex-col gap-3 rounded-2xl bg-grayscale-0 p-3 border border-grayscale-300 sm:min-h-52
+}
+
+.slotTriggerDateTime {
+    @apply text-lg text-grayscale-500 font-semibold
+}
+
+.slotTriggerText {
+    @apply text-base text-grayscale-400
+}
+
+.iconTriggerSlot {
+    @apply text-grayscale-400 hover:text-grayscale-500 transition cursor-pointer
+}

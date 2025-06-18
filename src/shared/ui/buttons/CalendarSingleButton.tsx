@@ -15,7 +15,10 @@ export const CalendarSingleButtonVariants = cva(
                     "px-4 bg-grayscale-200 hover:bg-grayscale-300 data-[state=open]:text-sm data-[state=open]:bg-grayscale-0 " +
                     "data-[state=open]:border data-[state=open]:transition-all data-[state=open]:duration-300"
             },
-            size: { default: "h-14 w-full wide:w-72" },
+            size: {
+                default: "h-14 w-full wide:w-72",
+                dialog: "h-14 w-full"
+            },
         },
         defaultVariants: { variant: "default", size: "default" },
     }
@@ -61,7 +64,7 @@ export const CalendarSingleButton = React.forwardRef<
 
         const Comp = asChild ? Slot : "button";
 
-        const wrapperStyles: string = "flex flex-row gap-3 items-center w-full";
+        const wrapperStyles: string = "flex flex-row gap-3 items-center";
         const iconCalendarStyles: string = [
             "h-5 w-5",
             isCorrect ? "text-secondary-red" : "text-gray-500"

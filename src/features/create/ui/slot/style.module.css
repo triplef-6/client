@@ -1,0 +1,7 @@
+.addButton {
+    @apply justify-center text-grayscale-400 min-h-20 sm:min-h-52 h-full w-full min-w-40 rounded-2xl
+}
+
+.createdSlots {
+    @apply grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 wide:grid-cols-4 gap-4
+}

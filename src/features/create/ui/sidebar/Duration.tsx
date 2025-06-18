@@ -9,7 +9,7 @@ import {useDuration} from "@/features/create/hooks";
 
 export const Duration: FC = observer(() => {
 
-    const {state, isError, update} = useDuration(store.time)
+    const {state, isError, update} = useDuration(store.locationTime)
     const {isSubmitted} = useSubmitted(store)
 
     return (

@@ -1,54 +1,46 @@
 import {useBooking} from "@/features";
 import {useTour} from "@/entities";
-import {useEffect, useState} from "react";
-import {TourFormat} from "@/shared/types";
+import {useState} from "react";
+import {ISlot, ITour} from "@/shared/types";
+import {useSlots} from "@/features/booking/model/useSlots.ts";
 
 type ReturnType = {
-    title: string
-    date: Date | undefined
-    duration: number
-    freeSeats: number
-    capacity: number
-    format: TourFormat
     disabled: boolean
-    click: () => void
-    update: (value: number[]) => void
     isBooking: boolean
+    slots: ISlot[]
+    tour: ITour | undefined
+    currentSlot: ISlot | null
+    updateSlot: (slot: ISlot | null) => void
+    groupCapacity: number
+    updateCapacity: (value: number[]) => void
+    load: () => void
 }
 
 export const useBookingForm = (tourId: number): ReturnType => {
 
+    const {slots} = useSlots(tourId)
     const {data: tour} = useTour(tourId)
-    if (!tour) throw new Error("Tour not found")
-
     const {mutate: booking, isPending: isBooking} = useBooking()
 
-    const [disabled, setDisabled] = useState<boolean>(true)
-    const [capacity, setCapacity] = useState<number>(tour.format === TourFormat.GROUP ? 0 : 1)
+    const [slot, setSlot] = useState<ISlot | null>(null)
+    const [groupCapacity, setGroupCapacity] = useState<number>(1)
 
-    const update = (value: number[]) => setCapacity(value[0])
+    const updateSlot = (slot: ISlot | null) => {
+        setSlot(slot)
+        if (slot) setGroupCapacity(slot.groupCapacity)
+    }
 
-    useEffect(() => {
-        if (capacity > 0) setDisabled(false)
-        else setDisabled(true)
-    }, [capacity])
+    const updateCapacity = (value: number[]) => setGroupCapacity(value[0])
 
-    const click = () => booking({
-        id: Number(Date.now()),
-        tourId: tour.id,
-        groupCapacity: capacity
-    })
+    const load = () => {
+        if (slot) booking({id: Date.now(), slot, groupCapacity})
+    }
 
     return {
-        title: tour.title,
-        date: tour.date,
-        duration: tour.duration,
-        format: tour.format,
-        freeSeats: tour.freeSeats,
-        isBooking,
-        capacity,
-        disabled,
-        click, update
+        currentSlot: slot,
+        disabled: slot === null,
+        slots, tour, isBooking, groupCapacity,
+        updateSlot, updateCapacity, load
     }
 
 }

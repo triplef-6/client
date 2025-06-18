@@ -35,7 +35,8 @@ export const useMe = () => {
         me: query.data || fallback,
         myId: query.data?.id || null,
         myRole: query.data && auth.isAuth ? query.data.role : UserRole.guest,
-        isEmpty: !query.data
+        isEmpty: !query.data,
+        isGuest: !auth.isAuth
     }
 
 }

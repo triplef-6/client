@@ -25,3 +25,19 @@
 .list {
     @apply list-disc px-6
 }
+
+.toursForReview {
+    @apply flex flex-col gap-4 pb-8
+}
+
+.bookingContainer {
+    @apply flex flex-col gap-4
+}
+
+.slots {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 wide:grid-cols-3 gap-4
+}
+
+.link {
+    @apply flex flex-row gap-1 items-center hover:opacity-80 transition
+}

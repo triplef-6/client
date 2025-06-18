@@ -18,9 +18,6 @@ export const useUpdateMe = () => {
             return { previous }
 
         },
-        onSuccess: async () => {
-            await queryClient.invalidateQueries({ queryKey: ["me"] })
-        },
         onError: (e: ApiException<IMe>) => console.error("Данные пользователя не удалось обновить", e.message)
     })
 

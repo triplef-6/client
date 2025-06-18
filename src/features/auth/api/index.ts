@@ -1,3 +1,5 @@
 export {logout} from "./logout.ts"
 export {getMe} from "./getMe.ts"
 export {updateMe} from "./updateMe.ts"
+export {createGuide} from "./createGuide.ts"
+export {sendPhoneCode} from "./sendPhoneCode.ts"

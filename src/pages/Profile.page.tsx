@@ -1,16 +1,15 @@
 import {FC} from "react";
 import {Dashboard, ProfileSidebar} from "@/widgets";
+import s from '@/app/styles/pages.module.css'
 
 export const ProfilePage: FC = () => {
     return (
-        <div className={"w-full max-w-screen-wide"}>
-            <h1 className={"text-3xl font-medium text-grayscale-500 pt-8"}>
-                Ваши данные
-            </h1>
-            <div className={"min-h-screen flex flex-col lg:flex-row gap-8 py-8"}>
+        <div className={s.profile}>
+            <h1 className={s.profileHeading}>Ваши данные</h1>
+            <main className={s.profileMain}>
                 <ProfileSidebar/>
                 <Dashboard/>
-            </div>
+            </main>
         </div>
     );
 };

@@ -6,7 +6,7 @@ import {createTourStore as store} from "@/features/create/model";
 
 export const ByCity: FC = observer(() => {
 
-    const {state, update} = useSwitch(store.location)
+    const {state, update} = useSwitch(store.locationTime)
 
     return (
         <div className={"w-full flex items-start"}>

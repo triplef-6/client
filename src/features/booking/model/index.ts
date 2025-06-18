@@ -1,1 +1,6 @@
 export {useBooking} from "./useBooking.ts"
+export {useCreateSlots} from "./useCreateSlots.ts"
+export {useUpdateSlots} from "./useUpdateSlots.ts"
+export {useDeleteSlots} from "./useDeleteSlots.ts"
+export {useOrder} from "./useOrder.ts"
+export {useUserOrders} from "./useUserOrders.ts"

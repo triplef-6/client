@@ -1,0 +1,27 @@
+.container {
+    @apply flex flex-col min-h-screen pt-10 items-center w-full gap-8 py-10
+}
+
+.content {
+    @apply flex flex-col items-center gap-4 text-center w-4/5
+}
+
+.heading {
+    @apply text-xl text-grayscale-500 font-semibold
+}
+
+.text {
+    @apply text-base text-grayscale-400
+}
+
+.errorPage {
+    @apply flex flex-col h-screen pt-44 gap-4 items-center
+}
+
+.errorHeadingPage {
+    @apply text-2xl text-grayscale-500 font-semibold
+}
+
+.errorTextPage {
+    @apply text-xl text-grayscale-400 lg:w-2/5 text-center
+}

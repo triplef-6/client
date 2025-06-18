@@ -11,6 +11,7 @@ export enum RouteNames {
     SETTINGS = "settings",
     WIP = "wip",
     SUCCESS = "success",
+    ERROR = "error",
     BOOKING = "booking",
     AUTH = "auth",
     EDIT_PROFILE = "edit",

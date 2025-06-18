@@ -1,5 +1,5 @@
 .container {
-    @apply flex flex-row
+    @apply flex flex-row w-full
 }
 
 .rating {

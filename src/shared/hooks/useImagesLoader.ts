@@ -34,8 +34,6 @@ export const useImagesLoader = (store: IImages, isSubmitted: boolean): ReturnTyp
 
         if (isSubmitted) setIsError(store.images.includes(null))
 
-        console.log(isError)
-
     }
 
     return {

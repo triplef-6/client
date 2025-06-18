@@ -3,6 +3,13 @@ import {useState} from "react";
 import {useMe} from "@/features";
 import {useCreateReview} from "@/entities";
 
+/**
+ * В personCount передается 0, поскольку после добавления фичи для бронирования тура через выбор слота, размер группы перенесся в слот.
+ * Поэтому теперь в форму для оставления отзыва нужно передать не тур, а сделку (IOrder), которая содержит и id тура и сам слот.
+ *
+ * Пока я оставляю текущую реализация, так как на сервере нет отдельного эндпойнта для выдачи сделок по id пользователя.
+ * */
+
 type Result = {
     isPaused: boolean
     isPending: boolean
@@ -20,6 +27,7 @@ type Result = {
 export const useCreateReviewForm = (tour: ITour): Result => {
 
     const {me} = useMe()
+
     const {
         mutate: create,
         isPaused,
@@ -32,14 +40,14 @@ export const useCreateReviewForm = (tour: ITour): Result => {
     const [rating, setRating] = useState<number>(0)
 
     const save = () => create({
-        id: Number(Date.now()),
+        id: Date.now(),
         tourId: tour.id,
         name: me.name,
         rating: rating,
         negativeText: negative,
         positiveText: positive,
         withChildren: tour.accessibility === TourAccessibility.WITH_CHILDREN,
-        personCount: tour.groupCapacity
+        personCount: 0
     })
 
     return {

@@ -33,12 +33,12 @@ export class DescriptionStore implements IStore {
     }
 
     get isDisabled(): boolean {
-        return this._description.info.trim().length === 0 ||
-            this._description.whatToExpect.trim().length === 0 ||
-            this._description.orgDetails.trim().length === 0 ||
-            this._description.meetingPlace.trim().length === 0 ||
-            this._description.topics.length === 0 ||
-            this._description.places.length === 0
+        return this._description.info.trim().length === 0
+            || this._description.whatToExpect.trim().length === 0
+            || this._description.orgDetails.trim().length === 0
+            || this._description.meetingPlace.trim().length === 0
+            || this._description.topics.length === 0
+            || this._description.places.length === 0
     }
 
     get info(): string {

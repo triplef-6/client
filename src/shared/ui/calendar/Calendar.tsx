@@ -38,13 +38,12 @@ export function Calendar({className, classNames, showOutsideDays = true, ...prop
                 day_range_middle: "bg-gray-100", // Промежуточные даты диапазона
                 day_range_end: "bg-primary-0 rounded-md", // Конечная дата диапазона
                 day_selected:
-                    "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground " +
-                    "focus:bg-primary focus:text-primary-foreground",
+                    "bg-primary-0 rounded-md text-grayscale-500 hover:bg-primary-100 focus:bg-primary-100",
                 day_today: "bg-accent text-accent-foreground",
                 day_outside:
                     "day-outside text-muted-foreground aria-selected:bg-accent/50 " +
                     "aria-selected:text-muted-foreground",
-                day_disabled: "text-muted-foreground opacity-50",
+                day_disabled: "text-grayscale-400 opacity-50",
                 day_hidden: "invisible",
                 ...classNames,
             }}

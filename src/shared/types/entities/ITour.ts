@@ -2,8 +2,8 @@ import {TourAccessibility, TourFormat, TourFormatBehavior} from "@/shared/types/
 import {YandexMapCoordinates} from "@/shared/types/lib";
 import {IDescription} from "./IDescription.ts";
 import {ILocation} from "./ILocation.ts"
-import {IContacts} from "./IContacts.ts";
-import {IUser} from "@/shared/types";
+
+// TODO убрать локацию, потому что она и так будет полученна при поиске тура
 
 export interface ITour {
     id: number
@@ -13,21 +13,16 @@ export interface ITour {
     coordinates: YandexMapCoordinates
     tags: string[]
     location: ILocation
+    //locationId: number
     routeLength: number
     byCity: boolean
     price?: number
     priceForPerson: number
-    groupCapacity: number
     formatBehavior: TourFormatBehavior
     format: TourFormat
     accessibility: TourAccessibility
-    contacts: IContacts
-    date: Date | undefined
-    time: string
     duration: number
     contributorId: number
     rating: number
     ratingCount: number
-    freeSeats: number
-    registered?: IUser[]
 }

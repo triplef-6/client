@@ -8,13 +8,10 @@ export const serializeTourToFormData = (tour: ITour): FormData => {
         title: tour.title,
         price: tour.price ?? 0,
         priceForPerson: tour.priceForPerson,
-        groupCapacity: tour.groupCapacity,
         formatBehavior: tour.formatBehavior,
         format: tour.format,
         accessibility: tour.accessibility,
         byCity: tour.byCity,
-        date: tour.date instanceof Date ? tour.date.toISOString().split("T")[0] : "",
-        time: tour.time,
         duration: tour.duration,
         contributorId: tour.contributorId,
         rating: tour.rating,
@@ -28,11 +25,6 @@ export const serializeTourToFormData = (tour: ITour): FormData => {
             topics: tour.description.topics,
             orgDetails: tour.description.orgDetails,
             meetingPlace: tour.description.meetingPlace
-        },
-        contacts: {
-            vk: tour.contacts.vk || "",
-            telegram: tour.contacts.telegram || "",
-            phone: tour.contacts.phone
         },
         coordinates: {
             point: {

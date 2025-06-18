@@ -2,6 +2,10 @@ import {FC} from "react";
 import style from "./style.module.css"
 import {Rating} from "./Rating.tsx";
 
+/**
+ * Убрал отображение количества персон, из-за конфликта при создании отзыва (в useCreateReview описано более подробно)
+ * */
+
 type ReviewCardProps = {
     name: string
     rating: number
@@ -11,15 +15,14 @@ type ReviewCardProps = {
     personCount: number
 }
 
-export const Index: FC<ReviewCardProps> = ({rating, positiveText, negativeText, withChildren, personCount, name}) => {
+export const Index: FC<ReviewCardProps> = ({rating, positiveText, negativeText, withChildren, name}) => {
     return (
         <div className={style.container}>
             <div className={style.header}>
                 <div className={style.person}>
                     <span className={style.name}>{name}</span>
                     <span className={style.text}>
-                        {withChildren ? "Путешествовал(а) с детьми" : "Путешествовал(а) без детей"},
-                        {personCount} персоны
+                        {withChildren ? "Путешествовал(а) с детьми" : "Путешествовал(а) без детей"}
                     </span>
                 </div>
                 <Rating rating={rating}/>

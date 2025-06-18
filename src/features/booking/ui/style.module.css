@@ -1,5 +1,17 @@
+.page {
+    @apply flex flex-col gap-8 lg:flex-row justify-between w-full h-full
+}
+
+.list {
+    @apply grid md:grid-cols-2 wide:grid-cols-3 huge:grid-cols-4 gap-4 max-lg:order-last
+}
+
 .container {
-    @apply flex flex-col gap-8 rounded-2xl bg-grayscale-0 p-4 md:min-w-[340px]
+    @apply flex flex-col justify-between rounded-2xl bg-grayscale-0 p-4 lg:w-72 xl:w-80 min-h-96
+}
+
+.options {
+    @apply flex flex-col gap-4
 }
 
 .heading {

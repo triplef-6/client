@@ -1,0 +1,25 @@
+.bookingCard {
+    @apply flex flex-col justify-between items-center
+    min-w-52 min-h-64 max-h-72 p-4 rounded-2xl bg-grayscale-0
+    border border-transparent hover:border-grayscale-350 transition-all
+}
+
+.bookingCardContent {
+    @apply flex flex-col items-center text-center gap-3
+}
+
+.bookingTime {
+    @apply text-xl text-grayscale-400 font-normal
+}
+
+.bookingDate {
+    @apply text-4xl text-grayscale-500 font-semibold
+}
+
+.bookingWeekDay {
+    @apply text-2xl text-grayscale-500 font-semibold
+}
+
+.bookingCapacity {
+    @apply text-base text-grayscale-400
+}

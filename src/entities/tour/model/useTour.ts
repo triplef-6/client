@@ -7,7 +7,6 @@ export const useTour = (id: number) => {
     return useQuery<ITour, ApiException<ITour>>({
         queryKey: ["tour", id],
         queryFn: () => getTourById(id),
-        staleTime: 60_000,
         enabled: !!id
     })
 }
