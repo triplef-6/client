@@ -4,10 +4,9 @@ import {Details} from "./details";
 import {Contributor} from "./contributor";
 import s from "./style.module.css"
 import {ReviewForm, Reviews} from "@/entities/review";
-import {AppSkeleton, BookingViewCard, Contacts, ContributorSkeleton} from "@/shared/ui";
+import {AppSkeleton, BookingLink, BookingViewCard, Contacts, ContributorSkeleton} from "@/shared/ui";
 import {useToursForReview, useUser} from "@/entities";
-import {Link, useNavigate} from "react-router-dom";
-import {ChevronRight} from "lucide-react";
+import {useNavigate} from "react-router-dom";
 import {useSlots} from "@/features/booking/model/useSlots.ts";
 
 type DescriptionProps = {
@@ -93,12 +92,7 @@ export const Index: FC<DescriptionProps> = ({tour}) => {
             <Details format={tour.format}/>
 
             <div className={s.bookingContainer}>
-                <Link className={s.link} to={`/${RouteNames.BOOKING}/${tour.id}`}>
-                    <h2 className={s.heading}>
-                        Ближайшие доступные даты
-                    </h2>
-                    <ChevronRight width={24} height={24} className={"text-grayscale-500"}/>
-                </Link>
+                <BookingLink tourId={tour.id}/>
                 <div className={s.slots}>
                     {slots.map(slot => <BookingViewCard key={slot.id} slot={slot}/>)}
                 </div>

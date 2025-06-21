@@ -1,0 +1,11 @@
+.heading {
+    @apply text-xl text-grayscale-500 font-medium
+}
+
+.container {
+    @apply flex flex-row gap-1 items-center
+}
+
+.link {
+    @apply flex flex-row gap-1 items-center hover:opacity-80 transition
+}

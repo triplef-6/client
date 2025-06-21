@@ -4,7 +4,6 @@ import {useBookingForm} from "@/features/booking/hooks";
 import s from "./style.module.css"
 import {TourName} from "@/features/booking/ui/TourName.tsx";
 import {TourDuration} from "@/features/booking/ui/TourDuration.tsx";
-import {TourFormat} from "@/shared/types";
 import {GroupCapacitySlider} from "@/features/booking/ui/GroupCapacitySlider.tsx";
 
 type FormProps = {
@@ -42,14 +41,12 @@ export const BookingForm: FC<FormProps> = ({tourId}) => {
                     <span className={s.heading}>Бронирование</span>
                     <TourName name={tour.title}/>
                     <TourDuration duration={tour.duration}/>
-                    {
-                        tour.format === TourFormat.GROUP &&
-                        <GroupCapacitySlider
-                            currentSlot={currentSlot}
-                            groupCapacity={groupCapacity}
-                            updateCapacity={updateCapacity}
-                        />
-                    }
+                    <GroupCapacitySlider
+                        tourFormat={tour.format}
+                        currentSlot={currentSlot}
+                        groupCapacity={groupCapacity}
+                        updateCapacity={updateCapacity}
+                    />
                 </div>
                 <Button disabled={disabled} onClick={load}>
                     {isBooking ? "Бронируем" : "Забронировать"}

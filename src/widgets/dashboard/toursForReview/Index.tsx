@@ -16,18 +16,7 @@ export const Index: FC = () => {
 
     const [visible, setVisible] = useState<number>(3)
 
-    if (isError) return null
-
-    if (!isFetching && isEmpty) {
-        return (
-            <AccordionItem value={"value 2"}>
-                <AccordionTrigger>Оцените экскурсии</AccordionTrigger>
-                <AccordionContent>
-                    Вы пока на посетили экскурсии.
-                </AccordionContent>
-            </AccordionItem>
-        )
-    }
+    if (isError || !isFetching && isEmpty) return null
 
     return (
         <AccordionItem value={"value 2"}>

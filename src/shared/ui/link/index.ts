@@ -1,0 +1,1 @@
+export {BookingLink} from "./Booking.link.tsx"
