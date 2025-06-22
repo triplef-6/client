@@ -64,7 +64,7 @@ export const CalendarSingleButton = React.forwardRef<
 
         const Comp = asChild ? Slot : "button";
 
-        const wrapperStyles: string = "flex flex-row gap-3 items-center";
+        const wrapperStyles: string = "flex flex-row gap-3 items-center w-full";
         const iconCalendarStyles: string = [
             "h-5 w-5",
             isCorrect ? "text-secondary-red" : "text-gray-500"

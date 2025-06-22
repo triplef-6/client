@@ -20,13 +20,17 @@ export class SlotStore implements IIsDisabled {
     }
 
     get isCurrentDisabled(): boolean {
-        return !this._current.date
-            || this._current.time === ""
-            || this._current.groupCapacity === 0
-    }
 
-    get isDuplicate(): boolean {
-        return this._slots.some(i => i.time === this._current.time)
+        const { date, time, groupCapacity } = this._current;
+
+        const isEmpty = !date || time.trim() === "" || groupCapacity <= 0
+
+        const isDuplicate = this._slots.some(slot =>
+            slot.date?.toISOString() === date?.toISOString() && slot.time === time
+        )
+
+        return isEmpty || isDuplicate
+
     }
 
     get isDisabled(): boolean {

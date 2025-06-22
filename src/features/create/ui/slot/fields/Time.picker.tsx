@@ -2,7 +2,7 @@ import {FC} from "react";
 import {TimeInput} from "@/shared/ui";
 import {useSubmitted, useTime} from "@/features/create/hooks";
 
-export const Time: FC = () => {
+export const TimePicker: FC = () => {
 
     const {value, focus, blur, state, click} = useTime()
     const isSubmitted = useSubmitted()

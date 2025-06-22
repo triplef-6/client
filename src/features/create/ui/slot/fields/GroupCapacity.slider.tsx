@@ -8,7 +8,7 @@ import {useGroupCapacity, useTourFormat, useSubmitted} from "@/features/create/h
 import {tourFormatValues as values} from "@/shared/config";
 import {TourFormat} from "@/shared/types";
 
-export const GroupCapacity: FC = observer(() => {
+export const GroupCapacitySlider: FC = observer(() => {
 
     const {state: format} = useTourFormat(store.price, values)
     const {state, isError, update} = useGroupCapacity()
